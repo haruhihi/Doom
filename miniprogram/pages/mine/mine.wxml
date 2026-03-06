@@ -1,0 +1,76 @@
+<!-- 个人中心 -->
+<navigation-bar title="我的" back="{{false}}" color="#c9a96e" background="#1a1a2e"></navigation-bar>
+<scroll-view class="scrollarea" scroll-y type="list">
+  <view class="mine-page">
+
+    <!-- 用户信息 -->
+    <view class="user-section">
+      <view class="avatar-wrapper">
+        <button class="avatar-btn" open-type="chooseAvatar" bind:chooseavatar="onChooseAvatar">
+          <image class="avatar" src="{{avatarUrl}}" mode="aspectFill"></image>
+        </button>
+        <text class="avatar-tip">点击更换头像</text>
+      </view>
+      <view class="nickname-area">
+        <input
+          type="nickname"
+          class="nickname-input"
+          placeholder="点击设置昵称"
+          placeholder-style="color: #7a6a50;"
+          value="{{nickname}}"
+          bindinput="onNicknameInput"
+          bindblur="onNicknameDone"
+          bindconfirm="onNicknameDone"
+        />
+      </view>
+    </view>
+
+    <!-- 统计 -->
+    <view class="stats-row">
+      <view class="stat-item">
+        <text class="stat-num">{{totalCount}}</text>
+        <text class="stat-label">占卜次数</text>
+      </view>
+      <view class="stat-divider"></view>
+      <view class="stat-item">
+        <text class="stat-num">{{uniqueHexagrams}}</text>
+        <text class="stat-label">不同卦象</text>
+      </view>
+    </view>
+
+    <!-- 功能列表 -->
+    <view class="menu-list">
+      <view class="menu-item" bindtap="onGoHistory">
+        <text class="menu-icon">📜</text>
+        <text class="menu-text">历史记录</text>
+        <text class="menu-arrow">></text>
+      </view>
+      <view class="menu-item" bindtap="onGoAbout">
+        <text class="menu-icon">❓</text>
+        <text class="menu-text">使用说明</text>
+        <text class="menu-arrow">></text>
+      </view>
+    </view>
+
+    <!-- 使用说明弹窗 -->
+    <view class="about-panel" wx:if="{{showAbout}}">
+      <view class="about-mask" bindtap="onCloseAbout"></view>
+      <view class="about-content">
+        <text class="about-title">使用说明</text>
+        <view class="about-body">
+          <text class="about-text">1. 在首页点击"起卦"按钮进入起卦页面</text>
+          <text class="about-text">2. 摇动手机或点击"掷铜钱"按钮</text>
+          <text class="about-text">3. 每次掷三枚铜钱，共掷六次</text>
+          <text class="about-text">4. 六次完成后自动生成卦象</text>
+          <text class="about-text">5. 查看卦辞、爻辞及白话解读</text>
+          <text class="about-divider"></text>
+          <text class="about-text about-text--sub">算法说明：采用传统三枚铜钱法。正面(字)计3，反面(花)计2。三枚之和：6为老阴(变爻)，7为少阳，8为少阴，9为老阳(变爻)。</text>
+        </view>
+        <view class="about-close-btn" bindtap="onCloseAbout">
+          <text>知道了</text>
+        </view>
+      </view>
+    </view>
+
+  </view>
+</scroll-view>

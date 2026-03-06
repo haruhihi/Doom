@@ -1,0 +1,41 @@
+<!-- 六十四卦列表 -->
+<navigation-bar title="六十四卦" back="{{false}}" color="#c9a96e" background="#1a1a2e"></navigation-bar>
+<scroll-view class="scrollarea" scroll-y type="list">
+  <view class="list-page">
+
+    <!-- 筛选栏 -->
+    <view class="filter-bar">
+      <view
+        class="filter-item {{filterTrigram === '' ? 'filter-item--active' : ''}}"
+        bindtap="onFilterAll"
+      >
+        <text>全部</text>
+      </view>
+      <view
+        wx:for="{{trigramNames}}"
+        wx:key="*this"
+        class="filter-item {{filterTrigram === item ? 'filter-item--active' : ''}}"
+        data-name="{{item}}"
+        bindtap="onFilterTrigram"
+      >
+        <text>{{item}}</text>
+      </view>
+    </view>
+
+    <!-- 卦列表 -->
+    <view class="hex-grid">
+      <view
+        wx:for="{{filteredList}}"
+        wx:key="number"
+        class="hex-card"
+        data-number="{{item.number}}"
+        bindtap="onViewDetail"
+      >
+        <hexagram-figure lines="{{item.lines}}" size="small"></hexagram-figure>
+        <text class="hex-card-name">{{item.name}}</text>
+        <text class="hex-card-trigrams">{{item.upperTrigram}}·{{item.lowerTrigram}}</text>
+      </view>
+    </view>
+
+  </view>
+</scroll-view>

@@ -1,0 +1,95 @@
+page {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(180deg, var(--bg-primary) 0%, var(--bg-secondary) 50%, var(--bg-tertiary) 100%);
+}
+
+.scrollarea {
+  flex: 1;
+  overflow-y: hidden;
+}
+
+.detail-page {
+  padding: 32rpx;
+  padding-bottom: 120rpx;
+}
+
+.hex-display {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16rpx;
+  padding: 48rpx 24rpx;
+  margin-bottom: 40rpx;
+  background: var(--surface-light);
+  border-radius: 24rpx;
+  border: 1rpx solid var(--border-gold);
+}
+
+.hex-name {
+  font-size: 44rpx;
+  color: var(--gold);
+  font-weight: bold;
+  margin-top: 16rpx;
+}
+
+.hex-trigrams {
+  font-size: 26rpx;
+  color: var(--text-secondary);
+}
+
+.hex-number {
+  font-size: 22rpx;
+  color: var(--text-tertiary);
+}
+
+.section {
+  margin-bottom: 28rpx;
+  background: var(--surface-light);
+  border-radius: 20rpx;
+  border: 1rpx solid var(--border-gold-line);
+  overflow: hidden;
+}
+
+.section-header {
+  padding: 24rpx 32rpx;
+  border-bottom: 1rpx solid var(--border-gold-line);
+}
+
+.section-title {
+  font-size: 30rpx;
+  color: var(--gold);
+  font-weight: bold;
+}
+
+.section-body {
+  padding: 28rpx 32rpx;
+}
+
+.main-text {
+  font-size: 32rpx;
+  color: var(--text-primary);
+  line-height: 1.8;
+}
+
+.sub-text {
+  font-size: 28rpx;
+  color: var(--text-body);
+  line-height: 1.8;
+}
+
+.line-item {
+  padding: 18rpx 0;
+  border-bottom: 1rpx solid var(--border-gold-faint);
+}
+
+.line-item:last-child {
+  border-bottom: none;
+}
+
+.line-text {
+  font-size: 26rpx;
+  color: var(--text-body);
+  line-height: 1.7;
+}

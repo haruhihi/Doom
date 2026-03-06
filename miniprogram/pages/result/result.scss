@@ -1,0 +1,237 @@
+page {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(180deg, var(--bg-primary) 0%, var(--bg-secondary) 50%, var(--bg-tertiary) 100%);
+}
+
+.scrollarea {
+  flex: 1;
+  overflow-y: hidden;
+}
+
+.result-page {
+  padding: 32rpx;
+  padding-bottom: 120rpx;
+}
+
+/* 卦象展示区 — Fix #4: 改善变卦箭头布局 */
+.hex-display {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 32rpx;
+  padding: 48rpx 20rpx;
+  margin-bottom: 40rpx;
+  background: var(--surface-light);
+  border-radius: 24rpx;
+  border: 1rpx solid var(--border-gold);
+}
+
+.hex-main,
+.hex-changed {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20rpx;
+  flex: 1;
+  min-width: 0;
+}
+
+.hex-name {
+  font-size: 40rpx;
+  color: var(--gold);
+  font-weight: bold;
+  margin-top: 12rpx;
+}
+
+.hex-trigrams {
+  font-size: 24rpx;
+  color: var(--text-secondary);
+}
+
+/* Fix #4: 变卦箭头 — 固定尺寸，flex-shrink: 0 防止被挤压 */
+.hex-arrow {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 72rpx;
+  height: 72rpx;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: var(--red-bg);
+  border: 2rpx solid var(--red-border-medium);
+}
+
+.hex-arrow-text {
+  font-size: 28rpx;
+  color: var(--red);
+  font-weight: bold;
+  line-height: 1;
+}
+
+/* Fix #5: 变卦说明提示 */
+.change-tip {
+  margin-top: -24rpx;
+  margin-bottom: 32rpx;
+  padding: 0 8rpx;
+}
+
+.change-tip-toggle {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 8rpx;
+  padding: 12rpx 0;
+}
+
+.change-tip-label {
+  font-size: 24rpx;
+  color: var(--text-secondary);
+}
+
+.change-tip-arrow {
+  font-size: 20rpx;
+  color: var(--text-tertiary);
+  transition: transform 0.3s ease;
+}
+
+.change-tip-arrow--open {
+  transform: rotate(180deg);
+}
+
+.change-tip-content {
+  padding: 24rpx;
+  background: var(--surface-light);
+  border-radius: 16rpx;
+  border: 1rpx solid var(--border-gold-line);
+  margin-top: 8rpx;
+}
+
+.change-tip-text {
+  font-size: 24rpx;
+  color: var(--text-body);
+  line-height: 1.8;
+}
+
+.change-tip-text--sub {
+  font-size: 22rpx;
+  color: var(--text-secondary);
+  line-height: 1.8;
+  margin-top: 12rpx;
+  display: block;
+}
+
+/* 内容区块 */
+.section {
+  margin-bottom: 32rpx;
+  background: var(--surface-light);
+  border-radius: 20rpx;
+  border: 1rpx solid var(--border-gold-line);
+  overflow: hidden;
+}
+
+.section-header {
+  padding: 24rpx 32rpx;
+  border-bottom: 1rpx solid var(--border-gold-line);
+}
+
+.section-title {
+  font-size: 30rpx;
+  color: var(--gold);
+  font-weight: bold;
+}
+
+.section-body {
+  padding: 28rpx 32rpx;
+}
+
+.judgment-text {
+  font-size: 32rpx;
+  color: var(--text-primary);
+  line-height: 1.8;
+}
+
+.interpretation-text {
+  font-size: 28rpx;
+  color: var(--text-body);
+  line-height: 1.8;
+  display: block;
+}
+
+/* 爻辞列表 */
+.line-text-item {
+  padding: 20rpx 0;
+  border-bottom: 1rpx solid var(--border-gold-faint);
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 16rpx;
+}
+
+.line-text-item:last-child {
+  border-bottom: none;
+}
+
+.line-text-item--changing {
+  background: var(--red-bg-light);
+  margin: 0 -32rpx;
+  padding-left: 32rpx;
+  padding-right: 32rpx;
+  border-radius: 8rpx;
+}
+
+.line-text {
+  font-size: 26rpx;
+  color: var(--text-body);
+  line-height: 1.7;
+  flex: 1;
+}
+
+.line-changing-badge {
+  font-size: 20rpx;
+  color: var(--red);
+  background: var(--red-bg);
+  padding: 4rpx 12rpx;
+  border-radius: 8rpx;
+  white-space: nowrap;
+  margin-top: 4rpx;
+}
+
+/* 操作按钮 */
+.actions {
+  display: flex;
+  flex-direction: row;
+  gap: 24rpx;
+  margin-top: 48rpx;
+  padding: 0 16rpx;
+}
+
+.action-btn {
+  flex: 1;
+  height: 88rpx;
+  line-height: 88rpx;
+  text-align: center;
+  font-size: 30rpx;
+  font-weight: bold;
+  border-radius: 44rpx;
+  border: none;
+}
+
+.action-btn::after {
+  border: none;
+}
+
+.action-btn--save {
+  background: var(--gradient-gold-btn);
+  color: var(--text-on-gold);
+}
+
+.action-btn--again {
+  background: transparent;
+  border: 2rpx solid var(--border-gold-strong);
+  color: var(--gold);
+}

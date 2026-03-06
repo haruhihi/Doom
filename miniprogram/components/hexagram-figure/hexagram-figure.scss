@@ -1,0 +1,92 @@
+.hexagram-figure {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8rpx;
+}
+
+.hexagram-figure--small {
+  gap: 6rpx;
+}
+
+.hexagram-line {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  width: 120rpx;
+  height: 16rpx;
+}
+
+.hexagram-figure--large .hexagram-line {
+  width: 180rpx;
+  height: 20rpx;
+}
+
+.hexagram-figure--small .hexagram-line {
+  width: 80rpx;
+  height: 10rpx;
+}
+
+/* 阳爻：一根完整的实线 */
+.hexagram-line--yang .hexagram-line__left {
+  flex: 1;
+  height: 100%;
+  background-color: var(--gold, #c9a96e);
+  border-radius: 4rpx;
+}
+
+.hexagram-line--yang .hexagram-line__right {
+  display: none;
+}
+
+/* 阴爻：中间断开的两段 */
+.hexagram-line--yin .hexagram-line__left,
+.hexagram-line--yin .hexagram-line__right {
+  flex: 1;
+  height: 100%;
+  background-color: var(--gold, #c9a96e);
+  border-radius: 4rpx;
+}
+
+.hexagram-line--yin .hexagram-line__gap {
+  width: 20rpx;
+}
+
+.hexagram-figure--large .hexagram-line--yin .hexagram-line__gap {
+  width: 28rpx;
+}
+
+.hexagram-figure--small .hexagram-line--yin .hexagram-line__gap {
+  width: 14rpx;
+}
+
+/* 变爻标记 */
+.hexagram-line__mark {
+  position: absolute;
+  right: -40rpx;
+  font-size: 20rpx;
+  color: var(--red, #b33939);
+}
+
+.hexagram-figure--large .hexagram-line__mark {
+  right: -50rpx;
+  font-size: 24rpx;
+}
+
+.hexagram-figure--small .hexagram-line__mark {
+  right: -28rpx;
+  font-size: 16rpx;
+}
+
+/* 变爻闪烁动画 */
+.hexagram-line--changing .hexagram-line__left,
+.hexagram-line--changing .hexagram-line__right {
+  animation: changing-blink 1.2s ease-in-out infinite;
+}
+
+@keyframes changing-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}

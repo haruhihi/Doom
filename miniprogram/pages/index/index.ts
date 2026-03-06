@@ -1,54 +1,50 @@
-// index.ts
-// 获取应用实例
-const app = getApp<IAppOption>()
-const defaultAvatarUrl = 'https://mmbiz.qpic.cn/mmbiz/icTdbqWNOwNRna42FI242Lcia07jQodd2FJGIYQfG0LAJGFxM4FbnQP6yfMxBgJ0F3YRqJCJ1aPAK2dQagdusBZg/0'
+// 首页
+import { formatTime } from '../../utils/util'
 
 Component({
   data: {
-    motto: 'Hello World',
-    userInfo: {
-      avatarUrl: defaultAvatarUrl,
-      nickName: '',
-    },
-    hasUserInfo: false,
-    canIUseGetUserProfile: wx.canIUse('getUserProfile'),
-    canIUseNicknameComp: wx.canIUse('input.type.nickname'),
+    lastRecord: null as (IDivinationRecord & { timeStr: string }) | null,
   },
+
+  lifetimes: {
+    attached() {
+      this._loadLastRecord()
+    }
+  },
+
+  pageLifetimes: {
+    show() {
+      this._loadLastRecord()
+    }
+  },
+
   methods: {
-    // 事件处理函数
-    bindViewTap() {
+    _loadLastRecord() {
+      const history: IDivinationRecord[] = wx.getStorageSync('divination_history') || []
+      if (history.length > 0) {
+        const last = history[0]
+        this.setData({
+          lastRecord: {
+            ...last,
+            timeStr: formatTime(new Date(last.timestamp))
+          }
+        })
+      }
+    },
+
+    // 开始起卦
+    onStartDivine() {
       wx.navigateTo({
-        url: '../logs/logs',
+        url: '../divine/divine'
       })
     },
-    onChooseAvatar(e: any) {
-      const { avatarUrl } = e.detail
-      const { nickName } = this.data.userInfo
-      this.setData({
-        "userInfo.avatarUrl": avatarUrl,
-        hasUserInfo: nickName && avatarUrl && avatarUrl !== defaultAvatarUrl,
+
+    // 查看上次记录
+    onViewLastRecord() {
+      if (!this.data.lastRecord) return
+      wx.navigateTo({
+        url: `../result/result?throws=${this.data.lastRecord.throws.join(',')}`
       })
     },
-    onInputChange(e: any) {
-      const nickName = e.detail.value
-      const { avatarUrl } = this.data.userInfo
-      this.setData({
-        "userInfo.nickName": nickName,
-        hasUserInfo: nickName && avatarUrl && avatarUrl !== defaultAvatarUrl,
-      })
-    },
-    getUserProfile() {
-      // 推荐使用wx.getUserProfile获取用户信息，开发者每次通过该接口获取用户个人信息均需用户确认，开发者妥善保管用户快速填写的头像昵称，避免重复弹窗
-      wx.getUserProfile({
-        desc: '展示用户信息', // 声明获取用户个人信息后的用途，后续会展示在弹窗中，请谨慎填写
-        success: (res) => {
-          console.log(res)
-          this.setData({
-            userInfo: res.userInfo,
-            hasUserInfo: true
-          })
-        }
-      })
-    },
-  },
+  }
 })

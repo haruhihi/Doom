@@ -1,28 +1,48 @@
-<!--index.wxml-->
-<navigation-bar title="Weixin" back="{{false}}" color="black" background="#FFF"></navigation-bar>
-<scroll-view class="scrollarea" scroll-y type="list">
-  <view class="container">
-    <view class="userinfo">
-      <block wx:if="{{canIUseNicknameComp && !hasUserInfo}}">
-        <button class="avatar-wrapper" open-type="chooseAvatar" bind:chooseavatar="onChooseAvatar">
-          <image class="avatar" src="{{userInfo.avatarUrl}}"></image>
-        </button>
-        <view class="nickname-wrapper">
-          <text class="nickname-label">昵称</text>
-          <input type="nickname" class="nickname-input" placeholder="请输入昵称" bind:change="onInputChange" />
+<!-- 首页 -->
+<navigation-bar title="" back="{{false}}" color="#c9a96e" background="transparent"></navigation-bar>
+<view class="scrollarea">
+  <view class="index-page">
+
+    <!-- 标题区域 -->
+    <view class="header">
+      <view class="taiji">
+        <text class="taiji-symbol">☯</text>
+      </view>
+      <text class="app-title">易经占卜</text>
+      <text class="app-subtitle">三枚铜钱 · 问卦天机</text>
+    </view>
+
+    <!-- 起卦按钮 -->
+    <view class="divine-area">
+      <view class="divine-btn-wrapper" bindtap="onStartDivine">
+        <view class="divine-btn-glow"></view>
+        <view class="divine-btn">
+          <text class="divine-btn-text">起卦</text>
         </view>
-      </block>
-      <block wx:elif="{{!hasUserInfo}}">
-        <button wx:if="{{canIUseGetUserProfile}}" bindtap="getUserProfile"> 获取头像昵称 </button>
-        <view wx:else> 请使用2.10.4及以上版本基础库 </view>
-      </block>
-      <block wx:else>
-        <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
-        <text class="userinfo-nickname">{{userInfo.nickName}}</text>
-      </block>
+      </view>
+      <text class="divine-btn-hint">点击开始摇铜钱占卜</text>
     </view>
-    <view class="usermotto">
-      <text class="user-motto">{{motto}}</text>
+
+    <!-- 最近记录 -->
+    <view class="recent-section" wx:if="{{lastRecord}}">
+      <text class="section-label">上次占卜</text>
+      <view class="recent-card" bindtap="onViewLastRecord">
+        <view class="recent-left">
+          <hexagram-figure lines="{{lastRecord.hexagram.lines}}" size="small"></hexagram-figure>
+        </view>
+        <view class="recent-right">
+          <text class="recent-name">{{lastRecord.hexagram.symbol}} {{lastRecord.hexagram.name}}</text>
+          <text class="recent-judgment">{{lastRecord.hexagram.judgment}}</text>
+          <text class="recent-time">{{lastRecord.timeStr}}</text>
+        </view>
+      </view>
     </view>
+
+    <!-- 底部装饰 -->
+    <view class="footer-deco">
+      <text class="footer-text">天行健，君子以自强不息</text>
+      <text class="footer-text">地势坤，君子以厚德载物</text>
+    </view>
+
   </view>
-</scroll-view>
+</view>

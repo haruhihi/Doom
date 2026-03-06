@@ -1,11 +1,45 @@
 {
   "pages": [
     "pages/index/index",
-    "pages/logs/logs"
+    "pages/divine/divine",
+    "pages/result/result",
+    "pages/hexagram-list/hexagram-list",
+    "pages/hexagram-detail/hexagram-detail",
+    "pages/history/history",
+    "pages/mine/mine"
   ],
+  "tabBar": {
+    "color": "#a89070",
+    "selectedColor": "#c9a96e",
+    "backgroundColor": "#1a1a2e",
+    "borderStyle": "black",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "iconPath": "images/tab_divine.png",
+        "selectedIconPath": "images/tab_divine_active.png",
+        "text": "起卦"
+      },
+      {
+        "pagePath": "pages/hexagram-list/hexagram-list",
+        "iconPath": "images/tab_hexagrams.png",
+        "selectedIconPath": "images/tab_hexagrams_active.png",
+        "text": "六十四卦"
+      },
+      {
+        "pagePath": "pages/mine/mine",
+        "iconPath": "images/tab_mine.png",
+        "selectedIconPath": "images/tab_mine_active.png",
+        "text": "我的"
+      }
+    ]
+  },
   "window": {
-    "navigationBarTextStyle": "black",
-    "navigationStyle": "custom"
+    "navigationBarTextStyle": "white",
+    "navigationStyle": "custom",
+    "backgroundColor": "#1a1a2e",
+    "backgroundColorTop": "#1a1a2e",
+    "backgroundColorBottom": "#1a1a2e"
   },
   "style": "v2",
   "rendererOptions": {

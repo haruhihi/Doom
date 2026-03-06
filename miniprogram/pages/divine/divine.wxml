@@ -1,0 +1,86 @@
+<!-- 起卦页面 -->
+<navigation-bar title="起卦" back="{{true}}" color="#c9a96e" background="#1a1a2e"></navigation-bar>
+<scroll-view class="scrollarea" scroll-y type="list">
+  <view class="divine-page">
+
+    <!-- 顶部提示 -->
+    <view class="divine-header">
+      <text class="divine-step" wx:if="{{!isComplete}}">第 {{currentThrow + 1}} / 6 爻</text>
+      <text class="divine-step" wx:if="{{isComplete}}">六爻已齐</text>
+      <text class="divine-hint" wx:if="{{!isAnimating && !isComplete}}">摇动手机 或 点击下方按钮</text>
+      <text class="divine-hint" wx:if="{{isAnimating}}">铜钱落定中...</text>
+      <text class="divine-hint divine-hint--done" wx:if="{{isComplete}}">卦象已定，请查看解读</text>
+    </view>
+
+    <!-- 铜钱区域 -->
+    <view class="coins-area">
+      <view class="coin {{isAnimating ? 'coin--flipping' : ''}} {{coinResults[0] !== undefined ? (coinResults[0] ? 'coin--front' : 'coin--back') : ''}}"
+      >
+        <view class="coin-face coin-front">
+          <text class="coin-text">開</text>
+          <view class="coin-hole"></view>
+        </view>
+        <view class="coin-face coin-back">
+          <view class="coin-pattern"></view>
+        </view>
+      </view>
+      <view class="coin {{isAnimating ? 'coin--flipping coin--flipping-delay1' : ''}} {{coinResults[1] !== undefined ? (coinResults[1] ? 'coin--front' : 'coin--back') : ''}}"
+      >
+        <view class="coin-face coin-front">
+          <text class="coin-text">開</text>
+          <view class="coin-hole"></view>
+        </view>
+        <view class="coin-face coin-back">
+          <view class="coin-pattern"></view>
+        </view>
+      </view>
+      <view class="coin {{isAnimating ? 'coin--flipping coin--flipping-delay2' : ''}} {{coinResults[2] !== undefined ? (coinResults[2] ? 'coin--front' : 'coin--back') : ''}}"
+      >
+        <view class="coin-face coin-front">
+          <text class="coin-text">開</text>
+          <view class="coin-hole"></view>
+        </view>
+        <view class="coin-face coin-back">
+          <view class="coin-pattern"></view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 投掷按钮 -->
+    <view class="throw-btn-area">
+      <button
+        class="throw-btn {{isComplete ? 'throw-btn--complete' : ''}} {{isAnimating ? 'throw-btn--disabled' : ''}}"
+        disabled="{{isAnimating || isComplete}}"
+        bindtap="onThrowCoins"
+      >
+        {{isComplete ? '卦象已成' : '掷铜钱'}}
+      </button>
+    </view>
+
+    <!-- 已投掷结果 -->
+    <view class="results-area" wx:if="{{throwResults.length > 0}}">
+      <text class="results-title">已得爻象</text>
+      <view class="results-list">
+        <view
+          wx:for="{{throwResults}}"
+          wx:key="index"
+          class="result-item"
+        >
+          <text class="result-index">{{item.label}}</text>
+          <view class="result-line {{item.isYang ? 'result-line--yang' : 'result-line--yin'}}">
+            <view class="result-line__bar"></view>
+            <view wx:if="{{!item.isYang}}" class="result-line__gap"></view>
+            <view class="result-line__bar"></view>
+          </view>
+          <text class="result-changing" wx:if="{{item.isChanging}}">变</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 查看结果按钮 -->
+    <view class="view-result-area" wx:if="{{isComplete}}">
+      <button class="view-result-btn" bindtap="onViewResult">查看卦象</button>
+    </view>
+
+  </view>
+</scroll-view>

@@ -1,10 +1,114 @@
-/**app.wxss**/
+/**
+ * 易经占卜 - 全局样式
+ * 古典中国风配色：深墨背景 + 古金/朱红点缀
+ * 使用 CSS 自定义属性实现主题色系统
+ */
+
+page {
+  /* === 背景色 === */
+  --bg-primary: #1a1a2e;
+  --bg-secondary: #16213e;
+  --bg-tertiary: #0f3460;
+  --bg-panel: #1e2a4a;
+
+  /* === 主题金色 === */
+  --gold: #c9a96e;
+  --gold-dark: #a0782c;
+  --gold-darker: #8b6914;
+  --gold-bright: #d4a847;
+
+  /* === 朱红色 === */
+  --red: #b33939;
+  --red-dark: #8b2020;
+
+  /* === 文字色 === */
+  --text-primary: #f5e6ca;
+  --text-secondary: #a89070;
+  --text-tertiary: #7a6a50;
+  --text-body: #d4c0a0;
+  --text-dark: #3d2b1f;
+  --text-on-gold: #1a1a2e;
+
+  /* === 半透明 / 边框 === */
+  --border-gold-light: rgba(201, 169, 110, 0.12);
+  --border-gold: rgba(201, 169, 110, 0.15);
+  --border-gold-medium: rgba(201, 169, 110, 0.2);
+  --border-gold-strong: rgba(201, 169, 110, 0.4);
+  --border-gold-subtle: rgba(201, 169, 110, 0.08);
+  --border-gold-faint: rgba(201, 169, 110, 0.06);
+  --border-gold-line: rgba(201, 169, 110, 0.1);
+
+  --surface-light: rgba(255, 255, 255, 0.03);
+  --surface-medium: rgba(255, 255, 255, 0.04);
+  --surface-strong: rgba(255, 255, 255, 0.05);
+
+  --gold-glow-light: rgba(201, 169, 110, 0.2);
+  --gold-glow-medium: rgba(201, 169, 110, 0.3);
+  --gold-glow-strong: rgba(201, 169, 110, 0.4);
+
+  --red-bg-light: rgba(179, 57, 57, 0.08);
+  --red-bg-medium: rgba(179, 57, 57, 0.12);
+  --red-bg: rgba(179, 57, 57, 0.15);
+  --red-border: rgba(179, 57, 57, 0.3);
+  --red-border-medium: rgba(179, 57, 57, 0.4);
+  --red-glow: rgba(179, 57, 57, 0.4);
+
+  --overlay-mask: rgba(0, 0, 0, 0.6);
+
+  /* === 渐变 === */
+  --gradient-page: linear-gradient(180deg, var(--bg-primary) 0%, var(--bg-secondary) 50%, var(--bg-tertiary) 100%);
+  --gradient-page-short: linear-gradient(180deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+  --gradient-gold-btn: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
+  --gradient-red-btn: linear-gradient(135deg, var(--red) 0%, var(--red-dark) 100%);
+
+  /* === 基础样式 === */
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: -apple-system, "PingFang SC", "Songti SC", "STSong", "KaiTi", serif;
+}
+
+/* === 暗色模式（当前即默认暗色，此处为未来亮色模式预留） === */
+/* @media (prefers-color-scheme: light) {
+  page {
+    --bg-primary: #f5f0e8;
+    --bg-secondary: #ebe4d6;
+    --bg-tertiary: #ddd5c4;
+    --bg-panel: #f0e8d8;
+    --gold: #8b6914;
+    --gold-dark: #6b4f0e;
+    --gold-darker: #5a4318;
+    --text-primary: #2d2418;
+    --text-secondary: #6b5a40;
+    --text-tertiary: #8a7a60;
+    --text-body: #4a3d2a;
+    --text-on-gold: #f5e6ca;
+    --surface-light: rgba(0, 0, 0, 0.03);
+    --surface-medium: rgba(0, 0, 0, 0.05);
+    --surface-strong: rgba(0, 0, 0, 0.06);
+  }
+} */
+
+/* 通用容器 */
 .container {
   height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
-  padding: 200rpx 0;
   box-sizing: border-box;
-} 
+}
+
+/* 滚动区域 */
+.scrollarea {
+  flex: 1;
+  overflow-y: hidden;
+}
+
+/* 通用按钮重置 */
+button {
+  margin: 0;
+  padding: 0;
+}
+
+button::after {
+  border: none;
+}

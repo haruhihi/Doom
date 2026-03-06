@@ -1,0 +1,47 @@
+<!-- 卦详情页 -->
+<navigation-bar title="{{hexagram.name || '卦详情'}}" back="{{true}}" color="#c9a96e" background="#1a1a2e"></navigation-bar>
+<scroll-view class="scrollarea" scroll-y type="list">
+  <view class="detail-page" wx:if="{{hexagram}}">
+
+    <!-- 卦象 -->
+    <view class="hex-display">
+      <hexagram-figure lines="{{hexagram.lines}}" size="large"></hexagram-figure>
+      <text class="hex-name">{{hexagram.symbol}} {{hexagram.name}}</text>
+      <text class="hex-trigrams">{{hexagram.upperTrigram}} (上) · {{hexagram.lowerTrigram}} (下)</text>
+      <text class="hex-number">第 {{hexagram.number}} 卦</text>
+    </view>
+
+    <!-- 卦辞 -->
+    <view class="section">
+      <view class="section-header">
+        <text class="section-title">卦辞</text>
+      </view>
+      <view class="section-body">
+        <text class="main-text">{{hexagram.judgment}}</text>
+      </view>
+    </view>
+
+    <!-- 解读 -->
+    <view class="section">
+      <view class="section-header">
+        <text class="section-title">解读</text>
+      </view>
+      <view class="section-body">
+        <text class="sub-text">{{hexagram.interpretation}}</text>
+      </view>
+    </view>
+
+    <!-- 爻辞 -->
+    <view class="section">
+      <view class="section-header">
+        <text class="section-title">爻辞</text>
+      </view>
+      <view class="section-body">
+        <view wx:for="{{hexagram.lineTexts}}" wx:key="index" class="line-item">
+          <text class="line-text">{{item}}</text>
+        </view>
+      </view>
+    </view>
+
+  </view>
+</scroll-view>

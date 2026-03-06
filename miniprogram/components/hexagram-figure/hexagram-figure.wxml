@@ -1,0 +1,19 @@
+<!--
+  卦图组件：用CSS绘制六爻卦象
+  lines: [0|1, 0|1, 0|1, 0|1, 0|1, 0|1] 从初爻到上爻
+  changingLines: 变爻位置数组
+  size: 'large' | 'small'
+-->
+<view class="hexagram-figure hexagram-figure--{{size}}">
+  <!-- 从上爻到初爻显示（上到下） -->
+  <view
+    wx:for="{{displayLines}}"
+    wx:key="index"
+    class="hexagram-line {{item.isYang ? 'hexagram-line--yang' : 'hexagram-line--yin'}} {{item.isChanging ? 'hexagram-line--changing' : ''}}"
+  >
+    <view class="hexagram-line__left"></view>
+    <view wx:if="{{!item.isYang}}" class="hexagram-line__gap"></view>
+    <view class="hexagram-line__right"></view>
+    <view wx:if="{{item.isChanging}}" class="hexagram-line__mark">✕</view>
+  </view>
+</view>

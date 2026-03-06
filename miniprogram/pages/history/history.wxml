@@ -1,0 +1,44 @@
+<!-- 历史记录页 -->
+<navigation-bar title="历史记录" back="{{true}}" color="#c9a96e" background="#1a1a2e"></navigation-bar>
+<scroll-view class="scrollarea" scroll-y type="list">
+  <view class="history-page">
+
+    <view wx:if="{{historyList.length === 0}}" class="empty">
+      <text class="empty-icon">☯</text>
+      <text class="empty-text">暂无占卜记录</text>
+      <text class="empty-hint">去首页起卦吧</text>
+    </view>
+
+    <view wx:else>
+      <!-- 清空按钮 -->
+      <view class="clear-bar">
+        <text class="record-count">共 {{historyList.length}} 条记录</text>
+        <view class="clear-btn" bindtap="onClearAll">
+          <text>清空</text>
+        </view>
+      </view>
+
+      <!-- 记录列表 -->
+      <view
+        wx:for="{{historyList}}"
+        wx:key="id"
+        class="record-card"
+        data-index="{{index}}"
+        bindtap="onViewRecord"
+      >
+        <view class="record-left">
+          <hexagram-figure lines="{{item.hexagram.lines}}" size="small"></hexagram-figure>
+        </view>
+        <view class="record-right">
+          <view class="record-header">
+            <text class="record-name">{{item.hexagram.symbol}} {{item.hexagram.name}}</text>
+            <text wx:if="{{item.changedHexagram}}" class="record-changed">变 {{item.changedHexagram.name}}</text>
+          </view>
+          <text class="record-judgment">{{item.hexagram.judgment}}</text>
+          <text class="record-time">{{item.timeStr}}</text>
+        </view>
+      </view>
+    </view>
+
+  </view>
+</scroll-view>

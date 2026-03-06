@@ -1,0 +1,96 @@
+<!-- 卦象结果页 -->
+<navigation-bar title="卦象解读" back="{{true}}" color="#c9a96e" background="#1a1a2e" delta="{{0}}" bind:back="onBack"></navigation-bar>
+<scroll-view class="scrollarea" scroll-y type="list">
+  <view class="result-page" wx:if="{{hexagram}}">
+
+    <!-- 卦象展示区 -->
+    <view class="hex-display">
+      <view class="hex-main">
+        <hexagram-figure lines="{{hexagram.lines}}" changingLines="{{changingLines}}" size="large"></hexagram-figure>
+        <text class="hex-name">{{hexagram.symbol}} {{hexagram.name}}</text>
+        <text class="hex-trigrams">{{hexagram.upperTrigram}} 上 · {{hexagram.lowerTrigram}} 下</text>
+      </view>
+
+      <!-- 变卦 -->
+      <block wx:if="{{changedHexagram}}">
+        <view class="hex-arrow">
+          <text class="hex-arrow-text">变</text>
+        </view>
+        <view class="hex-changed">
+          <hexagram-figure lines="{{changedHexagram.lines}}" size="large"></hexagram-figure>
+          <text class="hex-name">{{changedHexagram.symbol}} {{changedHexagram.name}}</text>
+          <text class="hex-trigrams">{{changedHexagram.upperTrigram}} 上 · {{changedHexagram.lowerTrigram}} 下</text>
+        </view>
+      </block>
+    </view>
+
+    <!-- Fix #5: 变卦关系说明 -->
+    <view class="change-tip" wx:if="{{changedHexagram}}">
+      <view class="change-tip-toggle" bindtap="onToggleChangeTip">
+        <text class="change-tip-label">了解变卦？</text>
+        <text class="change-tip-arrow {{showChangeTip ? 'change-tip-arrow--open' : ''}}">▼</text>
+      </view>
+      <view class="change-tip-content" wx:if="{{showChangeTip}}">
+        <text class="change-tip-text">在易经占卜中，当某一爻的铜钱结果为三正（老阳·9）或三反（老阴·6）时，该爻为「变爻」，表示事物正处于转化之际。</text>
+        <text class="change-tip-text--sub">本卦「{{hexagram.name}}」代表当前的处境与态势；变卦「{{changedHexagram.name}}」则揭示事态发展的方向与趋势。变爻所在的爻辞，往往是本次占卜最关键的启示所在。</text>
+      </view>
+    </view>
+
+    <!-- 卦辞 -->
+    <view class="section">
+      <view class="section-header">
+        <text class="section-title">卦辞</text>
+      </view>
+      <view class="section-body">
+        <text class="judgment-text">{{hexagram.judgment}}</text>
+      </view>
+    </view>
+
+    <!-- 白话解读 -->
+    <view class="section">
+      <view class="section-header">
+        <text class="section-title">解读</text>
+      </view>
+      <view class="section-body">
+        <text class="interpretation-text">{{hexagram.interpretation}}</text>
+      </view>
+    </view>
+
+    <!-- 爻辞 -->
+    <view class="section">
+      <view class="section-header">
+        <text class="section-title">爻辞</text>
+      </view>
+      <view class="section-body">
+        <view
+          wx:for="{{hexagram.lineTexts}}"
+          wx:key="index"
+          class="line-text-item {{changingLines.indexOf(index) >= 0 ? 'line-text-item--changing' : ''}}"
+        >
+          <text class="line-text">{{item}}</text>
+          <text wx:if="{{changingLines.indexOf(index) >= 0}}" class="line-changing-badge">变爻</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 变卦解读 -->
+    <block wx:if="{{changedHexagram}}">
+      <view class="section">
+        <view class="section-header">
+          <text class="section-title">变卦 · {{changedHexagram.name}}</text>
+        </view>
+        <view class="section-body">
+          <text class="judgment-text">{{changedHexagram.judgment}}</text>
+          <text class="interpretation-text" style="margin-top: 20rpx;">{{changedHexagram.interpretation}}</text>
+        </view>
+      </view>
+    </block>
+
+    <!-- 操作按钮 -->
+    <view class="actions">
+      <button class="action-btn action-btn--save" bindtap="onSave">保存记录</button>
+      <button class="action-btn action-btn--again" bindtap="onDivineAgain">重新起卦</button>
+    </view>
+
+  </view>
+</scroll-view>
