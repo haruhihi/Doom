@@ -66,6 +66,7 @@
         <view class="judgment-item">
           <text class="judgment-label">{{hexagram.name}} · 卦辞</text>
           <text class="judgment-classical">{{hexagram.judgment}}</text>
+          <text class="judgment-translation" wx:if="{{hexagram.judgmentTranslation}}">{{hexagram.judgmentTranslation}}</text>
           <text class="judgment-interp">{{hexagram.interpretation}}</text>
         </view>
 
@@ -79,6 +80,7 @@
           <view class="judgment-item judgment-item--changed">
             <text class="judgment-label judgment-label--changed">{{changedHexagram.name}} · 变卦卦辞</text>
             <text class="judgment-classical">{{changedHexagram.judgment}}</text>
+            <text class="judgment-translation" wx:if="{{changedHexagram.judgmentTranslation}}">{{changedHexagram.judgmentTranslation}}</text>
             <text class="judgment-interp">{{changedHexagram.interpretation}}</text>
           </view>
         </block>

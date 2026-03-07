@@ -8,6 +8,7 @@ interface IHexagram {
   lowerTrigram: string
   lines: number[]
   judgment: string
+  judgmentTranslation?: string
   interpretation: string
   lineTexts: string[]
   lineInterpretations?: string[]

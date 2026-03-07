@@ -7,6 +7,7 @@ export const hexagrams: IHexagram[] = [
     upperTrigram: '乾', lowerTrigram: '乾',
     lines: [1, 1, 1, 1, 1, 1],
     judgment: '元亨利贞。',
+    judgmentTranslation: '大吉大利，守正道吉利。',
     interpretation: '乾卦象征天，代表刚健进取。诸事顺利，但须坚守正道，不可骄傲自满。',
     lineTexts: [
       '初九：潜龙勿用。',
@@ -30,6 +31,7 @@ export const hexagrams: IHexagram[] = [
     upperTrigram: '坤', lowerTrigram: '坤',
     lines: [0, 0, 0, 0, 0, 0],
     judgment: '元亨，利牝马之贞。君子有攸往，先迷后得主。利西南得朋，东北丧朋。安贞吉。',
+    judgmentTranslation: '大吉大利，像母马一样温顺守正吉利。君子有地方要去，开始会迷茫后来才能找到方向。向西南走能找到朋友，向东北走会失去朋友。安心守正吉利。',
     interpretation: '坤卦象征地，代表柔顺包容。宜顺势而为，追随贤能之人，可获吉祥。',
     lineTexts: [
       '初六：履霜，坚冰至。',
@@ -53,6 +55,7 @@ export const hexagrams: IHexagram[] = [
     upperTrigram: '坎', lowerTrigram: '震',
     lines: [1, 0, 0, 0, 1, 0],
     judgment: '元亨利贞，勿用有攸往，利建侯。',
+    judgmentTranslation: '大吉大利守正，不要急着行动，适合建立诸侯。',
     interpretation: '屯卦象征初生的艰难。万事开头难，宜积蓄力量，不宜冒进。',
     lineTexts: [
       '初九：磐桓，利居贞，利建侯。',
@@ -76,6 +79,7 @@ export const hexagrams: IHexagram[] = [
     upperTrigram: '艮', lowerTrigram: '坎',
     lines: [0, 1, 0, 0, 0, 1],
     judgment: '亨。匪我求童蒙，童蒙求我。初筮告，再三渎，渎则不告。利贞。',
+    judgmentTranslation: '通达。不是我求蒙昧的小孩，是蒙昧的小孩来求我。第一次占问就告诉他，反复来问就是不敬，不敬就不告诉了。守正道有利。',
     interpretation: '蒙卦象征蒙昧初开。宜虚心求教，不可反复犹疑，专心求学则吉。',
     lineTexts: [
       '初六：发蒙，利用刑人，用说桎梏，以往吝。',
@@ -99,6 +103,7 @@ export const hexagrams: IHexagram[] = [
     upperTrigram: '坎', lowerTrigram: '乾',
     lines: [1, 1, 1, 0, 1, 0],
     judgment: '有孚，光亨，贞吉。利涉大川。',
+    judgmentTranslation: '真心守信，前景光明，守正道吉利。可以去冒大风险。',
     interpretation: '需卦象征等待。时机未到，宜耐心等待，心怀诚信则终获亨通。',
     lineTexts: [
       '初九：需于郊，利用恒，无咎。',
@@ -122,6 +127,7 @@ export const hexagrams: IHexagram[] = [
     upperTrigram: '乾', lowerTrigram: '坎',
     lines: [0, 1, 0, 1, 1, 1],
     judgment: '有孚窒惕，中吉，终凶。利见大人，不利涉大川。',
+    judgmentTranslation: '心怀诚信却受阻而恐惧，适可而止就吉利，坚持到底则凶。适合去见有权威的人，不适合去冒大风险。',
     interpretation: '讼卦象征争讼。争端宜适可而止，寻求公正调解，切勿执意到底。',
     lineTexts: [
       '初六：不永所事，小有言，终吉。',
@@ -145,6 +151,7 @@ export const hexagrams: IHexagram[] = [
     upperTrigram: '坤', lowerTrigram: '坎',
     lines: [0, 1, 0, 0, 0, 0],
     judgment: '贞，丈人吉，无咎。',
+    judgmentTranslation: '守正道，德高望重的人来领导就吉利，没有过错。',
     interpretation: '师卦象征军队。行事须有正当理由，由德高望重之人领导方可成功。',
     lineTexts: [
       '初六：师出以律，否臧凶。',
@@ -168,6 +175,7 @@ export const hexagrams: IHexagram[] = [
     upperTrigram: '坎', lowerTrigram: '坤',
     lines: [0, 0, 0, 0, 1, 0],
     judgment: '吉。原筮元永贞，无咎。不宁方来，后夫凶。',
+    judgmentTranslation: '吉利。再次占问，长久守正道就没有过错。不安分的人才来归附，迟迟不来的人有凶险。',
     interpretation: '比卦象征亲近辅佐。宜团结合作，亲近贤人，犹豫不决者将有凶险。',
     lineTexts: [
       '初六：有孚比之，无咎。有孚盈缶，终来有它，吉。',
@@ -191,6 +199,7 @@ export const hexagrams: IHexagram[] = [
     upperTrigram: '巽', lowerTrigram: '乾',
     lines: [1, 1, 1, 0, 1, 1],
     judgment: '亨。密云不雨，自我西郊。',
+    judgmentTranslation: '通达。乌云密布却没有下雨，云从我的西郊飘来。',
     interpretation: '小畜卦象征小有积蓄。力量尚小，暂时无法大展宏图，宜继续积蓄。',
     lineTexts: [
       '初九：复自道，何其咎，吉。',
@@ -214,6 +223,7 @@ export const hexagrams: IHexagram[] = [
     upperTrigram: '乾', lowerTrigram: '兑',
     lines: [1, 1, 0, 1, 1, 1],
     judgment: '履虎尾，不咥人，亨。',
+    judgmentTranslation: '踩到老虎的尾巴，老虎没咬人，通达。',
     interpretation: '履卦象征谨慎行事。如踩虎尾般小心翼翼，以礼待人则可化险为夷。',
     lineTexts: [
       '初九：素履，往无咎。',
@@ -237,6 +247,7 @@ export const hexagrams: IHexagram[] = [
     upperTrigram: '坤', lowerTrigram: '乾',
     lines: [1, 1, 1, 0, 0, 0],
     judgment: '小往大来，吉亨。',
+    judgmentTranslation: '小的走了大的来了，吉利通达。',
     interpretation: '泰卦象征通泰。天地交感，阴阳和谐，万事亨通，是大吉之卦。',
     lineTexts: [
       '初九：拔茅茹，以其汇，征吉。',
@@ -260,6 +271,7 @@ export const hexagrams: IHexagram[] = [
     upperTrigram: '乾', lowerTrigram: '坤',
     lines: [0, 0, 0, 1, 1, 1],
     judgment: '否之匪人，不利君子贞，大往小来。',
+    judgmentTranslation: '闭塞不是好人该待的状态，不利于君子守正道，大的走了小的来了。',
     interpretation: '否卦象征闭塞不通。天地不交，小人得势，宜韬光养晦，等待时机。',
     lineTexts: [
       '初六：拔茅茹，以其汇，贞吉亨。',
@@ -283,6 +295,7 @@ export const hexagrams: IHexagram[] = [
     upperTrigram: '乾', lowerTrigram: '离',
     lines: [1, 0, 1, 1, 1, 1],
     judgment: '同人于野，亨。利涉大川，利君子贞。',
+    judgmentTranslation: '和众人在郊野聚集，通达。适合去冒大风险，适合君子守正。',
     interpretation: '同人卦象征志同道合。与人团结协作，胸怀宽广，可成大事。',
     lineTexts: [
       '初九：同人于门，无咎。',
@@ -306,6 +319,7 @@ export const hexagrams: IHexagram[] = [
     upperTrigram: '离', lowerTrigram: '乾',
     lines: [1, 1, 1, 1, 0, 1],
     judgment: '元亨。',
+    judgmentTranslation: '大吉大利。',
     interpretation: '大有卦象征大有收获。光明磊落，得道多助，事业兴盛之象。',
     lineTexts: [
       '初九：无交害，匪咎，艰则无咎。',
@@ -329,6 +343,7 @@ export const hexagrams: IHexagram[] = [
     upperTrigram: '坤', lowerTrigram: '艮',
     lines: [0, 0, 1, 0, 0, 0],
     judgment: '亨，君子有终。',
+    judgmentTranslation: '通达，君子能有好的结果。',
     interpretation: '谦卦象征谦逊。谦虚使人进步，持谦德者终获善果，万事亨通。',
     lineTexts: [
       '初六：谦谦君子，用涉大川，吉。',
@@ -352,6 +367,7 @@ export const hexagrams: IHexagram[] = [
     upperTrigram: '震', lowerTrigram: '坤',
     lines: [0, 0, 0, 1, 0, 0],
     judgment: '利建侯行师。',
+    judgmentTranslation: '适合建立诸侯、出兵征战。',
     interpretation: '豫卦象征喜悦和乐。顺势而动，宜建功立业，但不可沉溺享乐。',
     lineTexts: [
       '初六：鸣豫，凶。',
@@ -375,6 +391,7 @@ export const hexagrams: IHexagram[] = [
     upperTrigram: '兑', lowerTrigram: '震',
     lines: [1, 0, 0, 1, 1, 0],
     judgment: '元亨利贞，无咎。',
+    judgmentTranslation: '大吉大利守正道，没有过错。',
     interpretation: '随卦象征随从跟随。顺时而动，随机应变，守正道则无灾咎。',
     lineTexts: [
       '初九：官有渝，贞吉。出门交有功。',
@@ -398,6 +415,7 @@ export const hexagrams: IHexagram[] = [
     upperTrigram: '艮', lowerTrigram: '巽',
     lines: [0, 1, 1, 0, 0, 1],
     judgment: '元亨，利涉大川。先甲三日，后甲三日。',
+    judgmentTranslation: '大吉大利，适合去冒大风险。在行动前要考虑三天，行动后也要检查三天。',
     interpretation: '蛊卦象征整治弊端。积弊已久需大力革新，慎重行事可获大亨通。',
     lineTexts: [
       '初六：干父之蛊，有子，考无咎，厉终吉。',
@@ -421,6 +439,7 @@ export const hexagrams: IHexagram[] = [
     upperTrigram: '坤', lowerTrigram: '兑',
     lines: [1, 1, 0, 0, 0, 0],
     judgment: '元亨利贞。至于八月有凶。',
+    judgmentTranslation: '大吉大利守正道。但到了八月就有凶险。',
     interpretation: '临卦象征居上临下。时运正盛宜有所作为，但须警惕盛极而衰。',
     lineTexts: [
       '初九：咸临，贞吉。',
@@ -444,6 +463,7 @@ export const hexagrams: IHexagram[] = [
     upperTrigram: '巽', lowerTrigram: '坤',
     lines: [0, 0, 0, 0, 1, 1],
     judgment: '盥而不荐，有孚颙若。',
+    judgmentTranslation: '祭祀时洗手完毕还没有奉上祭品，心怀诚信神情庄严肃穆。',
     interpretation: '观卦象征观察省察。宜审慎观察形势，以诚信感化他人，不宜轻举妄动。',
     lineTexts: [
       '初六：童观，小人无咎，君子吝。',
@@ -467,6 +487,7 @@ export const hexagrams: IHexagram[] = [
     upperTrigram: '离', lowerTrigram: '震',
     lines: [1, 0, 0, 1, 0, 1],
     judgment: '亨。利用狱。',
+    judgmentTranslation: '通达。适合用刑罚来处理事情。',
     interpretation: '噬嗑卦象征咬合。去除障碍方能亨通，宜明辨是非，赏罚分明。',
     lineTexts: [
       '初九：屦校灭趾，无咎。',
@@ -490,6 +511,7 @@ export const hexagrams: IHexagram[] = [
     upperTrigram: '艮', lowerTrigram: '离',
     lines: [1, 0, 1, 0, 0, 1],
     judgment: '亨。小利有攸往。',
+    judgmentTranslation: '通达。做小事有利，可以有所前往。',
     interpretation: '贲卦象征文饰修饰。外表虽美但须充实内涵，小事可行，大事宜慎。',
     lineTexts: [
       '初九：贲其趾，舍车而徒。',
@@ -513,6 +535,7 @@ export const hexagrams: IHexagram[] = [
     upperTrigram: '艮', lowerTrigram: '坤',
     lines: [0, 0, 0, 0, 0, 1],
     judgment: '不利有攸往。',
+    judgmentTranslation: '不适合有所前往。',
     interpretation: '剥卦象征剥落衰败。小人得势，不宜有所行动，宜静守待变。',
     lineTexts: [
       '初六：剥床以足，蔑贞凶。',
@@ -536,6 +559,7 @@ export const hexagrams: IHexagram[] = [
     upperTrigram: '坤', lowerTrigram: '震',
     lines: [1, 0, 0, 0, 0, 0],
     judgment: '亨。出入无疾，朋来无咎。反复其道，七日来复，利有攸往。',
+    judgmentTranslation: '通达。出入没有毛病，朋友来了没有过错。沿着原路往返，七天就会回来，适合有所前往。',
     interpretation: '复卦象征回复。一阳复始，否极泰来，事物开始好转，宜把握时机。',
     lineTexts: [
       '初九：不远复，无祗悔，元吉。',
@@ -559,6 +583,7 @@ export const hexagrams: IHexagram[] = [
     upperTrigram: '乾', lowerTrigram: '震',
     lines: [1, 0, 0, 1, 1, 1],
     judgment: '元亨利贞。其匪正有眚，不利有攸往。',
+    judgmentTranslation: '大吉大利守正道。如果不走正道就有灾祸，不适合有所前往。',
     interpretation: '无妄卦象征真实无妄。顺应天理而行，不可妄为，守正则吉。',
     lineTexts: [
       '初九：无妄，往吉。',
@@ -582,6 +607,7 @@ export const hexagrams: IHexagram[] = [
     upperTrigram: '艮', lowerTrigram: '乾',
     lines: [1, 1, 1, 0, 0, 1],
     judgment: '利贞，不家食吉，利涉大川。',
+    judgmentTranslation: '守正道有利，不在家吃饭而是出去做事吉利，适合去冒大风险。',
     interpretation: '大畜卦象征大有积蓄。才德充实，可以大展宏图，有利于远行冒险。',
     lineTexts: [
       '初九：有厉，利已。',
@@ -605,6 +631,7 @@ export const hexagrams: IHexagram[] = [
     upperTrigram: '艮', lowerTrigram: '震',
     lines: [1, 0, 0, 0, 0, 1],
     judgment: '贞吉。观颐，自求口实。',
+    judgmentTranslation: '守正道吉利。看一个人怎么养活自己和别人，就知道他的品性了。',
     interpretation: '颐卦象征颐养。宜注意修身养性，慎于言行饮食，自食其力为吉。',
     lineTexts: [
       '初九：舍尔灵龟，观我朵颐，凶。',
@@ -628,6 +655,7 @@ export const hexagrams: IHexagram[] = [
     upperTrigram: '兑', lowerTrigram: '巽',
     lines: [0, 1, 1, 1, 1, 0],
     judgment: '栋桡，利有攸往，亨。',
+    judgmentTranslation: '栋梁弯曲了，适合有所行动，通达。',
     interpretation: '大过卦象征大大超过。压力过大如栋梁弯曲，宜果断行动化解危机。',
     lineTexts: [
       '初六：藉用白茅，无咎。',
@@ -651,6 +679,7 @@ export const hexagrams: IHexagram[] = [
     upperTrigram: '坎', lowerTrigram: '坎',
     lines: [0, 1, 0, 0, 1, 0],
     judgment: '习坎，有孚，维心亨，行有尚。',
+    judgmentTranslation: '重重险阻，心怀诚信，只要内心通达，行动就值得嘉许。',
     interpretation: '坎卦象征重重险阻。身处困境须心怀诚信，坚定前行方能脱险。',
     lineTexts: [
       '初六：习坎，入于坎窞，凶。',
@@ -674,6 +703,7 @@ export const hexagrams: IHexagram[] = [
     upperTrigram: '离', lowerTrigram: '离',
     lines: [1, 0, 1, 1, 0, 1],
     judgment: '利贞，亨。畜牝牛，吉。',
+    judgmentTranslation: '守正道有利，通达。养母牛吉利。',
     interpretation: '离卦象征光明依附。宜柔顺守正，依附正道如火依附于薪，可获吉祥。',
     lineTexts: [
       '初九：履错然，敬之无咎。',
@@ -697,6 +727,7 @@ export const hexagrams: IHexagram[] = [
     upperTrigram: '兑', lowerTrigram: '艮',
     lines: [0, 0, 1, 1, 1, 0],
     judgment: '亨，利贞，取女吉。',
+    judgmentTranslation: '通达，守正道有利，娶女子吉利。',
     interpretation: '咸卦象征感应交感。男女相感，以诚相待，婚姻之事大吉。',
     lineTexts: [
       '初六：咸其拇。',
@@ -720,6 +751,7 @@ export const hexagrams: IHexagram[] = [
     upperTrigram: '震', lowerTrigram: '巽',
     lines: [0, 1, 1, 1, 0, 0],
     judgment: '亨，无咎，利贞，利有攸往。',
+    judgmentTranslation: '通达，没有过错，守正道有利，适合有所前往。',
     interpretation: '恒卦象征恒久不变。持之以恒方能成功，宜坚定信念，不可朝三暮四。',
     lineTexts: [
       '初六：浚恒，贞凶，无攸利。',
@@ -743,6 +775,7 @@ export const hexagrams: IHexagram[] = [
     upperTrigram: '乾', lowerTrigram: '艮',
     lines: [0, 0, 1, 1, 1, 1],
     judgment: '亨，小利贞。',
+    judgmentTranslation: '通达，稍微守一下正道有利。',
     interpretation: '遁卦象征退避隐遁。小人势长，宜及时退让，保全自身以待时机。',
     lineTexts: [
       '初六：遁尾，厉，勿用有攸往。',
@@ -766,6 +799,7 @@ export const hexagrams: IHexagram[] = [
     upperTrigram: '震', lowerTrigram: '乾',
     lines: [1, 1, 1, 1, 0, 0],
     judgment: '利贞。',
+    judgmentTranslation: '守正道有利。',
     interpretation: '大壮卦象征强盛壮大。力量充沛但须守正道，切勿恃强凌弱。',
     lineTexts: [
       '初九：壮于趾，征凶，有孚。',
@@ -789,6 +823,7 @@ export const hexagrams: IHexagram[] = [
     upperTrigram: '离', lowerTrigram: '坤',
     lines: [0, 0, 0, 1, 0, 1],
     judgment: '康侯用锡马蕃庶，昼日三接。',
+    judgmentTranslation: '安邦有功的诸侯被赏赐很多马匹，一天之内三次受到接见。',
     interpretation: '晋卦象征前进晋升。光明正大如日升中天，事业进展顺利之象。',
     lineTexts: [
       '初六：晋如摧如，贞吉。罔孚，裕无咎。',
@@ -812,6 +847,7 @@ export const hexagrams: IHexagram[] = [
     upperTrigram: '坤', lowerTrigram: '离',
     lines: [1, 0, 1, 0, 0, 0],
     judgment: '利艰贞。',
+    judgmentTranslation: '在艰难中守正道有利。',
     interpretation: '明夷卦象征光明受损。身处逆境须隐藏才华，韬光养晦以度难关。',
     lineTexts: [
       '初九：明夷于飞，垂其翼。君子于行，三日不食，有攸往，主人有言。',
@@ -835,6 +871,7 @@ export const hexagrams: IHexagram[] = [
     upperTrigram: '巽', lowerTrigram: '离',
     lines: [1, 0, 1, 0, 1, 1],
     judgment: '利女贞。',
+    judgmentTranslation: '女子守正道有利。',
     interpretation: '家人卦象征家庭。治家以正，各尽其责，家和万事兴。',
     lineTexts: [
       '初九：闲有家，悔亡。',
@@ -858,6 +895,7 @@ export const hexagrams: IHexagram[] = [
     upperTrigram: '离', lowerTrigram: '兑',
     lines: [1, 1, 0, 1, 0, 1],
     judgment: '小事吉。',
+    judgmentTranslation: '做小事吉利。',
     interpretation: '睽卦象征乖违背离。意见相左，做小事可吉，大事须求同存异。',
     lineTexts: [
       '初九：悔亡，丧马勿逐，自复。见恶人，无咎。',
@@ -881,6 +919,7 @@ export const hexagrams: IHexagram[] = [
     upperTrigram: '坎', lowerTrigram: '艮',
     lines: [0, 0, 1, 0, 1, 0],
     judgment: '利西南，不利东北。利见大人，贞吉。',
+    judgmentTranslation: '往西南方向有利，往东北方向不利。适合去见有权威的人，守正道吉利。',
     interpretation: '蹇卦象征行走艰难。前路险阻，宜退守平易之地，求助贤人方可脱困。',
     lineTexts: [
       '初六：往蹇来誉。',
@@ -904,6 +943,7 @@ export const hexagrams: IHexagram[] = [
     upperTrigram: '震', lowerTrigram: '坎',
     lines: [0, 1, 0, 1, 0, 0],
     judgment: '利西南，无所往，其来复吉。有攸往，夙吉。',
+    judgmentTranslation: '往西南方向有利。如果没有要去的地方，就回来吉利。如果有要去的地方，赶早去吉利。',
     interpretation: '解卦象征解除困难。险难已解，宜速归正常，把握良机及时行动。',
     lineTexts: [
       '初六：无咎。',
@@ -927,6 +967,7 @@ export const hexagrams: IHexagram[] = [
     upperTrigram: '艮', lowerTrigram: '兑',
     lines: [1, 1, 0, 0, 0, 1],
     judgment: '有孚，元吉，无咎，可贞，利有攸往。曷之用，二簋可用享。',
+    judgmentTranslation: '心怀诚信，大吉大利，没有过错，可以守正道，适合有所前往。用什么来祭祀呢？两碗饭菜就够了。',
     interpretation: '损卦象征减损。减少过度之处以充实不足，真诚付出终获回报。',
     lineTexts: [
       '初九：已事遄往，无咎，酌损之。',
@@ -950,6 +991,7 @@ export const hexagrams: IHexagram[] = [
     upperTrigram: '巽', lowerTrigram: '震',
     lines: [1, 0, 0, 0, 1, 1],
     judgment: '利有攸往，利涉大川。',
+    judgmentTranslation: '适合有所前往，适合去冒大风险。',
     interpretation: '益卦象征增益。上施惠于下，利于有所作为，可以冒险进取。',
     lineTexts: [
       '初九：利用为大作，元吉，无咎。',
@@ -973,6 +1015,7 @@ export const hexagrams: IHexagram[] = [
     upperTrigram: '兑', lowerTrigram: '乾',
     lines: [1, 1, 1, 1, 1, 0],
     judgment: '扬于王庭，孚号，有厉。告自邑，不利即戎，利有攸往。',
+    judgmentTranslation: '在朝廷上公开宣布，真诚地呼号，有危险。从自己城邑发出告示，不适合动用武力，适合有所前往。',
     interpretation: '夬卦象征决断。以正除邪须公开果断，但不宜以暴制暴。',
     lineTexts: [
       '初九：壮于前趾，往不胜为咎。',
@@ -996,6 +1039,7 @@ export const hexagrams: IHexagram[] = [
     upperTrigram: '乾', lowerTrigram: '巽',
     lines: [0, 1, 1, 1, 1, 1],
     judgment: '女壮，勿用取女。',
+    judgmentTranslation: '女子太强势了，不适合娶这样的女子。',
     interpretation: '姤卦象征不期而遇。阴气初生，须警惕小人得势，不宜轻信。',
     lineTexts: [
       '初六：系于金柅，贞吉，有攸往，见凶，羸豕孚蹢躅。',
@@ -1019,6 +1063,7 @@ export const hexagrams: IHexagram[] = [
     upperTrigram: '兑', lowerTrigram: '坤',
     lines: [0, 0, 0, 1, 1, 0],
     judgment: '亨。王假有庙，利见大人，亨，利贞。用大牲吉，利有攸往。',
+    judgmentTranslation: '通达。君王到宗庙祭祀，适合去见有权威的人，通达，守正道有利。用大的牲畜祭祀吉利，适合有所前往。',
     interpretation: '萃卦象征聚集。人心汇聚，宜诚心祭祀，团结众人共成大事。',
     lineTexts: [
       '初六：有孚不终，乃乱乃萃，若号一握为笑，勿恤，往无咎。',
@@ -1042,6 +1087,7 @@ export const hexagrams: IHexagram[] = [
     upperTrigram: '坤', lowerTrigram: '巽',
     lines: [0, 1, 1, 0, 0, 0],
     judgment: '元亨，用见大人，勿恤，南征吉。',
+    judgmentTranslation: '大吉大利，适合去见有权威的人，不用担忧，往南方出征吉利。',
     interpretation: '升卦象征上升。如草木向上生长，循序渐进，前途光明。',
     lineTexts: [
       '初六：允升，大吉。',
@@ -1065,6 +1111,7 @@ export const hexagrams: IHexagram[] = [
     upperTrigram: '兑', lowerTrigram: '坎',
     lines: [0, 1, 0, 1, 1, 0],
     judgment: '亨，贞，大人吉，无咎，有言不信。',
+    judgmentTranslation: '通达，守正道，有德行的大人物吉利，没有过错，但说话没人相信。',
     interpretation: '困卦象征困顿窘迫。身陷困境须保持信念，言语无用，以行动突围。',
     lineTexts: [
       '初六：臀困于株木，入于幽谷，三岁不觌。',
@@ -1088,6 +1135,7 @@ export const hexagrams: IHexagram[] = [
     upperTrigram: '坎', lowerTrigram: '巽',
     lines: [0, 1, 1, 0, 1, 0],
     judgment: '改邑不改井，无丧无得，往来井井。汔至亦未繘井，羸其瓶，凶。',
+    judgmentTranslation: '城邑可以搬迁但水井不能改变，井水不会减少也不会增多，人们来来往往地打水。快要打到水了却没有把绳子放到底，还把水瓶弄破了，凶。',
     interpretation: '井卦象征水井。养民之源不可废弃，修德养人持之以恒方可成功。',
     lineTexts: [
       '初六：井泥不食，旧井无禽。',
@@ -1111,6 +1159,7 @@ export const hexagrams: IHexagram[] = [
     upperTrigram: '兑', lowerTrigram: '离',
     lines: [1, 0, 1, 1, 1, 0],
     judgment: '己日乃孚，元亨利贞，悔亡。',
+    judgmentTranslation: '到了合适的日子才能取信于人，大吉大利守正道，悔恨消失。',
     interpretation: '革卦象征变革。时机成熟则变革，顺天应人方可大亨通。',
     lineTexts: [
       '初九：巩用黄牛之革。',
@@ -1134,6 +1183,7 @@ export const hexagrams: IHexagram[] = [
     upperTrigram: '离', lowerTrigram: '巽',
     lines: [0, 1, 1, 1, 0, 1],
     judgment: '元吉，亨。',
+    judgmentTranslation: '大吉大利，通达。',
     interpretation: '鼎卦象征鼎器。革故鼎新，以贤才治国，大吉大利。',
     lineTexts: [
       '初六：鼎颠趾，利出否，得妾以其子，无咎。',
@@ -1157,6 +1207,7 @@ export const hexagrams: IHexagram[] = [
     upperTrigram: '震', lowerTrigram: '震',
     lines: [1, 0, 0, 1, 0, 0],
     judgment: '亨。震来虩虩，笑言哑哑。震惊百里，不丧匕鬯。',
+    judgmentTranslation: '通达。雷声来时吓得发抖，过后又能有说有笑。雷声震惊百里，但手中的祭祀器具和美酒一点都没洒。',
     interpretation: '震卦象征雷震。虽有惊恐但终能化险为夷，处变不惊者终获福。',
     lineTexts: [
       '初九：震来虩虩，后笑言哑哑，吉。',
@@ -1180,6 +1231,7 @@ export const hexagrams: IHexagram[] = [
     upperTrigram: '艮', lowerTrigram: '艮',
     lines: [0, 0, 1, 0, 0, 1],
     judgment: '艮其背，不获其身，行其庭，不见其人，无咎。',
+    judgmentTranslation: '停在背后看不到自己的身体，走过庭院看不到别人，没有过错。',
     interpretation: '艮卦象征静止。该停则停，知止而后有定，安静守分则无灾咎。',
     lineTexts: [
       '初六：艮其趾，无咎，利永贞。',
@@ -1203,6 +1255,7 @@ export const hexagrams: IHexagram[] = [
     upperTrigram: '巽', lowerTrigram: '艮',
     lines: [0, 0, 1, 0, 1, 1],
     judgment: '女归吉，利贞。',
+    judgmentTranslation: '女子出嫁吉利，守正道有利。',
     interpretation: '渐卦象征循序渐进。如鸿雁渐进，婚姻之事循礼而行则吉。',
     lineTexts: [
       '初六：鸿渐于干，小子厉，有言，无咎。',
@@ -1226,6 +1279,7 @@ export const hexagrams: IHexagram[] = [
     upperTrigram: '震', lowerTrigram: '兑',
     lines: [1, 1, 0, 1, 0, 0],
     judgment: '征凶，无攸利。',
+    judgmentTranslation: '出征凶险，没有什么好处。',
     interpretation: '归妹卦象征少女出嫁。行事若不合规矩则凶，宜三思而后行。',
     lineTexts: [
       '初九：归妹以娣，跛能履，征吉。',
@@ -1249,6 +1303,7 @@ export const hexagrams: IHexagram[] = [
     upperTrigram: '震', lowerTrigram: '离',
     lines: [1, 0, 1, 1, 0, 0],
     judgment: '亨，王假之，勿忧，宜日中。',
+    judgmentTranslation: '通达，君王到达了鼎盛，不用担忧，适合像正午的太阳一样处于最高点。',
     interpretation: '丰卦象征丰盛。事业鼎盛如日中天，但须居安思危，盛极必衰。',
     lineTexts: [
       '初九：遇其配主，虽旬无咎，往有尚。',
@@ -1272,6 +1327,7 @@ export const hexagrams: IHexagram[] = [
     upperTrigram: '离', lowerTrigram: '艮',
     lines: [0, 0, 1, 1, 0, 1],
     judgment: '小亨，旅贞吉。',
+    judgmentTranslation: '小有通达，旅途中守正道吉利。',
     interpretation: '旅卦象征旅行羁旅。客居他乡宜谦逊低调，小事亨通，守正则吉。',
     lineTexts: [
       '初六：旅琐琐，斯其所取灾。',
@@ -1295,6 +1351,7 @@ export const hexagrams: IHexagram[] = [
     upperTrigram: '巽', lowerTrigram: '巽',
     lines: [0, 1, 1, 0, 1, 1],
     judgment: '小亨，利有攸往，利见大人。',
+    judgmentTranslation: '小有通达，适合有所前往，适合去见有权威的人。',
     interpretation: '巽卦象征顺从风入。以柔顺之态渗透推进，宜拜见贤达之人。',
     lineTexts: [
       '初六：进退，利武人之贞。',
@@ -1318,6 +1375,7 @@ export const hexagrams: IHexagram[] = [
     upperTrigram: '兑', lowerTrigram: '兑',
     lines: [1, 1, 0, 1, 1, 0],
     judgment: '亨，利贞。',
+    judgmentTranslation: '通达，守正道有利。',
     interpretation: '兑卦象征喜悦。以和悦之态待人，内心坚定外表和善，万事亨通。',
     lineTexts: [
       '初九：和兑，吉。',
@@ -1341,6 +1399,7 @@ export const hexagrams: IHexagram[] = [
     upperTrigram: '巽', lowerTrigram: '坎',
     lines: [0, 1, 0, 0, 1, 1],
     judgment: '亨。王假有庙，利涉大川，利贞。',
+    judgmentTranslation: '通达。君王到宗庙祭祀，适合去冒大风险，守正道有利。',
     interpretation: '涣卦象征涣散。人心离散须以精神力量凝聚，宜诚心祭祀以聚人心。',
     lineTexts: [
       '初六：用拯马壮，吉。',
@@ -1364,6 +1423,7 @@ export const hexagrams: IHexagram[] = [
     upperTrigram: '坎', lowerTrigram: '兑',
     lines: [1, 1, 0, 0, 1, 0],
     judgment: '亨。苦节不可贞。',
+    judgmentTranslation: '通达。但过于苛刻的节制就不值得坚持了。',
     interpretation: '节卦象征节制。适度节制则亨通，但过于苛刻的节制则不可取。',
     lineTexts: [
       '初九：不出户庭，无咎。',
@@ -1387,6 +1447,7 @@ export const hexagrams: IHexagram[] = [
     upperTrigram: '巽', lowerTrigram: '兑',
     lines: [1, 1, 0, 0, 1, 1],
     judgment: '豚鱼吉，利涉大川，利贞。',
+    judgmentTranslation: '连小猪和鱼都能感化，吉利。适合去冒大风险，守正道有利。',
     interpretation: '中孚卦象征内心诚信。至诚之心可感化万物，诚信待人则万事顺利。',
     lineTexts: [
       '初九：虞吉，有它不燕。',
@@ -1410,6 +1471,7 @@ export const hexagrams: IHexagram[] = [
     upperTrigram: '震', lowerTrigram: '艮',
     lines: [0, 0, 1, 1, 0, 0],
     judgment: '亨，利贞，可小事，不可大事。飞鸟遗之音，不宜上宜下，大吉。',
+    judgmentTranslation: '通达，守正道有利，可以做小事，不可以做大事。飞鸟留下声音，不适合往上飞适合往下落，大吉。',
     interpretation: '小过卦象征稍有过越。做事可稍微超越常规，但不可过分，宜谦下。',
     lineTexts: [
       '初六：飞鸟以凶。',
@@ -1433,6 +1495,7 @@ export const hexagrams: IHexagram[] = [
     upperTrigram: '坎', lowerTrigram: '离',
     lines: [1, 0, 1, 0, 1, 0],
     judgment: '亨小，利贞，初吉终乱。',
+    judgmentTranslation: '小有通达，守正道有利，开始吉利但最终会出乱子。',
     interpretation: '既济卦象征事已成就。万事具备功成名就，但须防范由盛转衰。',
     lineTexts: [
       '初九：曳其轮，濡其尾，无咎。',
@@ -1456,6 +1519,7 @@ export const hexagrams: IHexagram[] = [
     upperTrigram: '离', lowerTrigram: '坎',
     lines: [0, 1, 0, 1, 0, 1],
     judgment: '亨，小狐汔济，濡其尾，无攸利。',
+    judgmentTranslation: '通达。小狐狸快要渡过河了，却弄湿了尾巴，没有什么好处。',
     interpretation: '未济卦象征事未完成。功亏一篑须谨慎，保持清醒继续努力方可成功。',
     lineTexts: [
       '初六：濡其尾，吝。',
