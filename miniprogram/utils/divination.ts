@@ -35,13 +35,13 @@ export interface LineResult {
 export function getLineResult(value: number): LineResult {
   switch (value) {
     case 6:
-      return { value: 6, isYang: false, isChanging: true, label: '老阴 ⚋✕' }
+      return { value: 6, isYang: false, isChanging: true, label: '老阴 ⚋' }
     case 7:
       return { value: 7, isYang: true, isChanging: false, label: '少阳 ⚊' }
     case 8:
       return { value: 8, isYang: false, isChanging: false, label: '少阴 ⚋' }
     case 9:
-      return { value: 9, isYang: true, isChanging: true, label: '老阳 ⚊✕' }
+      return { value: 9, isYang: true, isChanging: true, label: '老阳 ⚊' }
     default:
       return { value: 7, isYang: true, isChanging: false, label: '少阳 ⚊' }
   }

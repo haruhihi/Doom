@@ -1,4 +1,4 @@
-// 起卦页面
+// 铜钱体验页面
 import { throwCoinsDetail, getLineResult, type LineResult } from '../../utils/divination'
 import { startShakeDetection, stopShakeDetection, pauseShakeDetection, resumeShakeDetection } from '../../utils/shake'
 

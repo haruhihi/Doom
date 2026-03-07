@@ -18,7 +18,7 @@
         "pagePath": "pages/index/index",
         "iconPath": "images/tab_divine.png",
         "selectedIconPath": "images/tab_divine_active.png",
-        "text": "起卦"
+        "text": "体验"
       },
       {
         "pagePath": "pages/hexagram-list/hexagram-list",

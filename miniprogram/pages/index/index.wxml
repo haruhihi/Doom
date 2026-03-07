@@ -8,24 +8,24 @@
       <view class="taiji">
         <text class="taiji-symbol">☯</text>
       </view>
-      <text class="app-title">易经占卜</text>
-      <text class="app-subtitle">三枚铜钱 · 问卦天机</text>
+      <text class="app-title">易经爻解</text>
+      <text class="app-subtitle">三枚铜钱 · 感悟经典</text>
     </view>
 
-    <!-- 起卦按钮 -->
+    <!-- 体验按钮 -->
     <view class="divine-area">
       <view class="divine-btn-wrapper" bindtap="onStartDivine">
         <view class="divine-btn-glow"></view>
         <view class="divine-btn">
-          <text class="divine-btn-text">起卦</text>
+          <text class="divine-btn-text">体验</text>
         </view>
       </view>
-      <text class="divine-btn-hint">点击开始摇铜钱占卜</text>
+      <text class="divine-btn-hint">点击开始铜钱体验</text>
     </view>
 
     <!-- 最近记录 -->
     <view class="recent-section" wx:if="{{lastRecord}}">
-      <text class="section-label">上次占卜</text>
+      <text class="section-label">上次体验</text>
       <view class="recent-card" bindtap="onViewLastRecord">
         <view class="recent-left">
           <hexagram-figure lines="{{lastRecord.hexagram.lines}}" size="small"></hexagram-figure>

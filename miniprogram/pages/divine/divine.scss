@@ -176,7 +176,8 @@ page {
 .throw-btn--complete {
   opacity: 1;
   background: linear-gradient(135deg, #5a4a30 0%, #3d3020 100%);
-  color: var(--text-secondary);
+  color: var(--gold);
+  border: 2rpx solid var(--border-gold-strong) !important;
   box-shadow: none;
 }
 
@@ -253,6 +254,13 @@ page {
   width: 16rpx;
 }
 
+.result-changing-slot {
+  width: 56rpx;
+  flex-shrink: 0;
+  display: flex;
+  justify-content: center;
+}
+
 .result-changing {
   font-size: 22rpx;
   color: var(--red);
@@ -260,7 +268,6 @@ page {
   background: var(--red-bg);
   padding: 4rpx 12rpx;
   border-radius: 8rpx;
-  flex-shrink: 0;
   white-space: nowrap;
 }
 

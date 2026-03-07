@@ -1,5 +1,5 @@
-<!-- 起卦页面 -->
-<navigation-bar title="起卦" back="{{true}}" color="#c9a96e" background="#1a1a2e"></navigation-bar>
+<!-- 铜钱体验页面 -->
+<navigation-bar title="铜钱体验" back="{{true}}" color="#c9a96e" background="#1a1a2e"></navigation-bar>
 <scroll-view class="scrollarea" scroll-y type="list">
   <view class="divine-page">
 
@@ -72,7 +72,9 @@
             <view wx:if="{{!item.isYang}}" class="result-line__gap"></view>
             <view class="result-line__bar"></view>
           </view>
-          <text class="result-changing" wx:if="{{item.isChanging}}">变</text>
+          <view class="result-changing-slot">
+            <text wx:if="{{item.isChanging}}" class="result-changing">变</text>
+          </view>
         </view>
       </view>
     </view>

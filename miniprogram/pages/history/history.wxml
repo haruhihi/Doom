@@ -5,8 +5,8 @@
 
     <view wx:if="{{historyList.length === 0}}" class="empty">
       <text class="empty-icon">☯</text>
-      <text class="empty-text">暂无占卜记录</text>
-      <text class="empty-hint">去首页起卦吧</text>
+      <text class="empty-text">暂无体验记录</text>
+      <text class="empty-hint">去首页体验吧</text>
     </view>
 
     <view wx:else>

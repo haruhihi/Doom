@@ -1,5 +1,5 @@
 /**
- * 易经占卜 - 全局样式
+ * 易经爻解 - 全局样式
  * 古典中国风配色：深墨背景 + 古金/朱红点缀
  * 使用 CSS 自定义属性实现主题色系统
  */
@@ -41,10 +41,12 @@ page {
   --surface-light: rgba(255, 255, 255, 0.03);
   --surface-medium: rgba(255, 255, 255, 0.04);
   --surface-strong: rgba(255, 255, 255, 0.05);
+  --surface-dark: rgba(0, 0, 0, 0.2);
 
   --gold-glow-light: rgba(201, 169, 110, 0.2);
   --gold-glow-medium: rgba(201, 169, 110, 0.3);
   --gold-glow-strong: rgba(201, 169, 110, 0.4);
+  --gold-bg-light: rgba(201, 169, 110, 0.08);
 
   --red-bg-light: rgba(179, 57, 57, 0.08);
   --red-bg-medium: rgba(179, 57, 57, 0.12);
