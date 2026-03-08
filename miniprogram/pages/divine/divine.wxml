@@ -15,30 +15,33 @@
       <view class="coin {{isAnimating ? (isQuickMode ? 'coin--flipping-quick' : 'coin--flipping') : ''}} {{coinResults[0] !== undefined ? (coinResults[0] ? 'coin--front' : 'coin--back') : ''}}"
       >
         <view class="coin-face coin-front">
-          <text class="coin-text">開</text>
+          <text class="coin-text">正</text>
           <view class="coin-hole"></view>
         </view>
         <view class="coin-face coin-back">
+          <text class="coin-text coin-text--back">反</text>
           <view class="coin-pattern"></view>
         </view>
       </view>
       <view class="coin {{isAnimating ? (isQuickMode ? 'coin--flipping-quick coin--flipping-delay1' : 'coin--flipping coin--flipping-delay1') : ''}} {{coinResults[1] !== undefined ? (coinResults[1] ? 'coin--front' : 'coin--back') : ''}}"
       >
         <view class="coin-face coin-front">
-          <text class="coin-text">開</text>
+          <text class="coin-text">正</text>
           <view class="coin-hole"></view>
         </view>
         <view class="coin-face coin-back">
+          <text class="coin-text coin-text--back">反</text>
           <view class="coin-pattern"></view>
         </view>
       </view>
       <view class="coin {{isAnimating ? (isQuickMode ? 'coin--flipping-quick coin--flipping-delay2' : 'coin--flipping coin--flipping-delay2') : ''}} {{coinResults[2] !== undefined ? (coinResults[2] ? 'coin--front' : 'coin--back') : ''}}"
       >
         <view class="coin-face coin-front">
-          <text class="coin-text">開</text>
+          <text class="coin-text">正</text>
           <view class="coin-hole"></view>
         </view>
         <view class="coin-face coin-back">
+          <text class="coin-text coin-text--back">反</text>
           <view class="coin-pattern"></view>
         </view>
       </view>
@@ -64,7 +67,8 @@
     <!-- 已投掷结果 -->
     <view class="results-area {{isComplete ? 'results-area--complete' : ''}}" wx:if="{{throwResults.length > 0}}">
       <text class="results-title">掷出结果</text>
-      <text class="results-hint" wx:if="{{hasChangingLine}}">标有「变」表示该爻正在变化，点击查看解读发现更多</text>
+      <text class="results-hint results-hint--info">每条线代表一个「爻」，实线为阳爻，断线为阴爻</text>
+      <text class="results-hint" wx:if="{{hasChangingLine}}">「变」表示该爻正在变化，详情请点击「查看解读」</text>
       <view class="results-list">
         <view
           wx:for="{{throwResults}}"

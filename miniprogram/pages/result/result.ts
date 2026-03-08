@@ -6,15 +6,6 @@ import { hexagramInsights } from '../../data/hexagram-insights'
 
 const LINE_NAMES = ['初爻', '二爻', '三爻', '四爻', '五爻', '上爻']
 
-// 态势阶段静态数组
-const ATTITUDE_STAGES = [
-  { label: '稳定期', color: 'green' },
-  { label: '有变数', color: 'yellow' },
-  { label: '转折期', color: 'orange' },
-  { label: '大变动', color: 'red' },
-  { label: '全面翻转', color: 'purple' },
-]
-
 interface ILineDetail {
   position: number
   positionName: string
@@ -80,8 +71,6 @@ Component({
     // 态势标签
     attitudeLabel: '',
     attitudeColor: '',
-    // 态势阶段（横条）
-    attitudeStages: ATTITUDE_STAGES,
     // 核心态势与行动建议
     insightSituation: '',
     insightAdvice: '',
@@ -89,8 +78,6 @@ Component({
     showDetailSheet: false,
     // 完整爻辞列表（用于detail sheet）
     allLineTexts: [] as ILineDetail[],
-    // 本卦是否为次要（4+变爻时变淡）
-    hexIsDimmed: false,
     // 是否已保存
     isSaved: false,
     // 卦辞标签（关键/次要/参考）
@@ -122,9 +109,6 @@ Component({
 
       // 态势标签
       var attitude = _buildAttitudeTag(changingLines.length)
-
-      // 本卦是否变淡（4+变爻时，变卦为主，本卦为辅）
-      var hexIsDimmed = changingLines.length >= 4
 
       // 核心态势与行动建议（0-3变爻看本卦，4-6变爻看变卦）
       var insightHex: IHexagram | null = null
@@ -227,7 +211,6 @@ Component({
         guidanceText: _buildGuidance(changingCount, hex, changed),
         attitudeLabel: attitude.label,
         attitudeColor: attitude.color,
-        hexIsDimmed: hexIsDimmed,
         insightSituation: insight ? insight.situation : '',
         insightAdvice: insight ? insight.advice : '',
         hexFocusTag: hexFocusTag,

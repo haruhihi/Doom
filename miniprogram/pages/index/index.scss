@@ -154,6 +154,7 @@ page {
   display: flex;
   flex-direction: row;
   align-items: center;
+  justify-content: space-between;
   gap: 12rpx;
 }
 
@@ -163,16 +164,13 @@ page {
   font-weight: bold;
 }
 
-.recent-scene {
-  font-size: 20rpx;
-  color: var(--gold);
-  background: var(--gold-bg-light);
-  padding: 4rpx 14rpx;
-  border-radius: 12rpx;
+.recent-time {
+  font-size: 22rpx;
+  color: var(--text-tertiary);
   flex-shrink: 0;
 }
 
-.recent-judgment {
+.recent-interp {
   font-size: 24rpx;
   color: var(--text-body);
   line-height: 1.5;
@@ -180,12 +178,6 @@ page {
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
-}
-
-.recent-time {
-  font-size: 22rpx;
-  color: var(--text-tertiary);
-  margin-top: 4rpx;
 }
 
 /* 测试按钮 */

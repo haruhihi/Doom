@@ -37,15 +37,15 @@
           bindtouchend="onRecordTouchEnd"
         >
           <view class="record-left">
-            <hexagram-figure lines="{{item.hexagram.lines}}" changingLines="{{item.changingLines}}" size="small"></hexagram-figure>
+            <hexagram-figure lines="{{item.hexagram.lines}}" size="small"></hexagram-figure>
           </view>
           <view class="record-right">
             <view class="record-header">
               <text class="record-name">{{item.hexagram.name}}</text>
-              <text wx:if="{{item.changedHexagram}}" class="record-changed">变 {{item.changedHexagram.name}}</text>
+              <text class="record-time">{{item.timeStr}}</text>
             </view>
             <text class="record-judgment">{{item.hexagram.judgment}}</text>
-            <text class="record-meta">{{item.sceneEmoji}} {{item.sceneLabel}} · {{item.timeStr}}</text>
+            <text class="record-interp">{{item.hexagram.interpretation}}</text>
           </view>
         </view>
       </view>

@@ -65,19 +65,20 @@
 /* 变爻标记 */
 .hexagram-line__mark {
   position: absolute;
-  right: -40rpx;
-  font-size: 20rpx;
+  right: -48rpx;
+  font-size: 18rpx;
   color: var(--red, #b33939);
+  font-weight: bold;
 }
 
 .hexagram-figure--large .hexagram-line__mark {
-  right: -50rpx;
-  font-size: 24rpx;
+  right: -56rpx;
+  font-size: 22rpx;
 }
 
 .hexagram-figure--small .hexagram-line__mark {
-  right: -28rpx;
-  font-size: 16rpx;
+  right: -36rpx;
+  font-size: 14rpx;
 }
 
 /* 变爻闪烁动画 */

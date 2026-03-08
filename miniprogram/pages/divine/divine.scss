@@ -92,6 +92,10 @@ page {
   line-height: 1;
 }
 
+.coin-text--back {
+  color: #5a4318;
+}
+
 .coin-hole {
   width: 28rpx;
   height: 28rpx;
@@ -252,7 +256,7 @@ page {
 }
 
 .results-hint {
-  font-size: 24rpx;
+  font-size: 26rpx;
   color: var(--text-body);
   background: var(--red-bg-light);
   padding: 12rpx 20rpx;
@@ -262,9 +266,14 @@ page {
   margin-bottom: 16rpx;
 }
 
+.results-hint--info {
+  background: var(--gold-bg-light);
+  border-left-color: var(--gold);
+}
+
 .results-list {
   display: flex;
-  flex-direction: column;
+  flex-direction: column-reverse;
   gap: 16rpx;
 }
 

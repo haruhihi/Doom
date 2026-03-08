@@ -15,14 +15,13 @@ page {
   padding-bottom: 200rpx; /* space for fixed bottom bar */
 }
 
-/* ========== 卦象展示区（始终并排） ========== */
+/* ========== 卦象展示区（单卦居中） ========== */
 .hex-display {
   position: relative;
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+  flex-direction: column;
   align-items: center;
-  gap: 24rpx;
+  gap: 16rpx;
   padding: 80rpx 28rpx 32rpx;
   margin-bottom: 24rpx;
   background: var(--surface-light);
@@ -36,10 +35,6 @@ page {
   align-items: center;
   gap: 16rpx;
   min-width: 0;
-}
-
-.hex-side--dimmed {
-  opacity: 0.5;
 }
 
 .hex-name {
@@ -57,54 +52,9 @@ page {
 }
 
 .hex-subtitle {
-  font-size: 20rpx;
-  color: var(--text-tertiary);
-  opacity: 0.6;
-  text-align: center;
-}
-
-.hex-arrow {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 64rpx;
-  height: 64rpx;
-  flex-shrink: 0;
-  border-radius: 50%;
-  background: var(--red-bg);
-  border: 2rpx solid var(--red-border-medium);
-  margin-bottom: 96rpx; /* 上移箭头，对齐卦象图中心 */
-}
-
-.hex-arrow-text {
   font-size: 26rpx;
-  color: var(--red);
+  color: var(--gold);
   font-weight: bold;
-  line-height: 1;
-}
-
-/* 无变卦占位 */
-.hex-placeholder {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  min-width: 0;
-  gap: 12rpx;
-  padding: 40rpx 16rpx;
-}
-
-.hex-placeholder-label {
-  font-size: 30rpx;
-  color: var(--text-tertiary);
-  font-weight: bold;
-}
-
-.hex-placeholder-desc {
-  font-size: 22rpx;
-  color: var(--text-tertiary);
-  opacity: 0.7;
   text-align: center;
 }
 
@@ -137,122 +87,50 @@ page {
   background: var(--gold-bg-light);
 }
 
-/* ========== 查看卦辞解读按钮（insight-block右上角） ========== */
-.detail-entry {
-  position: absolute;
-  top: 20rpx;
-  right: 20rpx;
-}
-
-.detail-entry-text {
-  font-size: 22rpx;
-  color: var(--gold);
-  opacity: 0.8;
-  padding: 6rpx 18rpx;
-  border: 1rpx solid var(--border-gold-faint);
-  border-radius: 20rpx;
-  background: var(--gold-bg-light);
-}
-
-/* ========== 态势横条 ========== */
-.attitude-strip {
+/* ========== 查看卦辞解读按钮（insight-block底部全宽） ========== */
+.detail-entry-bar {
   display: flex;
-  flex-direction: row;
-  gap: 0;
-  margin-bottom: 28rpx;
-  background: var(--surface-light);
-  border-radius: 16rpx;
-  border: 1rpx solid var(--border-gold-faint);
-  overflow: hidden;
-}
-
-.attitude-strip-item {
-  flex: 1;
-  display: flex;
-  flex-direction: row;
   align-items: center;
   justify-content: center;
-  gap: 6rpx;
-  padding: 16rpx 4rpx;
-  transition: all 0.3s ease;
+  width: 100%;
+  padding: 20rpx 0;
+  border: 2rpx solid var(--border-gold-strong);
+  border-radius: 16rpx;
+  background: transparent;
+  margin-top: 8rpx;
+  animation: key-border-pulse 2s ease-in-out infinite;
 }
 
-.attitude-strip-dot {
-  width: 10rpx;
-  height: 10rpx;
-  border-radius: 50%;
-  background: var(--text-tertiary);
-  opacity: 0.4;
-  flex-shrink: 0;
+.detail-entry-bar-text {
+  font-size: 28rpx;
+  color: var(--gold);
+  font-weight: bold;
+  letter-spacing: 2rpx;
 }
 
-/* Dot color variants (default / inactive state) */
-.attitude-strip-item--green .attitude-strip-dot {
-  background: #4ade80;
-}
-.attitude-strip-item--yellow .attitude-strip-dot {
-  background: #facc15;
-}
-.attitude-strip-item--orange .attitude-strip-dot {
-  background: #fb923c;
-}
-.attitude-strip-item--red .attitude-strip-dot {
-  background: #f87171;
-}
-.attitude-strip-item--purple .attitude-strip-dot {
-  background: #c084fc;
+/* ========== 态势标签（核心态势后方内联） ========== */
+.attitude-inline {
+  font-weight: bold;
 }
 
-.attitude-strip-label {
-  font-size: 20rpx;
-  color: var(--text-tertiary);
-  text-align: center;
-  line-height: 1.2;
-}
-
-/* Active state — each color variant */
-.attitude-strip-item--active .attitude-strip-dot {
-  opacity: 1;
-}
-
-.attitude-strip-item--active.attitude-strip-item--green {
-  background: rgba(74, 222, 128, 0.15);
-}
-.attitude-strip-item--active.attitude-strip-item--green .attitude-strip-label {
+.attitude-inline--green {
   color: #4ade80;
-  font-weight: bold;
 }
 
-.attitude-strip-item--active.attitude-strip-item--yellow {
-  background: rgba(250, 204, 21, 0.15);
-}
-.attitude-strip-item--active.attitude-strip-item--yellow .attitude-strip-label {
+.attitude-inline--yellow {
   color: #facc15;
-  font-weight: bold;
 }
 
-.attitude-strip-item--active.attitude-strip-item--orange {
-  background: rgba(251, 146, 60, 0.15);
-}
-.attitude-strip-item--active.attitude-strip-item--orange .attitude-strip-label {
+.attitude-inline--orange {
   color: #fb923c;
-  font-weight: bold;
 }
 
-.attitude-strip-item--active.attitude-strip-item--red {
-  background: rgba(248, 113, 113, 0.15);
-}
-.attitude-strip-item--active.attitude-strip-item--red .attitude-strip-label {
+.attitude-inline--red {
   color: #f87171;
-  font-weight: bold;
 }
 
-.attitude-strip-item--active.attitude-strip-item--purple {
-  background: rgba(192, 132, 252, 0.15);
-}
-.attitude-strip-item--active.attitude-strip-item--purple .attitude-strip-label {
+.attitude-inline--purple {
   color: #c084fc;
-  font-weight: bold;
 }
 
 /* ========== 核心态势与行动建议 ========== */
@@ -278,6 +156,7 @@ page {
   font-size: 24rpx;
   font-weight: bold;
   color: var(--gold);
+  display: inline;
 }
 
 .insight-text {
@@ -286,13 +165,13 @@ page {
   line-height: 1.8;
 }
 
-/* 朱熹提示（insight-block底部，突出展示） */
+/* 朱熹提示（insight-block顶部，突出展示） */
 .insight-zhuxi-hint {
   display: flex;
   flex-direction: row;
   align-items: center;
   gap: 16rpx;
-  margin-top: 8rpx;
+  margin-bottom: 4rpx;
   padding: 20rpx 24rpx;
   background: linear-gradient(135deg, rgba(201, 169, 110, 0.14) 0%, rgba(201, 169, 110, 0.05) 100%);
   border-left: 4rpx solid var(--gold);
@@ -859,14 +738,14 @@ page {
 }
 
 .inline-line-changed-classical {
-  font-size: 26rpx;
-  color: var(--text-primary);
+  font-size: 22rpx;
+  color: var(--text-tertiary);
   line-height: 1.7;
 }
 
 .inline-line-changed-interp {
-  font-size: 24rpx;
-  color: var(--text-secondary);
+  font-size: 26rpx;
+  color: #e8dcc8;
   line-height: 1.7;
 }
 

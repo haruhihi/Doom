@@ -14,6 +14,6 @@
     <view class="hexagram-line__left"></view>
     <view wx:if="{{!item.isYang}}" class="hexagram-line__gap"></view>
     <view class="hexagram-line__right"></view>
-    <view wx:if="{{item.isChanging}}" class="hexagram-line__mark">✕</view>
+    <view wx:if="{{item.isChanging}}" class="hexagram-line__mark">变</view>
   </view>
 </view>

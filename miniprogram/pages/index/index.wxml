@@ -28,15 +28,15 @@
       <text class="section-label">上次体验</text>
       <view class="recent-card" bindtap="onViewLastRecord">
         <view class="recent-left">
-          <hexagram-figure lines="{{lastRecord.hexagram.lines}}" changingLines="{{lastRecord.changingLines}}" size="small"></hexagram-figure>
+          <hexagram-figure lines="{{lastRecord.hexagram.lines}}" size="small"></hexagram-figure>
         </view>
         <view class="recent-right">
           <view class="recent-header">
-            <text class="recent-name">{{lastRecord.hexagram.symbol}} {{lastRecord.hexagram.name}}</text>
-            <text wx:if="{{lastRecord.sceneEmoji}}" class="recent-scene">{{lastRecord.sceneEmoji}} {{lastRecord.sceneLabel}}</text>
+            <text class="recent-name">{{lastRecord.hexagram.name}}卦</text>
+            <text class="recent-time">{{lastRecord.timeStr}}</text>
           </view>
           <text class="recent-judgment">{{lastRecord.hexagram.judgment}}</text>
-          <text class="recent-time">{{lastRecord.timeStr}}</text>
+          <text class="recent-interp">{{lastRecord.hexagram.interpretation}}</text>
         </view>
       </view>
     </view>

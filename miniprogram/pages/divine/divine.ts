@@ -105,7 +105,7 @@ Component({
             isAnimating: false,
             isComplete,
             hasChangingLine: this.data.hasChangingLine || lineResult.isChanging,
-            headerHint: isComplete ? '结果已出，点击查看解读' : '点击继续',
+            headerHint: isComplete ? '结果已出，点击「查看解读」' : '点击继续',
           })
 
           // 完成
@@ -188,7 +188,7 @@ Component({
               isAnimating: false,
               isComplete: isComplete,
               hasChangingLine: self.data.hasChangingLine || lineResult.isChanging,
-              headerHint: isComplete ? '结果已出，点击查看解读' : '铜钱落定中...',
+              headerHint: isComplete ? '结果已出，点击「查看解读」' : '铜钱落定中...',
             })
 
             if (!isComplete) {
