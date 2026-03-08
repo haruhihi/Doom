@@ -14,10 +14,24 @@ Component({
     scenarioMetas: scenarioMetas,
     selectedScene: 'general' as ScenarioKey,
     showSceneSheet: false,
+    isDev: false,
+    showTestSheet: false,
+    testCases: [
+      { throws: '7,8,7,8,7,8', scene: 'general', desc: '0变爻' },
+      { throws: '9,7,8,7,8,7', scene: 'career', desc: '1变爻' },
+      { throws: '9,6,7,8,7,8', scene: 'love', desc: '2变爻' },
+      { throws: '9,6,9,7,8,7', scene: 'decision', desc: '3变爻' },
+      { throws: '9,6,9,6,7,8', scene: 'wealth', desc: '4变爻' },
+      { throws: '9,6,9,6,9,7', scene: 'study', desc: '5变爻' },
+      { throws: '9,6,9,6,9,6', scene: 'health', desc: '6变爻' },
+    ],
   },
 
   lifetimes: {
     attached() {
+      var info = wx.getAccountInfoSync()
+      var env = info && info.miniProgram ? info.miniProgram.envVersion : 'release'
+      this.setData({ isDev: env !== 'release' })
       this._loadLastRecord()
     }
   },
@@ -90,6 +104,24 @@ Component({
       if (record.scene) {
         url += '&scene=' + record.scene
       }
+      wx.navigateTo({ url: url })
+    },
+
+    // ===== 测试按钮：打开测试场景选择 =====
+    onTestDivine() {
+      this.setData({ showTestSheet: true })
+    },
+
+    onCloseTestSheet() {
+      this.setData({ showTestSheet: false })
+    },
+
+    onSelectTestCase(e: WechatMiniprogram.TouchEvent) {
+      var idx = e.currentTarget.dataset.idx
+      var tc = this.data.testCases[idx]
+      if (!tc) return
+      this.setData({ showTestSheet: false })
+      var url = '../result/result?throws=' + tc.throws + '&scene=' + tc.scene
       wx.navigateTo({ url: url })
     },
   }

@@ -7,7 +7,7 @@
     <view class="divine-header">
       <text class="divine-step" wx:if="{{!isComplete}}">第 {{currentThrow + 1}} / 6 爻</text>
       <text class="divine-step" wx:if="{{isComplete}}">六爻已齐</text>
-      <text class="divine-hint" wx:if="{{!isAnimating && !isComplete}}">摇动手机 或 点击下方按钮</text>
+      <text class="divine-hint" wx:if="{{!isAnimating && !isComplete}}">点击开始</text>
       <text class="divine-hint" wx:if="{{isAnimating}}">铜钱落定中...</text>
       <text class="divine-hint divine-hint--done" wx:if="{{isComplete}}">卦象已定，请查看解读</text>
     </view>
@@ -47,8 +47,8 @@
     </view>
 
     <!-- 提示文字 -->
-    <text class="throw-hint" wx:if="{{!isComplete && currentThrow === 0}}">手动掷卦：摇动手机或点击按钮，逐步掷出六爻</text>
-    <text class="throw-hint" wx:if="{{!isComplete && currentThrow > 0}}">摇动手机 或 点击掷铜钱</text>
+    <text class="throw-hint" wx:if="{{!isComplete && (currentThrow === 0 || isQuickMode)}}">每次掷出三枚铜钱，共六次</text>
+    <text class="throw-hint" wx:if="{{!isComplete && currentThrow > 0 && !isQuickMode}}">点击继续</text>
 
     <!-- 投掷按钮 -->
     <view class="throw-btn-area" wx:if="{{!isComplete}}">

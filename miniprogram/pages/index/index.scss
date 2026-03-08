@@ -188,6 +188,28 @@ page {
   margin-top: 4rpx;
 }
 
+/* 测试按钮 */
+.test-area {
+  width: 100%;
+  margin-bottom: 20rpx;
+}
+
+.test-btn {
+  width: 100%;
+  height: 72rpx;
+  line-height: 72rpx;
+  text-align: center;
+  font-size: 26rpx;
+  color: var(--text-secondary);
+  background: var(--surface-dark);
+  border: 1rpx dashed var(--border-gold-faint);
+  border-radius: 16rpx;
+}
+
+.test-btn::after {
+  border: none;
+}
+
 /* 底部装饰 */
 .footer-deco {
   display: flex;
@@ -361,4 +383,39 @@ page {
 
 .sheet-confirm-btn::after {
   border: none;
+}
+
+/* ========== 测试场景选择 ========== */
+.test-case-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.test-case-item {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24rpx 16rpx;
+  border-bottom: 1rpx solid var(--border-gold-faint);
+}
+
+.test-case-item:last-child {
+  border-bottom: none;
+}
+
+.test-case-item:active {
+  background: rgba(201, 169, 110, 0.08);
+}
+
+.test-case-desc {
+  font-size: 28rpx;
+  color: var(--text-primary);
+  font-weight: bold;
+}
+
+.test-case-scene {
+  font-size: 22rpx;
+  color: var(--text-tertiary);
 }

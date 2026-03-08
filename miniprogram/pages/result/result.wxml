@@ -3,264 +3,85 @@
 <scroll-view class="scrollarea" scroll-y type="list">
   <view class="result-page" wx:if="{{hexagram}}">
 
-    <!-- ========== 情境标签 ========== -->
-    <view class="scene-badge" wx:if="{{sceneTag}}">
-      <text class="scene-badge-text">{{sceneTag}}</text>
-    </view>
+    <!-- ========== 卦象展示区（始终并排） ========== -->
+    <view class="hex-display">
+      <!-- 卦象小标题（左上） -->
+      <text class="hex-section-label">卦象</text>
+      <!-- 了解变卦链接（右上角） -->
+      <view class="hex-change-tip" wx:if="{{changedHexagram}}" bindtap="onShowChangeTipSheet">
+        <text class="hex-change-tip-text">了解变卦 ›</text>
+      </view>
 
-    <!-- ========== 指引横幅 ========== -->
-    <view class="guidance-banner" wx:if="{{guidanceText}}">
-      <text class="guidance-text">{{guidanceText}}</text>
-    </view>
-
-    <!-- ========== 卦象展示区 ========== -->
-
-    <!-- 0变爻：仅本卦 -->
-    <view class="hex-display hex-display--solo" wx:if="{{changingCount === 0}}">
-      <view class="hex-main">
+      <!-- 本卦（左） -->
+      <view class="hex-side {{hexIsDimmed ? 'hex-side--dimmed' : ''}}">
         <hexagram-figure lines="{{hexagram.lines}}" changingLines="{{changingLines}}" size="large"></hexagram-figure>
         <text class="hex-name">{{hexagram.symbol}} {{hexagram.name}}</text>
         <text class="hex-trigrams">{{hexagram.upperTrigram}} 上 · {{hexagram.lowerTrigram}} 下</text>
       </view>
-    </view>
 
-    <!-- 1-2变爻：本卦突出 + 变卦折叠 -->
-    <block wx:elif="{{changingCount <= 2}}">
-      <view class="hex-display hex-display--solo">
-        <view class="hex-main">
-          <hexagram-figure lines="{{hexagram.lines}}" changingLines="{{changingLines}}" size="large"></hexagram-figure>
-          <text class="hex-name">{{hexagram.symbol}} {{hexagram.name}}</text>
-          <text class="hex-trigrams">{{hexagram.upperTrigram}} 上 · {{hexagram.lowerTrigram}} 下</text>
-        </view>
-      </view>
-      <!-- 查看变卦 展开按钮 -->
-      <view class="changed-toggle" wx:if="{{changedHexagram}}" bindtap="onToggleChanged">
-        <text class="changed-toggle-text">{{showChangedExpanded ? '收起变卦' : '查看变卦'}} · {{changedHexagram.symbol}} {{changedHexagram.name}}</text>
-        <text class="changed-toggle-arrow {{showChangedExpanded ? 'changed-toggle-arrow--up' : ''}}">›</text>
-      </view>
-      <!-- 变卦展开区 -->
-      <view class="changed-expanded {{showChangedExpanded ? 'changed-expanded--show' : ''}}" wx:if="{{changedHexagram}}">
-        <view class="hex-display hex-display--secondary">
-          <view class="hex-changed">
-            <hexagram-figure lines="{{changedHexagram.lines}}" size="large"></hexagram-figure>
-            <text class="hex-name hex-name--changed">{{changedHexagram.symbol}} {{changedHexagram.name}}</text>
-            <text class="hex-trigrams">{{changedHexagram.upperTrigram}} 上 · {{changedHexagram.lowerTrigram}} 下</text>
-          </view>
-        </view>
-        <!-- 变卦卦辞 -->
-        <view class="judgment-item judgment-item--changed" style="padding: 24rpx 28rpx;">
-          <text class="judgment-label judgment-label--changed">{{changedHexagram.name}} · 变卦卦辞</text>
-          <text class="judgment-classical">{{changedHexagram.judgment}}</text>
-          <text class="judgment-translation" wx:if="{{changedHexagram.judgmentTranslation}}">{{changedHexagram.judgmentTranslation}}</text>
-          <text class="judgment-interp">{{changedHexagram.interpretation}}</text>
-        </view>
-      </view>
-    </block>
-
-    <!-- 3变爻：双卦并列，本卦为主 -->
-    <view class="hex-display" wx:elif="{{changingCount === 3}}">
-      <view class="hex-main">
-        <hexagram-figure lines="{{hexagram.lines}}" changingLines="{{changingLines}}" size="large"></hexagram-figure>
-        <text class="hex-name">{{hexagram.symbol}} {{hexagram.name}}</text>
-        <text class="hex-trigrams">{{hexagram.upperTrigram}} 上 · {{hexagram.lowerTrigram}} 下</text>
-      </view>
-      <view class="hex-arrow">
+      <!-- 变箭头 -->
+      <view class="hex-arrow" wx:if="{{changedHexagram}}">
         <text class="hex-arrow-text">变</text>
       </view>
-      <view class="hex-changed">
+
+      <!-- 变卦（右） — 有变卦时显示 -->
+      <view class="hex-side" wx:if="{{changedHexagram}}">
         <hexagram-figure lines="{{changedHexagram.lines}}" size="large"></hexagram-figure>
         <text class="hex-name">{{changedHexagram.symbol}} {{changedHexagram.name}}</text>
         <text class="hex-trigrams">{{changedHexagram.upperTrigram}} 上 · {{changedHexagram.lowerTrigram}} 下</text>
       </view>
-    </view>
 
-    <!-- 4-5变爻：双卦并列，变卦为主 -->
-    <view class="hex-display" wx:elif="{{changingCount >= 4 && changingCount <= 5}}">
-      <view class="hex-main hex-section--secondary">
-        <hexagram-figure lines="{{hexagram.lines}}" changingLines="{{changingLines}}" size="large"></hexagram-figure>
-        <text class="hex-name">{{hexagram.symbol}} {{hexagram.name}}</text>
-        <text class="hex-trigrams">{{hexagram.upperTrigram}} 上 · {{hexagram.lowerTrigram}} 下</text>
-      </view>
-      <view class="hex-arrow">
-        <text class="hex-arrow-text">变</text>
-      </view>
-      <view class="hex-changed">
-        <hexagram-figure lines="{{changedHexagram.lines}}" size="large"></hexagram-figure>
-        <text class="hex-name">{{changedHexagram.symbol}} {{changedHexagram.name}}</text>
-        <text class="hex-trigrams">{{changedHexagram.upperTrigram}} 上 · {{changedHexagram.lowerTrigram}} 下</text>
+      <!-- 无变卦时占位 -->
+      <view class="hex-placeholder" wx:if="{{!changedHexagram}}">
+        <text class="hex-placeholder-label">无变卦</text>
+        <text class="hex-placeholder-desc">六爻皆稳，卦象不变</text>
       </view>
     </view>
 
-    <!-- 6变爻：变卦为主，本卦为辅 -->
-    <view class="hex-display" wx:elif="{{changingCount === 6}}">
-      <view class="hex-main hex-section--secondary">
-        <hexagram-figure lines="{{hexagram.lines}}" changingLines="{{changingLines}}" size="large"></hexagram-figure>
-        <text class="hex-name">{{hexagram.symbol}} {{hexagram.name}}</text>
-        <text class="hex-trigrams">{{hexagram.upperTrigram}} 上 · {{hexagram.lowerTrigram}} 下</text>
-      </view>
-      <view class="hex-arrow">
-        <text class="hex-arrow-text">变</text>
-      </view>
-      <view class="hex-changed">
-        <hexagram-figure lines="{{changedHexagram.lines}}" size="large"></hexagram-figure>
-        <text class="hex-name">{{changedHexagram.symbol}} {{changedHexagram.name}}</text>
-        <text class="hex-trigrams">{{changedHexagram.upperTrigram}} 上 · {{changedHexagram.lowerTrigram}} 下</text>
+    <!-- ========== 态势横条 ========== -->
+    <view class="attitude-strip">
+      <view
+        wx:for="{{attitudeStages}}"
+        wx:key="color"
+        class="attitude-strip-item attitude-strip-item--{{item.color}} {{attitudeColor === item.color ? 'attitude-strip-item--active' : ''}}"
+      >
+        <view class="attitude-strip-dot"></view>
+        <text class="attitude-strip-label">{{item.label}}</text>
       </view>
     </view>
 
-    <!-- ========== 情境指引 (Premium) ========== -->
-    <view class="scenario-section">
-      <view class="section-header">
-        <text class="section-title">情境指引</text>
+    <!-- ========== 核心态势与行动建议 ========== -->
+    <view class="insight-block" wx:if="{{insightSituation}}">
+      <!-- 查看卦辞解读（右上角） -->
+      <view class="detail-entry" bindtap="onShowDetailSheet">
+        <text class="detail-entry-text">卦辞解读 ›</text>
       </view>
-      <view class="scenario-grid">
-        <view
-          wx:for="{{scenarioMetas}}"
-          wx:key="key"
-          class="scenario-tag {{activeScene === item.key ? 'scenario-tag--active' : ''}}"
-          data-key="{{item.key}}"
-          bindtap="onSelectScene"
-        >
-          <text class="scenario-tag-emoji">{{item.emoji}}</text>
-          <text class="scenario-tag-label">{{item.label}}</text>
-        </view>
+      <view class="insight-item">
+        <text class="insight-label">核心态势</text>
+        <text class="insight-text">{{insightSituation}}</text>
       </view>
-      <view class="scenario-content" wx:if="{{scenarioContent}}">
-        <view class="scenario-change-note" wx:if="{{changedHexagram}}">
-          <text class="scenario-change-note-text">以下启示基于本卦「{{hexagram.name}}」。变爻的具体启示请参阅下方变爻解读部分。</text>
-        </view>
-        <text class="scenario-text">{{scenarioContent}}</text>
+      <view class="insight-item">
+        <text class="insight-label">行动建议</text>
+        <text class="insight-text">{{insightAdvice}}</text>
       </view>
-      <view class="scenario-disclaimer" wx:if="{{scenarioContent}}">
-        <text class="scenario-disclaimer-text">以上内容基于《易经》古籍的文化解读，仅供学习参考。</text>
-      </view>
-    </view>
-
-    <!-- ========== 卦辞与解读（合并区块） ========== -->
-    <view class="section judgment-section">
-      <view class="section-header {{changingCount > 0 ? 'section-header--with-action' : ''}}">
-        <text class="section-title">卦辞与解读</text>
-        <view class="section-action" bindtap="onShowLineSheet" wx:if="{{changingCount > 0}}">
-          <text class="section-action-text">查看爻辞</text>
-          <text class="section-action-arrow">›</text>
-        </view>
-      </view>
-      <view class="section-body judgment-body">
-        <!-- 本卦 -->
-        <view class="judgment-item">
-          <text class="judgment-label">{{hexagram.name}} · 卦辞</text>
-          <text class="judgment-classical">{{hexagram.judgment}}</text>
-          <text class="judgment-translation" wx:if="{{hexagram.judgmentTranslation}}">{{hexagram.judgmentTranslation}}</text>
-          <text class="judgment-interp">{{hexagram.interpretation}}</text>
-        </view>
-
-        <!-- 0变爻：内联显示全部爻辞 -->
-        <block wx:if="{{changingCount === 0}}">
-          <view class="inline-lines-divider">
-            <view class="inline-lines-divider-line"></view>
-            <text class="inline-lines-divider-text">六爻详解</text>
-            <view class="inline-lines-divider-line"></view>
-          </view>
-          <view class="inline-lines">
-            <view class="inline-line-item" wx:for="{{allLineTexts}}" wx:key="position">
-              <text class="inline-line-pos">{{item.positionName}}</text>
-              <text class="inline-line-classical">{{item.text}}</text>
-              <text class="inline-line-interp" wx:if="{{item.interp}}">{{item.interp}}</text>
-            </view>
-          </view>
-        </block>
-
-        <!-- 3+变爻：变卦卦辞也在此区块内 -->
-        <block wx:if="{{changedHexagram && changingCount >= 3}}">
-          <view class="judgment-divider">
-            <view class="judgment-divider-line"></view>
-            <text class="judgment-divider-text">变卦</text>
-            <view class="judgment-divider-line"></view>
-          </view>
-          <view class="judgment-item judgment-item--changed">
-            <text class="judgment-label judgment-label--changed">{{changedHexagram.name}} · 变卦卦辞</text>
-            <text class="judgment-classical">{{changedHexagram.judgment}}</text>
-            <text class="judgment-translation" wx:if="{{changedHexagram.judgmentTranslation}}">{{changedHexagram.judgmentTranslation}}</text>
-            <text class="judgment-interp">{{changedHexagram.interpretation}}</text>
-          </view>
-        </block>
-      </view>
-    </view>
-
-    <!-- ========== 变爻解读 ========== -->
-    <view class="section changing-section" wx:if="{{changingLineDetails.length > 0}}">
-      <view class="section-header section-header--with-action">
-        <text class="section-title">变爻解读</text>
-        <view class="section-action" bindtap="onShowChangeTipSheet">
-          <text class="section-action-text">了解变卦</text>
-          <text class="section-action-arrow">›</text>
-        </view>
-      </view>
-      <view class="section-body changing-body">
-        <!-- 朱熹规则栏 -->
-        <view class="zhuxi-bar" wx:if="{{currentZhuxiRule}}">
-          <view class="zhuxi-bar-content">
-            <view class="zhuxi-bar-row">
-              <text class="zhuxi-bar-count">{{changingLines.length}} 条变爻</text>
-              <text class="zhuxi-bar-sep">·</text>
-              <text class="zhuxi-bar-focus">{{currentZhuxiRule.focus}}</text>
-            </view>
-            <text class="zhuxi-bar-reason">{{currentZhuxiRule.reason}}</text>
-          </view>
-          <view class="zhuxi-tip-icon" bindtap="onShowZhuxiModal">
-            <text class="zhuxi-tip-icon-text">?</text>
-          </view>
-        </view>
-
-        <!-- 断卦结论 -->
-        <view class="conclusion-block" wx:if="{{conclusion}}">
-          <text class="conclusion-summary">{{conclusion.summary}}</text>
-          <view wx:for="{{conclusion.items}}" wx:key="label"
-                class="conclusion-item {{item.isPrimary ? '' : 'conclusion-item--secondary'}}">
-            <text class="conclusion-label">{{item.isPrimary ? '★ ' : ''}}{{item.label}}{{item.isPrimary ? '' : '（参考）'}}</text>
-            <text class="conclusion-classical">{{item.classical}}</text>
-            <text class="conclusion-interp">{{item.interp}}</text>
-          </view>
-        </view>
-
-        <!-- 变爻列表 -->
-        <view class="changing-list">
-          <view class="changing-card {{item.isFocus ? 'changing-card--focus' : ''}}" wx:for="{{changingLineDetails}}" wx:key="position">
-            <!-- 本卦爻辞 -->
-            <view class="changing-card-side">
-              <view class="changing-card-tag">
-                <text class="changing-card-tag-hex">{{hexagram.name}}</text>
-                <text class="changing-card-tag-pos">{{item.positionName}}</text>
-                <text wx:if="{{item.isFocus}}" class="changing-card-focus-badge">★ 主断</text>
-              </view>
-              <text class="changing-card-text">{{item.originalText}}</text>
-              <text class="changing-card-interp" wx:if="{{item.originalInterp}}">{{item.originalInterp}}</text>
-            </view>
-            <!-- 变化指示 -->
-            <view class="changing-card-arrow">
-              <text class="changing-card-arrow-icon">↓ 变 ↓</text>
-            </view>
-            <!-- 变卦爻辞 -->
-            <view class="changing-card-side">
-              <view class="changing-card-tag">
-                <text class="changing-card-tag-hex changing-card-tag-hex--changed">{{changedHexagram.name}}</text>
-                <text class="changing-card-tag-pos">{{item.positionName}}</text>
-              </view>
-              <text class="changing-card-text">{{item.changedText}}</text>
-              <text class="changing-card-interp" wx:if="{{item.changedInterp}}">{{item.changedInterp}}</text>
-            </view>
-          </view>
+      <!-- 朱熹提示（4+变爻时显示） -->
+      <view class="insight-zhuxi-hint" wx:if="{{changingCount >= 4}}">
+        <text class="insight-zhuxi-hint-text">依朱熹断卦法，变爻过半，以变卦为主要参考</text>
+        <view class="insight-zhuxi-hint-icon" bindtap="onShowZhuxiSheet">
+          <text class="insight-zhuxi-hint-qmark">规则 ›</text>
         </view>
       </view>
     </view>
 
-    <!-- 操作按钮 -->
-    <view class="actions">
-      <button class="action-btn action-btn--save" bindtap="onSave">保存记录</button>
-      <button class="action-btn action-btn--again" bindtap="onDivineAgain">重新体验</button>
+    <!-- ========== 情境内容（内联展示） ========== -->
+    <view class="scenario-inline" wx:if="{{scenarioContent}}">
+      <view class="scenario-inline-header">
+        <text class="scenario-inline-tag">{{sceneTag}}</text>
+      </view>
+      <text class="scenario-inline-text">{{scenarioContent}}</text>
     </view>
 
-    <!-- 底部免责声明 -->
+    <!-- ========== 底部免责声明 ========== -->
     <view class="page-disclaimer">
       <text class="page-disclaimer-text">本内容仅供传统文化学习参考，不构成任何现实决策依据。</text>
     </view>
@@ -268,28 +89,123 @@
   </view>
 </scroll-view>
 
-<!-- ========== 爻辞详情 底部Sheet ========== -->
-<view class="sheet-overlay {{showLineSheet ? 'sheet-overlay--show' : ''}}" bindtap="onCloseLineSheet">
-  <view class="sheet-container {{showLineSheet ? 'sheet-container--show' : ''}}" catchtap="onStopPropagation">
+<!-- ========== 固定底部栏 ========== -->
+<view class="fixed-bottom-bar" wx:if="{{hexagram}}">
+  <button class="bottom-btn bottom-btn--save {{isSaved ? 'bottom-btn--saved' : ''}}" bindtap="onSave" disabled="{{isSaved}}">{{isSaved ? '已保存' : '保存记录'}}</button>
+  <button class="bottom-btn bottom-btn--share" open-type="share">分享</button>
+</view>
+
+<!-- ========== 卦辞解读 详情Sheet ========== -->
+<view class="sheet-overlay {{showDetailSheet ? 'sheet-overlay--show' : ''}}" bindtap="onCloseDetailSheet">
+  <view class="sheet-container sheet-container--tall {{showDetailSheet ? 'sheet-container--show' : ''}}" catchtap="onStopPropagation">
     <view class="sheet-handle-bar">
       <view class="sheet-handle"></view>
     </view>
     <view class="sheet-header">
-      <text class="sheet-title">{{hexagram.name}} · 全部爻辞</text>
-      <view class="sheet-close" bindtap="onCloseLineSheet">
+      <text class="sheet-title">卦辞解读</text>
+      <view class="sheet-close" bindtap="onCloseDetailSheet">
         <text class="sheet-close-icon">×</text>
       </view>
     </view>
     <scroll-view class="sheet-scroll" scroll-y>
       <view class="sheet-content">
-        <view class="line-detail-item {{item.isChanging ? 'line-detail-item--changing' : ''}}" wx:for="{{allLineTexts}}" wx:key="position">
-          <view class="line-detail-header">
-            <text class="line-detail-pos">{{item.positionName}}</text>
-            <text wx:if="{{item.isChanging}}" class="line-detail-badge">变爻</text>
+
+        <!-- ===== 第一部分：本卦 + 变卦卦辞 ===== -->
+        <!-- 本卦卦辞 -->
+        <view class="judgment-item {{hexFocusTag === '关键' ? 'judgment-item--key' : ''}}">
+          <!-- 关键角标 -->
+          <view class="corner-ribbon" wx:if="{{hexFocusTag === '关键'}}">
+            <text class="corner-ribbon-inner">关键</text>
           </view>
-          <text class="line-detail-classical">{{item.text}}</text>
-          <text class="line-detail-interp" wx:if="{{item.interp}}">{{item.interp}}</text>
+          <view class="judgment-label-row">
+            <text class="judgment-label">{{hexagram.name}} · 卦辞</text>
+            <text wx:if="{{hexFocusTag && hexFocusTag !== '关键'}}" class="judgment-focus judgment-focus--secondary">{{hexFocusTag}}</text>
+          </view>
+          <text class="judgment-classical">{{hexagram.judgment}}</text>
+          <text class="judgment-translation" wx:if="{{hexagram.judgmentTranslation}}">{{hexagram.judgmentTranslation}}</text>
+          <text class="judgment-interp">{{hexagram.interpretation}}</text>
         </view>
+
+        <!-- 变卦卦辞（紧跟本卦卦辞之后） -->
+        <block wx:if="{{changedHexagram}}">
+          <view class="detail-divider detail-divider--compact">
+            <view class="detail-divider-line"></view>
+            <text class="detail-divider-text detail-divider-text--changed">变卦</text>
+            <view class="detail-divider-line"></view>
+          </view>
+
+          <view class="judgment-item judgment-item--changed {{changedFocusTag === '关键' ? 'judgment-item--key' : ''}}">
+            <!-- 关键角标 -->
+            <view class="corner-ribbon" wx:if="{{changedFocusTag === '关键'}}">
+              <text class="corner-ribbon-inner">关键</text>
+            </view>
+            <view class="judgment-label-row">
+              <text class="judgment-label judgment-label--changed">{{changedHexagram.name}} · 变卦卦辞</text>
+              <text wx:if="{{changedFocusTag && changedFocusTag !== '关键'}}" class="judgment-focus judgment-focus--secondary">{{changedFocusTag}}</text>
+            </view>
+            <text class="judgment-classical">{{changedHexagram.judgment}}</text>
+            <text class="judgment-translation" wx:if="{{changedHexagram.judgmentTranslation}}">{{changedHexagram.judgmentTranslation}}</text>
+            <text class="judgment-interp">{{changedHexagram.interpretation}}</text>
+          </view>
+        </block>
+
+        <!-- ===== 第二部分：六爻详解 ===== -->
+        <view class="detail-divider">
+          <view class="detail-divider-line"></view>
+          <text class="detail-divider-text">六爻详解</text>
+          <view class="detail-divider-line"></view>
+        </view>
+
+        <!-- 指引横幅（六爻详解标题与爻辞列表之间） -->
+        <view class="guidance-banner" wx:if="{{guidanceText}}">
+          <text class="guidance-text">{{guidanceText}}</text>
+        </view>
+
+        <view class="inline-lines">
+          <view class="inline-line-item {{item.isChanging ? 'inline-line-item--changing' : ''}} {{!item.isChanging && item.focusTag ? 'inline-line-item--focus' : ''}} {{item.focusTag === '关键' ? 'inline-line-item--key' : ''}}" wx:for="{{allLineTexts}}" wx:key="position">
+            <!-- 关键角标 -->
+            <view class="corner-ribbon" wx:if="{{item.focusTag === '关键'}}">
+              <text class="corner-ribbon-inner">关键</text>
+            </view>
+            <!-- 本卦爻辞 -->
+            <view class="inline-line-header">
+              <text class="inline-line-pos">{{item.positionName}}</text>
+              <text wx:if="{{item.isChanging}}" class="inline-line-badge">变爻</text>
+              <text wx:if="{{item.focusTag === '次要'}}" class="inline-line-focus inline-line-focus--secondary">次要</text>
+            </view>
+            <text class="inline-line-classical">{{item.text}}</text>
+            <text class="inline-line-interp" wx:if="{{item.interp}}">{{item.interp}}</text>
+
+            <!-- 变爻：内联展示变卦对应爻辞 -->
+            <block wx:if="{{item.isChanging && item.changedText}}">
+              <view class="inline-line-changed">
+                <view class="inline-line-changed-arrow">
+                  <text class="inline-line-changed-arrow-text">↓ 变为</text>
+                </view>
+                <view class="inline-line-changed-body">
+                  <text class="inline-line-changed-hex">{{changedHexagram.name}} · {{item.positionName}}</text>
+                  <text class="inline-line-changed-classical">{{item.changedText}}</text>
+                  <text class="inline-line-changed-interp" wx:if="{{item.changedInterp}}">{{item.changedInterp}}</text>
+                </view>
+              </view>
+            </block>
+
+            <!-- 不变但为focus的爻：展示变卦对应爻辞（4-5变爻场景） -->
+            <block wx:if="{{!item.isChanging && item.changedText}}">
+              <view class="inline-line-changed inline-line-changed--focus">
+                <view class="inline-line-changed-arrow">
+                  <text class="inline-line-changed-arrow-text inline-line-changed-arrow-text--focus">→ 变卦对应</text>
+                </view>
+                <view class="inline-line-changed-body inline-line-changed-body--focus">
+                  <text class="inline-line-changed-hex inline-line-changed-hex--focus">{{changedHexagram.name}} · {{item.positionName}}</text>
+                  <text class="inline-line-changed-classical">{{item.changedText}}</text>
+                  <text class="inline-line-changed-interp" wx:if="{{item.changedInterp}}">{{item.changedInterp}}</text>
+                </view>
+              </view>
+            </block>
+          </view>
+        </view>
+
       </view>
     </scroll-view>
   </view>
@@ -318,38 +234,54 @@
       </view>
       <view class="change-tip-section">
         <text class="change-tip-heading">如何解读？</text>
-        <text class="change-tip-paragraph">变爻所在的爻辞，往往是本次体验最关键的启示所在。可参考上方的「朱熹断卦法」来确定重点关注哪些爻辞。</text>
+        <text class="change-tip-paragraph">根据变爻数量不同，解读重点可能在本卦或变卦。卦辞解读中已标注「关键」与「次要」，帮助你快速定位。</text>
       </view>
     </view>
   </view>
 </view>
 
-<!-- ========== 朱熹断卦法 模态 ========== -->
-<view class="modal-overlay {{showZhuxiModal ? 'modal-overlay--show' : ''}}" bindtap="onCloseZhuxiModal">
-  <view class="modal-container {{showZhuxiModal ? 'modal-container--show' : ''}}" catchtap="onStopPropagation">
-    <view class="modal-header">
-      <text class="modal-title">朱熹断卦法</text>
-      <view class="modal-close" bindtap="onCloseZhuxiModal">
-        <text class="modal-close-icon">×</text>
+<!-- ========== 朱熹断卦法 Sheet ========== -->
+<view class="sheet-overlay {{showZhuxiSheet ? 'sheet-overlay--show' : ''}}" bindtap="onCloseZhuxiSheet">
+  <view class="sheet-container {{showZhuxiSheet ? 'sheet-container--show' : ''}}" catchtap="onStopPropagation">
+    <view class="sheet-handle-bar">
+      <view class="sheet-handle"></view>
+    </view>
+    <view class="sheet-header">
+      <text class="sheet-title">朱熹断卦法</text>
+      <view class="sheet-close" bindtap="onCloseZhuxiSheet">
+        <text class="sheet-close-icon">×</text>
       </view>
     </view>
-    <view class="modal-desc">
-      <text class="modal-desc-text">根据变爻数量，决定重点参看哪部分爻辞：</text>
-    </view>
-    <view class="modal-body">
-      <view class="zhuxi-table">
-        <!-- 表头 -->
-        <view class="zhuxi-table-row zhuxi-table-header">
-          <text class="zhuxi-table-cell zhuxi-table-cell--count">变爻</text>
-          <text class="zhuxi-table-cell zhuxi-table-cell--focus">看什么</text>
-          <text class="zhuxi-table-cell zhuxi-table-cell--reason">为什么</text>
+    <view class="sheet-body">
+      <text class="zhuxi-intro">朱熹在《周易本义》中提出的断卦规则，根据变爻数量决定解读重点：</text>
+      <view class="zhuxi-rules">
+        <view class="zhuxi-rule {{changingCount === 0 ? 'zhuxi-rule--active' : ''}}">
+          <text class="zhuxi-rule-label">无变爻</text>
+          <text class="zhuxi-rule-text">看本卦卦辞</text>
         </view>
-        <!-- 数据行 -->
-        <view class="zhuxi-table-row {{item.count === changingLines.length ? 'zhuxi-table-row--active' : ''}}"
-              wx:for="{{zhuxiRules}}" wx:key="count">
-          <text class="zhuxi-table-cell zhuxi-table-cell--count">{{item.count}}</text>
-          <text class="zhuxi-table-cell zhuxi-table-cell--focus">{{item.focus}}</text>
-          <text class="zhuxi-table-cell zhuxi-table-cell--reason">{{item.reason}}</text>
+        <view class="zhuxi-rule {{changingCount === 1 ? 'zhuxi-rule--active' : ''}}">
+          <text class="zhuxi-rule-label">一爻变</text>
+          <text class="zhuxi-rule-text">看本卦变爻爻辞</text>
+        </view>
+        <view class="zhuxi-rule {{changingCount === 2 ? 'zhuxi-rule--active' : ''}}">
+          <text class="zhuxi-rule-label">二爻变</text>
+          <text class="zhuxi-rule-text">看本卦两变爻爻辞，以上爻为主</text>
+        </view>
+        <view class="zhuxi-rule {{changingCount === 3 ? 'zhuxi-rule--active' : ''}}">
+          <text class="zhuxi-rule-label">三爻变</text>
+          <text class="zhuxi-rule-text">看本卦与变卦卦辞，以本卦为主</text>
+        </view>
+        <view class="zhuxi-rule {{changingCount === 4 ? 'zhuxi-rule--active' : ''}}">
+          <text class="zhuxi-rule-label">四爻变</text>
+          <text class="zhuxi-rule-text">看变卦两不变爻爻辞，以下爻为主</text>
+        </view>
+        <view class="zhuxi-rule {{changingCount === 5 ? 'zhuxi-rule--active' : ''}}">
+          <text class="zhuxi-rule-label">五爻变</text>
+          <text class="zhuxi-rule-text">看变卦唯一不变爻爻辞</text>
+        </view>
+        <view class="zhuxi-rule {{changingCount === 6 ? 'zhuxi-rule--active' : ''}}">
+          <text class="zhuxi-rule-label">六爻变</text>
+          <text class="zhuxi-rule-text">看变卦卦辞</text>
         </view>
       </view>
     </view>

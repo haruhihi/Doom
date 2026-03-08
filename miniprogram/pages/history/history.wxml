@@ -37,7 +37,7 @@
           bindtouchend="onRecordTouchEnd"
         >
           <view class="record-left">
-            <hexagram-figure lines="{{item.hexagram.lines}}" size="small"></hexagram-figure>
+            <hexagram-figure lines="{{item.hexagram.lines}}" changingLines="{{item.changingLines}}" size="small"></hexagram-figure>
           </view>
           <view class="record-right">
             <view class="record-header">
