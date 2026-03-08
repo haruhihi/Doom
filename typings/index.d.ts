@@ -27,6 +27,7 @@ interface IDivinationRecord {
   hexagram: IHexagram
   changingLines: number[]
   changedHexagram?: IHexagram
+  scene?: ScenarioKey
 }
 
 interface IScenarioContent {

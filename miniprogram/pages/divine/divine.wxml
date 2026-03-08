@@ -14,7 +14,7 @@
 
     <!-- 铜钱区域 -->
     <view class="coins-area">
-      <view class="coin {{isAnimating ? 'coin--flipping' : ''}} {{coinResults[0] !== undefined ? (coinResults[0] ? 'coin--front' : 'coin--back') : ''}}"
+      <view class="coin {{isAnimating ? (isQuickMode ? 'coin--flipping-quick' : 'coin--flipping') : ''}} {{coinResults[0] !== undefined ? (coinResults[0] ? 'coin--front' : 'coin--back') : ''}}"
       >
         <view class="coin-face coin-front">
           <text class="coin-text">開</text>
@@ -24,7 +24,7 @@
           <view class="coin-pattern"></view>
         </view>
       </view>
-      <view class="coin {{isAnimating ? 'coin--flipping coin--flipping-delay1' : ''}} {{coinResults[1] !== undefined ? (coinResults[1] ? 'coin--front' : 'coin--back') : ''}}"
+      <view class="coin {{isAnimating ? (isQuickMode ? 'coin--flipping-quick coin--flipping-delay1' : 'coin--flipping coin--flipping-delay1') : ''}} {{coinResults[1] !== undefined ? (coinResults[1] ? 'coin--front' : 'coin--back') : ''}}"
       >
         <view class="coin-face coin-front">
           <text class="coin-text">開</text>
@@ -34,7 +34,7 @@
           <view class="coin-pattern"></view>
         </view>
       </view>
-      <view class="coin {{isAnimating ? 'coin--flipping coin--flipping-delay2' : ''}} {{coinResults[2] !== undefined ? (coinResults[2] ? 'coin--front' : 'coin--back') : ''}}"
+      <view class="coin {{isAnimating ? (isQuickMode ? 'coin--flipping-quick coin--flipping-delay2' : 'coin--flipping coin--flipping-delay2') : ''}} {{coinResults[2] !== undefined ? (coinResults[2] ? 'coin--front' : 'coin--back') : ''}}"
       >
         <view class="coin-face coin-front">
           <text class="coin-text">開</text>
@@ -46,19 +46,30 @@
       </view>
     </view>
 
+    <!-- 提示文字 -->
+    <text class="throw-hint" wx:if="{{!isComplete && currentThrow === 0}}">手动掷卦：摇动手机或点击按钮，逐步掷出六爻</text>
+    <text class="throw-hint" wx:if="{{!isComplete && currentThrow > 0}}">摇动手机 或 点击掷铜钱</text>
+
     <!-- 投掷按钮 -->
-    <view class="throw-btn-area">
+    <view class="throw-btn-area" wx:if="{{!isComplete}}">
+      <!-- 初始状态：两个并排按钮 -->
       <button
-        class="throw-btn {{isComplete ? 'throw-btn--complete' : ''}} {{isAnimating ? 'throw-btn--disabled' : ''}}"
-        disabled="{{isAnimating || isComplete}}"
+        class="mode-btn mode-btn--primary"
+        disabled="{{isAnimating || currentThrow > 0}}"
+        bindtap="onQuickDivine"
+      >一键起卦</button>
+      <button
+        class="mode-btn mode-btn--ghost"
+        disabled="{{isAnimating || isQuickMode}}"
         bindtap="onThrowCoins"
-      >
-        {{isComplete ? '卦象已成' : '掷铜钱'}}
-      </button>
+      >{{currentThrow > 0 ? '继续投掷' : '手动掷卦'}}</button>
+    </view>
+    <view class="throw-btn-area" wx:if="{{isComplete}}">
+      <button class="mode-btn mode-btn--done" disabled="{{true}}">卦象已成</button>
     </view>
 
     <!-- 已投掷结果 -->
-    <view class="results-area" wx:if="{{throwResults.length > 0}}">
+    <view class="results-area {{isComplete ? 'results-area--complete' : ''}}" wx:if="{{throwResults.length > 0}}">
       <text class="results-title">已得爻象</text>
       <view class="results-list">
         <view
@@ -67,7 +78,7 @@
           class="result-item"
         >
           <text class="result-index">{{item.label}}</text>
-          <view class="result-line {{item.isYang ? 'result-line--yang' : 'result-line--yin'}}">
+          <view class="result-line {{item.isYang ? 'result-line--yang' : 'result-line--yin'}} {{item.isChanging ? 'result-line--changing' : ''}}">
             <view class="result-line__bar"></view>
             <view wx:if="{{!item.isYang}}" class="result-line__gap"></view>
             <view class="result-line__bar"></view>

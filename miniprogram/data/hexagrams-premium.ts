@@ -13,6 +13,7 @@ export const hexagramsPremium: Record<number, IScenarioContent> = {
 }
 
 export const scenarioMetas: IScenarioMeta[] = [
+  { key: 'general', label: '综合指引', emoji: '☯️' },
   { key: 'career', label: '事业发展', emoji: '💼' },
   { key: 'decision', label: '重大抉择', emoji: '⚖️' },
   { key: 'love', label: '感情姻缘', emoji: '❤️' },
@@ -20,5 +21,4 @@ export const scenarioMetas: IScenarioMeta[] = [
   { key: 'wealth', label: '财运理财', emoji: '💰' },
   { key: 'health', label: '健康平安', emoji: '🏥' },
   { key: 'study', label: '学业考试', emoji: '📖' },
-  { key: 'general', label: '综合指引', emoji: '☯️' },
 ]

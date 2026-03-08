@@ -15,6 +15,34 @@ page {
   padding-bottom: 120rpx;
 }
 
+/* ========== 情境标签 ========== */
+.scene-badge {
+  margin-bottom: 20rpx;
+}
+
+.scene-badge-text {
+  font-size: 24rpx;
+  color: var(--gold);
+  background: var(--gold-bg-light);
+  padding: 8rpx 24rpx;
+  border-radius: 20rpx;
+}
+
+/* ========== 指引横幅 ========== */
+.guidance-banner {
+  margin-bottom: 32rpx;
+  padding: 24rpx 28rpx;
+  background: linear-gradient(135deg, rgba(201, 169, 110, 0.12) 0%, rgba(201, 169, 110, 0.04) 100%);
+  border-left: 4rpx solid var(--gold);
+  border-radius: 12rpx;
+}
+
+.guidance-text {
+  font-size: 26rpx;
+  color: #e8dcc8;
+  line-height: 1.7;
+}
+
 /* ========== 卦象展示区 ========== */
 .hex-display {
   display: flex;
@@ -29,6 +57,15 @@ page {
   border: 1rpx solid var(--border-gold);
 }
 
+.hex-display--solo {
+  flex-direction: column;
+}
+
+.hex-display--secondary {
+  border-color: var(--border-gold-faint);
+  margin-bottom: 0;
+}
+
 .hex-main,
 .hex-changed {
   display: flex;
@@ -39,11 +76,19 @@ page {
   min-width: 0;
 }
 
+.hex-section--secondary {
+  opacity: 0.5;
+}
+
 .hex-name {
   font-size: 40rpx;
   color: var(--gold);
   font-weight: bold;
   margin-top: 12rpx;
+}
+
+.hex-name--changed {
+  color: var(--red);
 }
 
 .hex-trigrams {
@@ -69,6 +114,51 @@ page {
   color: var(--red);
   font-weight: bold;
   line-height: 1;
+}
+
+/* ========== 变卦折叠/展开（1-2变爻） ========== */
+.changed-toggle {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 8rpx;
+  padding: 20rpx 0;
+  margin-top: -20rpx;
+  margin-bottom: 24rpx;
+}
+
+.changed-toggle-text {
+  font-size: 24rpx;
+  color: var(--text-secondary);
+  text-decoration: underline;
+  text-underline-offset: 4rpx;
+}
+
+.changed-toggle-arrow {
+  font-size: 28rpx;
+  color: var(--text-tertiary);
+  line-height: 1;
+  transform: rotate(90deg);
+  transition: transform 0.3s ease;
+}
+
+.changed-toggle-arrow--up {
+  transform: rotate(-90deg);
+}
+
+.changed-expanded {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-height 0.35s cubic-bezier(0.32, 0.72, 0, 1), opacity 0.3s ease;
+  margin-bottom: 0;
+}
+
+.changed-expanded--show {
+  max-height: 1200rpx;
+  opacity: 1;
+  margin-bottom: 32rpx;
 }
 
 /* ========== 了解变卦 Sheet 内容 ========== */
@@ -223,6 +313,65 @@ page {
   padding-left: 20rpx;
 }
 
+/* ========== 0变爻：内联爻辞 ========== */
+.inline-lines-divider {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 16rpx;
+  margin: 28rpx 0 20rpx;
+}
+
+.inline-lines-divider-line {
+  flex: 1;
+  height: 1rpx;
+  background: var(--border-gold-faint);
+}
+
+.inline-lines-divider-text {
+  font-size: 22rpx;
+  color: var(--gold);
+  font-weight: bold;
+  letter-spacing: 4rpx;
+}
+
+.inline-lines {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.inline-line-item {
+  display: flex;
+  flex-direction: column;
+  gap: 8rpx;
+  padding: 20rpx 0;
+  border-bottom: 1rpx solid var(--border-gold-faint);
+}
+
+.inline-line-item:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.inline-line-pos {
+  font-size: 24rpx;
+  font-weight: bold;
+  color: var(--gold);
+}
+
+.inline-line-classical {
+  font-size: 26rpx;
+  color: var(--text-primary);
+  line-height: 1.7;
+}
+
+.inline-line-interp {
+  font-size: 24rpx;
+  color: var(--text-secondary);
+  line-height: 1.7;
+}
+
 /* ========== 变爻解读 ========== */
 .changing-section {
   border-color: var(--red-border-medium);
@@ -303,6 +452,55 @@ page {
   line-height: 1;
 }
 
+/* 断卦结论区块 */
+.conclusion-block {
+  display: flex;
+  flex-direction: column;
+  gap: 16rpx;
+  background: var(--surface-dark);
+  border-radius: 16rpx;
+  padding: 24rpx;
+  border: 1rpx solid var(--border-gold-faint);
+}
+
+.conclusion-summary {
+  font-size: 24rpx;
+  color: var(--gold);
+  line-height: 1.5;
+  margin-bottom: 4rpx;
+}
+
+.conclusion-item {
+  display: flex;
+  flex-direction: column;
+  gap: 8rpx;
+}
+
+.conclusion-item--secondary {
+  opacity: 0.5;
+  border-top: 1rpx dashed var(--border-gold-faint);
+  padding-top: 20rpx;
+  margin-top: 4rpx;
+}
+
+.conclusion-label {
+  font-size: 24rpx;
+  color: var(--gold);
+  font-weight: bold;
+}
+
+.conclusion-classical {
+  font-size: 28rpx;
+  color: var(--text-primary);
+  line-height: 1.7;
+}
+
+.conclusion-interp {
+  font-size: 26rpx;
+  color: #e8dcc8;
+  line-height: 1.6;
+}
+
 /* 变爻卡片列表 */
 .changing-list {
   display: flex;
@@ -315,6 +513,11 @@ page {
   border-radius: 16rpx;
   padding: 24rpx;
   border: 1rpx solid var(--border-gold-faint);
+}
+
+.changing-card--focus {
+  border-color: var(--gold);
+  box-shadow: 0 0 16rpx rgba(201, 169, 110, 0.15);
 }
 
 .changing-card-side {
@@ -347,6 +550,15 @@ page {
 .changing-card-tag-pos {
   font-size: 22rpx;
   color: var(--text-secondary);
+}
+
+.changing-card-focus-badge {
+  font-size: 20rpx;
+  color: var(--gold);
+  font-weight: bold;
+  background: rgba(201, 169, 110, 0.15);
+  padding: 2rpx 12rpx;
+  border-radius: 6rpx;
 }
 
 .changing-card-text {

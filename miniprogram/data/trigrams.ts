@@ -14,7 +14,7 @@ export const trigrams: Record<string, ITrigram> = {
 // 根据三爻组合查找八卦名
 export function getTrigramName(lines: number[]): string {
   const key = lines.join('')
-  return trigrams[key]?.name || '未知'
+  return (trigrams[key] && trigrams[key].name) || '未知'
 }
 
 // 根据八卦名查找三爻

@@ -66,17 +66,50 @@ page {
   color: var(--red);
 }
 
+/* 左滑删除容器 */
+.record-swipe {
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 16rpx;
+  border-radius: 20rpx;
+}
+
+/* 删除按钮 — 定位在右侧 */
+.record-delete {
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 160rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #b33939;
+  z-index: 0;
+}
+
+.record-delete-text {
+  color: #fff;
+  font-size: 28rpx;
+  font-weight: bold;
+}
+
 /* 记录卡片 */
 .record-card {
   display: flex;
   flex-direction: row;
   padding: 28rpx;
   background: var(--surface-light);
-  border-radius: 20rpx;
   border: 1rpx solid var(--border-gold-subtle);
   gap: 28rpx;
   align-items: center;
-  margin-bottom: 16rpx;
+  position: relative;
+  z-index: 1;
+  transition: transform 0.25s ease-out;
+}
+
+.record-card--swiped {
+  transform: translateX(-160rpx);
 }
 
 .record-left {
@@ -120,7 +153,7 @@ page {
   overflow: hidden;
 }
 
-.record-time {
+.record-meta {
   font-size: 22rpx;
   color: var(--text-tertiary);
 }

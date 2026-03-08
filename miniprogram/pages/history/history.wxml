@@ -18,24 +18,35 @@
         </view>
       </view>
 
-      <!-- 记录列表 -->
+      <!-- 记录列表 — 左滑出现删除 -->
       <view
         wx:for="{{historyList}}"
         wx:key="id"
-        class="record-card"
-        data-index="{{index}}"
-        bindtap="onViewRecord"
+        class="record-swipe"
       >
-        <view class="record-left">
-          <hexagram-figure lines="{{item.hexagram.lines}}" size="small"></hexagram-figure>
+        <!-- 删除按钮（在卡片下方，滑动后露出） -->
+        <view wx:if="{{activeSwipeIndex === index}}" class="record-delete" data-index="{{index}}" catchtap="onDeleteRecord">
+          <text class="record-delete-text">删除</text>
         </view>
-        <view class="record-right">
-          <view class="record-header">
-            <text class="record-name">{{item.hexagram.symbol}} {{item.hexagram.name}}</text>
-            <text wx:if="{{item.changedHexagram}}" class="record-changed">变 {{item.changedHexagram.name}}</text>
+        <!-- 卡片主体 -->
+        <view
+          class="record-card {{activeSwipeIndex === index ? 'record-card--swiped' : ''}}"
+          data-index="{{index}}"
+          bindtouchstart="onRecordTouchStart"
+          bindtouchmove="onRecordTouchMove"
+          bindtouchend="onRecordTouchEnd"
+        >
+          <view class="record-left">
+            <hexagram-figure lines="{{item.hexagram.lines}}" size="small"></hexagram-figure>
           </view>
-          <text class="record-judgment">{{item.hexagram.judgment}}</text>
-          <text class="record-time">{{item.timeStr}}</text>
+          <view class="record-right">
+            <view class="record-header">
+              <text class="record-name">{{item.hexagram.name}}</text>
+              <text wx:if="{{item.changedHexagram}}" class="record-changed">变 {{item.changedHexagram.name}}</text>
+            </view>
+            <text class="record-judgment">{{item.hexagram.judgment}}</text>
+            <text class="record-meta">{{item.sceneEmoji}} {{item.sceneLabel}} · {{item.timeStr}}</text>
+          </view>
         </view>
       </view>
     </view>
