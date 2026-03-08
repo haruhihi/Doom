@@ -1,6 +1,5 @@
 // 卦象结果页
 import { buildDivination } from '../../utils/divination'
-import { formatTime } from '../../utils/util'
 import { hexagramsPremium, scenarioMetas } from '../../data/hexagrams-premium'
 import { hexagramInsights } from '../../data/hexagram-insights'
 
@@ -66,6 +65,9 @@ Component({
     activeScene: '' as ScenarioKey | '',
     scenarioContent: '',
     sceneTag: '',
+    sceneLabel: '',
+    scenarioRevealed: false,
+    scenarioHeight: 0,
     // 指引文案
     guidanceText: '',
     // 态势标签
@@ -241,7 +243,7 @@ Component({
         // 显示情境标签
         for (var si = 0; si < scenarioMetas.length; si++) {
           if (scenarioMetas[si].key === sceneParam) {
-            self.setData({ sceneTag: scenarioMetas[si].emoji + ' ' + scenarioMetas[si].label })
+            self.setData({ sceneTag: scenarioMetas[si].emoji + ' ' + scenarioMetas[si].label, sceneLabel: scenarioMetas[si].label })
             break
           }
         }
@@ -303,6 +305,26 @@ Component({
     // 阻止事件冒泡（sheet内容区点击不关闭）
     onStopPropagation() {
       // 空方法，仅用于 catchtap 阻止冒泡
+    },
+
+    // 揭晓情境解读（带高度动画）
+    onRevealScenario() {
+      var self = this
+      var query = self.createSelectorQuery()
+      query.select('.scenario-inline-inner').boundingClientRect(function (rect: any) {
+        if (!rect) {
+          self.setData({ scenarioRevealed: true, scenarioHeight: 0 })
+          return
+        }
+        // 内容实际高度 + padding (28rpx*2 ≈ 上下padding)
+        var targetH = Math.ceil(rect.height) + 56 * (wx.getWindowInfo().screenWidth / 750)
+        // 先设置目标高度触发 transition
+        self.setData({ scenarioRevealed: true, scenarioHeight: targetH })
+        // transition 结束后释放为 auto
+        setTimeout(function () {
+          self.setData({ scenarioHeight: 0 })
+        }, 650)
+      }).exec()
     },
 
     // 保存记录

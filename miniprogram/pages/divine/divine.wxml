@@ -68,7 +68,7 @@
     <view class="results-area {{isComplete ? 'results-area--complete' : ''}}" wx:if="{{throwResults.length > 0}}">
       <text class="results-title">掷出结果</text>
       <text class="results-hint results-hint--info">每条线代表一个「爻」，实线为阳爻，断线为阴爻</text>
-      <text class="results-hint" wx:if="{{hasChangingLine}}">「变」表示该爻正在变化，详情请点击「查看解读」</text>
+      <text class="results-hint" wx:if="{{hasChangingLine}}">「变」表示该爻正在变化，详见「查看解读」</text>
       <view class="results-list">
         <view
           wx:for="{{throwResults}}"
