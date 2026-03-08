@@ -61,7 +61,7 @@ Component({
 
     // 点击体验按钮 → 打开情境选择弹窗
     onStartDivine() {
-      this.setData({ showSceneSheet: true })
+      this.setData({ showSceneSheet: true, selectedScene: 'general' })
     },
 
     // 确认情境 → 跳转起卦页
