@@ -24,7 +24,7 @@
         "pagePath": "pages/hexagram-list/hexagram-list",
         "iconPath": "images/tab_hexagrams.png",
         "selectedIconPath": "images/tab_hexagrams_active.png",
-        "text": "查卦"
+        "text": "卦典"
       },
       {
         "pagePath": "pages/mine/mine",

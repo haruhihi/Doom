@@ -8,8 +8,8 @@
       <view class="taiji">
         <image class="taiji-icon" src="../../images/app-icon.png" mode="aspectFit"></image>
       </view>
-      <text class="app-title">易经爻解</text>
-      <text class="app-subtitle">三枚铜钱 · 感悟经典</text>
+      <text class="app-title">易简研习</text>
+      <text class="app-subtitle">以简研易，可通天下</text>
     </view>
 
     <!-- 体验按钮 -->
@@ -50,8 +50,7 @@
 
     <!-- 底部装饰 -->
     <view class="footer-deco">
-      <text class="footer-text">天行健，君子以自强不息</text>
-      <text class="footer-text">地势坤，君子以厚德载物</text>
+      <text class="footer-text">{{footerQuote}} ——{{footerSource}}</text>
     </view>
 
   </view>
@@ -64,13 +63,13 @@
       <view class="sheet-handle"></view>
     </view>
     <view class="sheet-header">
-      <text class="sheet-title">情景选择</text>
+      <text class="sheet-title">选择主题</text>
       <view class="sheet-close" bindtap="onCloseSceneSheet">
         <text class="sheet-close-icon">×</text>
       </view>
     </view>
     <view class="sheet-body">
-      <text class="sheet-desc">选择一个情境，获取更贴切的解读</text>
+      <text class="sheet-desc">选择一个主题，获取更贴切的解读</text>
       <view class="scenario-grid">
         <view
           wx:for="{{scenarioMetas}}"

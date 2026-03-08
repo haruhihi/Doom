@@ -59,14 +59,14 @@
         <text class="about-title">使用说明</text>
         <view class="about-body">
           <text class="about-text">1. 在首页点击"体验"按钮进入铜钱体验页面</text>
-          <text class="about-text">2. 摇动手机或点击"掷铜钱"按钮</text>
+          <text class="about-text">2. 点击按钮掷铜钱</text>
           <text class="about-text">3. 每次掷三枚铜钱，共掷六次</text>
           <text class="about-text">4. 六次完成后自动生成卦象</text>
-          <text class="about-text">5. 查看卦辞、爻辞及白话解读</text>
+          <text class="about-text">5. 查看解读结果</text>
           <text class="about-divider"></text>
           <text class="about-text about-text--sub">算法说明：采用传统三枚铜钱法。正面(字)计3，反面(花)计2。三枚之和：6为老阴(变爻)，7为少阳，8为少阴，9为老阳(变爻)。</text>
           <text class="about-divider"></text>
-          <text class="about-text about-text--sub">易经爻解是一款传统文化学习工具，旨在帮助用户了解《易经》经典智慧。所有内容均基于古籍原文的文化解读，不涉及封建迷信。</text>
+          <text class="about-text about-text--sub">易简研习是一款传统文化学习工具，帮助你了解《易经》的经典智慧。所有内容基于古籍原文解读，仅供学习参考。</text>
         </view>
         <view class="about-close-btn" bindtap="onCloseAbout">
           <text>知道了</text>

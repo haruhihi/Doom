@@ -98,6 +98,8 @@ Component({
     changedFocusTag: '',
     // 朱熹断卦法sheet
     showZhuxiSheet: false,
+    // 首次引导横幅
+    showGuide: false,
   },
 
   methods: {
@@ -261,6 +263,12 @@ Component({
           }
         }
       }
+
+      // 首次引导横幅
+      var guideSeen = wx.getStorageSync('guide_seen')
+      if (!guideSeen) {
+        self.setData({ showGuide: true })
+      }
     },
 
     // 返回上一页（支持从历史记录或起卦页进入）
@@ -271,6 +279,12 @@ Component({
       } else {
         wx.switchTab({ url: '/pages/index/index' })
       }
+    },
+
+    // 关闭首次引导横幅
+    onDismissGuide() {
+      wx.setStorageSync('guide_seen', true)
+      this.setData({ showGuide: false })
     },
 
     // 打开卦辞解读详情sheet

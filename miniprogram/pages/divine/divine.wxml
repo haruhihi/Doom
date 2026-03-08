@@ -5,11 +5,9 @@
 
     <!-- 顶部提示 -->
     <view class="divine-header">
-      <text class="divine-step" wx:if="{{!isComplete}}">第 {{currentThrow + 1}} / 6 爻</text>
-      <text class="divine-step" wx:if="{{isComplete}}">六爻已齐</text>
-      <text class="divine-hint" wx:if="{{!isAnimating && !isComplete}}">点击开始</text>
-      <text class="divine-hint" wx:if="{{isAnimating}}">铜钱落定中...</text>
-      <text class="divine-hint divine-hint--done" wx:if="{{isComplete}}">卦象已定，请查看解读</text>
+      <text class="divine-main-hint {{isComplete ? 'divine-main-hint--done' : ''}}">{{headerHint}}</text>
+      <text class="divine-step" wx:if="{{!isComplete}}">第 {{currentThrow + 1}} / 6 次</text>
+      <text class="divine-step" wx:if="{{isComplete}}">六次完成</text>
     </view>
 
     <!-- 铜钱区域 -->
@@ -46,31 +44,27 @@
       </view>
     </view>
 
-    <!-- 提示文字 -->
-    <text class="throw-hint" wx:if="{{!isComplete && (currentThrow === 0 || isQuickMode)}}">每次掷出三枚铜钱，共六次</text>
-    <text class="throw-hint" wx:if="{{!isComplete && currentThrow > 0 && !isQuickMode}}">点击继续</text>
-
     <!-- 投掷按钮 -->
     <view class="throw-btn-area" wx:if="{{!isComplete}}">
-      <!-- 初始状态：两个并排按钮 -->
       <button
         class="mode-btn mode-btn--primary"
-        disabled="{{isAnimating || currentThrow > 0}}"
-        bindtap="onQuickDivine"
-      >一键起卦</button>
-      <button
-        class="mode-btn mode-btn--ghost"
         disabled="{{isAnimating || isQuickMode}}"
         bindtap="onThrowCoins"
-      >{{currentThrow > 0 ? '继续投掷' : '手动掷卦'}}</button>
+      >{{currentThrow > 0 ? '继续' : '分次掷出'}}</button>
+      <button
+        class="mode-btn mode-btn--ghost"
+        disabled="{{isAnimating || currentThrow > 0}}"
+        bindtap="onQuickDivine"
+      >一键完成</button>
     </view>
     <view class="throw-btn-area" wx:if="{{isComplete}}">
-      <button class="mode-btn mode-btn--done" disabled="{{true}}">卦象已成</button>
+      <text class="done-label">已完成</text>
     </view>
 
     <!-- 已投掷结果 -->
     <view class="results-area {{isComplete ? 'results-area--complete' : ''}}" wx:if="{{throwResults.length > 0}}">
-      <text class="results-title">已得爻象</text>
+      <text class="results-title">掷出结果</text>
+      <text class="results-hint" wx:if="{{hasChangingLine}}">标有「变」表示该爻正在变化，点击查看解读发现更多</text>
       <view class="results-list">
         <view
           wx:for="{{throwResults}}"
@@ -92,7 +86,7 @@
 
     <!-- 查看结果按钮 -->
     <view class="view-result-area" wx:if="{{isComplete}}">
-      <button class="view-result-btn" bindtap="onViewResult">查看卦象</button>
+      <button class="view-result-btn" bindtap="onViewResult">查看解读</button>
     </view>
 
   </view>

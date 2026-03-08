@@ -1,11 +1,22 @@
 // 首页
 import { formatTime } from '../../utils/util'
 import { scenarioMetas } from '../../data/hexagrams-premium'
+import { quotes } from '../../data/quotes'
 
 // 构建场景查找表
 var sceneMap: Record<string, IScenarioMeta> = {}
 for (var i = 0; i < scenarioMetas.length; i++) {
   sceneMap[scenarioMetas[i].key] = scenarioMetas[i]
+}
+
+// 随机取一条（不连续重复）
+function pickRandom<T>(arr: T[], lastIndex: number): { value: T; index: number } {
+  if (arr.length <= 1) return { value: arr[0], index: 0 }
+  var idx = lastIndex
+  while (idx === lastIndex) {
+    idx = Math.floor(Math.random() * arr.length)
+  }
+  return { value: arr[idx], index: idx }
 }
 
 Component({
@@ -16,6 +27,8 @@ Component({
     showSceneSheet: false,
     isDev: false,
     showTestSheet: false,
+    footerQuote: '',
+    footerSource: '',
     testCases: [
       { throws: '7,8,7,8,7,8', scene: 'general', desc: '0变爻' },
       { throws: '9,7,8,7,8,7', scene: 'career', desc: '1变爻' },
@@ -25,24 +38,37 @@ Component({
       { throws: '9,6,9,6,9,7', scene: 'study', desc: '5变爻' },
       { throws: '9,6,9,6,9,6', scene: 'health', desc: '6变爻' },
     ],
+    _lastQuoteIdx: -1,
   },
 
   lifetimes: {
     attached() {
+      var self = this
       var info = wx.getAccountInfoSync()
       var env = info && info.miniProgram ? info.miniProgram.envVersion : 'release'
-      this.setData({ isDev: env !== 'release' })
-      this._loadLastRecord()
+      self.setData({ isDev: env !== 'release' })
+      self._loadLastRecord()
+      self._refreshQuotes()
     }
   },
 
   pageLifetimes: {
     show() {
       this._loadLastRecord()
+      this._refreshQuotes()
     }
   },
 
   methods: {
+    _refreshQuotes() {
+      var self = this
+      var q = pickRandom(quotes, self.data._lastQuoteIdx)
+      self.setData({
+        footerQuote: q.value.text,
+        footerSource: q.value.source,
+        _lastQuoteIdx: q.index,
+      })
+    },
     _loadLastRecord() {
       var history: IDivinationRecord[] = wx.getStorageSync('divination_history') || []
       if (history.length > 0) {

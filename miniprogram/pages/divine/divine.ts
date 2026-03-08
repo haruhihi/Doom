@@ -14,6 +14,8 @@ Component({
     throwResults: [] as Array<LineResult & { label: string }>,  // 所有投掷结果
     throws: [] as number[],    // 原始投掷值
     scene: 'general' as string, // 情境参数（从首页传入）
+    hasChangingLine: false,    // 是否存在变爻
+    headerHint: '每次掷出三枚铜钱，共六次',
   },
 
   lifetimes: {
@@ -71,6 +73,7 @@ Component({
       this.setData({
         isAnimating: true,
         coinResults: undefined,  // 先清空，让铜钱回到初始态
+        headerHint: '铜钱落定中...',
       })
 
       // 震动反馈 — 二分法排查：暂时禁用
@@ -101,6 +104,8 @@ Component({
             currentThrow: nextThrow,
             isAnimating: false,
             isComplete,
+            hasChangingLine: this.data.hasChangingLine || lineResult.isChanging,
+            headerHint: isComplete ? '结果已出，点击查看解读' : '点击继续',
           })
 
           // 完成
@@ -143,10 +148,11 @@ Component({
       var value = detail.value
 
       // 先重置动画状态，让 CSS class 被移除
-      self.setData({
-        isAnimating: false,
-        coinResults: undefined,
-      })
+        self.setData({
+          isAnimating: false,
+          coinResults: undefined,
+          headerHint: '铜钱落定中...',
+        })
 
       // 短暂延迟后重新添加动画 class，触发新一轮翻转
       setTimeout(function () {
@@ -181,6 +187,8 @@ Component({
               currentThrow: nextStep,
               isAnimating: false,
               isComplete: isComplete,
+              hasChangingLine: self.data.hasChangingLine || lineResult.isChanging,
+              headerHint: isComplete ? '结果已出，点击查看解读' : '铜钱落定中...',
             })
 
             if (!isComplete) {
