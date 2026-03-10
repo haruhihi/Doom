@@ -42,6 +42,7 @@
           <view class="record-right">
             <view class="record-header">
               <text class="record-name">{{item.hexagram.name}}</text>
+              <text class="record-scene" wx:if="{{item.sceneEmoji}}">{{item.sceneEmoji}} {{item.sceneLabel}}</text>
               <text class="record-time">{{item.timeStr}}</text>
             </view>
             <text class="record-judgment">{{item.hexagram.judgment}}</text>

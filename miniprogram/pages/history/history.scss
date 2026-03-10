@@ -137,6 +137,16 @@ page {
   font-weight: bold;
 }
 
+.record-scene {
+  font-size: 20rpx;
+  color: var(--text-secondary);
+  background: var(--gold-bg-light);
+  padding: 2rpx 12rpx;
+  border-radius: 8rpx;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
 .record-time {
   font-size: 22rpx;
   color: var(--text-tertiary);

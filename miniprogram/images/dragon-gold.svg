@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 320" fill="none">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="300" y2="320" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#f0d68a"/>
+      <stop offset=".45" stop-color="#d4a843"/>
+      <stop offset="1" stop-color="#c9a96e"/>
+    </linearGradient>
+  </defs>
+  <g stroke="url(#g)" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Serpentine body -->
+    <path d="M150,50 C188,42 210,64 202,94 C194,124 220,142 246,130 C272,118 290,138 278,168 C266,198 235,204 210,190 C185,176 168,196 162,226 C156,256 132,274 106,262 C80,250 66,270 60,300" stroke-width="16"/>
+    <!-- Head -->
+    <path d="M150,50 C140,34 122,33 116,48 C110,63 124,73 142,68 C151,65 156,56 150,50Z" fill="url(#g)" opacity="0.85"/>
+    <!-- Eye -->
+    <circle cx="133" cy="50" r="4.5" fill="#0a0a14"/>
+    <circle cx="131" cy="49" r="1.8" fill="#f0d68a" opacity="0.5"/>
+    <!-- Antler horns -->
+    <path d="M148,38 C162,20 176,16 182,22" stroke-width="5"/>
+    <path d="M142,33 C152,15 166,9 174,15" stroke-width="4.5"/>
+    <!-- Whiskers -->
+    <path d="M113,56 C92,47 76,54 64,44" stroke-width="4.5"/>
+    <path d="M110,65 C90,62 72,72 58,63" stroke-width="4"/>
+    <!-- Dorsal spines -->
+    <path d="M194,85 C208,70 212,56" stroke-width="4" opacity="0.6"/>
+    <path d="M218,118 C234,102 238,88" stroke-width="4" opacity="0.55"/>
+    <path d="M260,148 C276,136 280,122" stroke-width="3.5" opacity="0.5"/>
+    <!-- Claws -->
+    <path d="M204,98 C220,86 226,96 216,108" stroke-width="4.5"/>
+    <path d="M272,160 C288,152 292,164 282,172" stroke-width="4.5"/>
+    <path d="M108,266 C92,278 82,270 90,258" stroke-width="4.5"/>
+    <!-- Tail flourish -->
+    <path d="M60,300 C42,318 28,314 24,296 C20,278 34,268 42,284" stroke-width="9" opacity="0.7"/>
+    <!-- Cloud wisps -->
+    <path d="M178,152 C186,140 198,145 193,156" stroke-width="3" opacity="0.35"/>
+    <path d="M134,216 C142,204 154,209 149,220" stroke-width="3" opacity="0.35"/>
+    <path d="M82,275 C90,263 102,268 97,279" stroke-width="3" opacity="0.35"/>
+    <!-- Pearl / orb (traditional motif) -->
+    <circle cx="86" cy="36" r="10" stroke-width="3" opacity="0.5"/>
+    <circle cx="86" cy="36" r="4" fill="url(#g)" opacity="0.3"/>
+  </g>
+</svg>

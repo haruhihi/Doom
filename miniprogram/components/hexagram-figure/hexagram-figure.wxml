@@ -2,6 +2,9 @@
   卦图组件：用CSS绘制六爻卦象
   lines: [0|1, 0|1, 0|1, 0|1, 0|1, 0|1] 从初爻到上爻
   changingLines: 变爻位置数组
+  highlightLines: 需高亮的爻位置数组（金色圈出）
+  morphFrom: 变化前的lines数组（传入时触发morph动画）
+  morphDelay: 延迟多少ms开始变化（默认1500）
   size: 'large' | 'small'
 -->
 <view class="hexagram-figure hexagram-figure--{{size}}">
@@ -9,11 +12,13 @@
   <view
     wx:for="{{displayLines}}"
     wx:key="index"
-    class="hexagram-line {{item.isYang ? 'hexagram-line--yang' : 'hexagram-line--yin'}} {{item.isChanging ? 'hexagram-line--changing' : ''}}"
+    class="hexagram-line {{item.isYang ? 'hexagram-line--yang' : 'hexagram-line--yin'}} {{item.isChanging ? 'hexagram-line--changing' : ''}} {{item.isHighlighted ? 'hexagram-line--highlighted' : ''}} {{item.isMorphing ? 'hexagram-line--morphing' : ''}}"
+    data-idx="{{item.originalIndex}}"
+    bindtap="onLineTap"
   >
     <view class="hexagram-line__left"></view>
-    <view wx:if="{{!item.isYang}}" class="hexagram-line__gap"></view>
+    <view class="hexagram-line__gap" style="width: {{item.gapWidth}}rpx"></view>
     <view class="hexagram-line__right"></view>
-    <view wx:if="{{item.isChanging}}" class="hexagram-line__mark">变</view>
+    <view wx:if="{{item.showMark}}" class="hexagram-line__mark hexagram-line__mark--{{item.markType}}">{{item.markText}}</view>
   </view>
 </view>

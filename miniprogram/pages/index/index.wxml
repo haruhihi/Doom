@@ -33,6 +33,7 @@
         <view class="recent-right">
           <view class="recent-header">
             <text class="recent-name">{{lastRecord.hexagram.name}}卦</text>
+            <text class="recent-scene" wx:if="{{lastRecord.sceneEmoji}}">{{lastRecord.sceneEmoji}} {{lastRecord.sceneLabel}}</text>
             <text class="recent-time">{{lastRecord.timeStr}}</text>
           </view>
           <text class="recent-judgment">{{lastRecord.hexagram.judgment}}</text>

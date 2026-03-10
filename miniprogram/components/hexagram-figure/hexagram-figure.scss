@@ -9,6 +9,10 @@
   gap: 6rpx;
 }
 
+.hexagram-figure--medium {
+  gap: 7rpx;
+}
+
 .hexagram-line {
   display: flex;
   flex-direction: row;
@@ -29,59 +33,72 @@
   height: 10rpx;
 }
 
-/* 阳爻：一根完整的实线 */
+.hexagram-figure--medium .hexagram-line {
+  width: 130rpx;
+  height: 16rpx;
+}
+
+/* 左右两半（始终渲染） */
+.hexagram-line__left,
+.hexagram-line__right {
+  flex: 1;
+  height: 100%;
+  background-color: var(--gold, #c9a96e);
+  border-radius: 4rpx;
+}
+
+/* 阳爻：gap=0，内侧边角拉直形成无缝实线 */
 .hexagram-line--yang .hexagram-line__left {
-  flex: 1;
-  height: 100%;
-  background-color: var(--gold, #c9a96e);
-  border-radius: 4rpx;
+  border-radius: 4rpx 0 0 4rpx;
 }
-
 .hexagram-line--yang .hexagram-line__right {
-  display: none;
+  border-radius: 0 4rpx 4rpx 0;
 }
 
-/* 阴爻：中间断开的两段 */
-.hexagram-line--yin .hexagram-line__left,
-.hexagram-line--yin .hexagram-line__right {
-  flex: 1;
+/* 中间间隔（width由inline style控制） */
+.hexagram-line__gap {
   height: 100%;
-  background-color: var(--gold, #c9a96e);
-  border-radius: 4rpx;
-}
-
-.hexagram-line--yin .hexagram-line__gap {
-  width: 20rpx;
-}
-
-.hexagram-figure--large .hexagram-line--yin .hexagram-line__gap {
-  width: 28rpx;
-}
-
-.hexagram-figure--small .hexagram-line--yin .hexagram-line__gap {
-  width: 14rpx;
+  flex-shrink: 0;
+  transition: width 0.6s ease-in-out;
 }
 
 /* 变爻标记 */
 .hexagram-line__mark {
   position: absolute;
-  right: -36rpx;
-  font-size: 18rpx;
-  color: var(--red, #b33939);
+  left: 100%;
+  margin-left: 12rpx;
+  font-size: 16rpx;
   font-weight: bold;
+  transition: opacity 0.3s;
+  white-space: nowrap;
 }
 
 .hexagram-figure--large .hexagram-line__mark {
-  right: -32rpx;
-  font-size: 22rpx;
+  margin-left: 14rpx;
+  font-size: 18rpx;
 }
 
 .hexagram-figure--small .hexagram-line__mark {
-  right: -28rpx;
-  font-size: 14rpx;
+  margin-left: 8rpx;
+  font-size: 12rpx;
 }
 
-/* 变爻闪烁动画 */
+.hexagram-figure--medium .hexagram-line__mark {
+  margin-left: 12rpx;
+  font-size: 16rpx;
+}
+
+/* 标记颜色：变爻 = 红色 */
+.hexagram-line__mark--changing {
+  color: var(--red, #b33939);
+}
+
+/* 标记颜色：静爻 = 绿色 */
+.hexagram-line__mark--static {
+  color: #5b9a5b;
+}
+
+/* 变爻闪烁动画（初始状态，morph前） */
 .hexagram-line--changing .hexagram-line__left,
 .hexagram-line--changing .hexagram-line__right {
   animation: changing-blink 1.2s ease-in-out infinite;
@@ -90,4 +107,41 @@
 @keyframes changing-blink {
   0%, 100% { opacity: 1; }
   50% { opacity: 0.4; }
+}
+
+/* morph中：红色高亮闪烁 */
+.hexagram-line--morphing .hexagram-line__left,
+.hexagram-line--morphing .hexagram-line__right {
+  background-color: var(--red, #b33939);
+  animation: morph-flash 0.2s ease-in-out;
+}
+
+@keyframes morph-flash {
+  0% { opacity: 1; }
+  50% { opacity: 0.3; }
+  100% { opacity: 1; }
+}
+
+/* 高亮爻（金色光晕，用于标记静爻可点击） */
+.hexagram-line--highlighted .hexagram-line__left,
+.hexagram-line--highlighted .hexagram-line__right {
+  background-color: var(--gold, #c9a96e);
+  box-shadow: 0 0 12rpx rgba(201, 169, 110, 0.6);
+  animation: highlight-glow 2s ease-in-out infinite;
+}
+
+/* 变爻+高亮同时存在时，叠加闪烁+金色光晕 */
+.hexagram-line--changing.hexagram-line--highlighted .hexagram-line__left,
+.hexagram-line--changing.hexagram-line--highlighted .hexagram-line__right {
+  background-color: var(--gold, #c9a96e);
+  animation: changing-blink 1.2s ease-in-out infinite, highlight-glow 2s ease-in-out infinite;
+}
+
+@keyframes highlight-glow {
+  0%, 100% {
+    box-shadow: 0 0 12rpx rgba(201, 169, 110, 0.6);
+  }
+  50% {
+    box-shadow: 0 0 24rpx rgba(201, 169, 110, 0.9);
+  }
 }

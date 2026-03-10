@@ -11,23 +11,15 @@
       <text class="hex-number">第 {{hexagram.number}} 卦</text>
     </view>
 
-    <!-- 卦辞 -->
+    <!-- 卦辞与解读（合并） -->
     <view class="section">
       <view class="section-header">
-        <text class="section-title">卦辞</text>
+        <text class="section-title">卦辞与解读</text>
       </view>
       <view class="section-body">
         <text class="main-text">{{hexagram.judgment}}</text>
-      </view>
-    </view>
-
-    <!-- 解读 -->
-    <view class="section">
-      <view class="section-header">
-        <text class="section-title">解读</text>
-      </view>
-      <view class="section-body">
-        <text class="sub-text">{{hexagram.interpretation}}</text>
+        <text class="translation-text" wx:if="{{hexagram.judgmentTranslation}}">{{hexagram.judgmentTranslation}}</text>
+        <text class="sub-text" wx:if="{{hexagram.interpretation}}">{{hexagram.interpretation}}</text>
       </view>
     </view>
 
@@ -39,6 +31,8 @@
       <view class="section-body">
         <view wx:for="{{hexagram.lineTexts}}" wx:key="index" class="line-item">
           <text class="line-text">{{item}}</text>
+          <text class="line-interp" wx:if="{{lineInterps[index].interp}}">{{lineInterps[index].interp}}</text>
+          <text class="line-insight" wx:if="{{lineInterps[index].insight}}">{{lineInterps[index].insight}}</text>
         </view>
       </view>
     </view>

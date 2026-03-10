@@ -164,10 +164,20 @@ page {
   font-weight: bold;
 }
 
+.recent-scene {
+  font-size: 22rpx;
+  color: var(--text-secondary);
+  background: var(--surface-dark);
+  padding: 4rpx 12rpx;
+  border-radius: 8rpx;
+  flex-shrink: 0;
+}
+
 .recent-time {
   font-size: 22rpx;
   color: var(--text-tertiary);
   flex-shrink: 0;
+  margin-left: auto;
 }
 
 .recent-interp {

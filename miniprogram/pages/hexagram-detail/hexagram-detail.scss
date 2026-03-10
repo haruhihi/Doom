@@ -79,9 +79,24 @@ page {
   line-height: 1.8;
 }
 
+.translation-text {
+  display: block;
+  font-size: 28rpx;
+  color: #e8dcc8;
+  line-height: 1.8;
+  margin-top: 16rpx;
+  margin-bottom: 16rpx;
+  padding: 16rpx 20rpx;
+  background: linear-gradient(135deg, rgba(201, 169, 110, 0.1) 0%, rgba(201, 169, 110, 0.03) 100%);
+  border-radius: 12rpx;
+}
+
 .line-item {
   padding: 18rpx 0;
   border-bottom: 1rpx solid var(--border-gold-faint);
+  display: flex;
+  flex-direction: column;
+  gap: 8rpx;
 }
 
 .line-item:last-child {
@@ -92,4 +107,18 @@ page {
   font-size: 26rpx;
   color: var(--text-body);
   line-height: 1.7;
+}
+
+.line-interp {
+  font-size: 22rpx;
+  color: var(--text-tertiary);
+  line-height: 1.7;
+}
+
+.line-insight {
+  font-size: 26rpx;
+  color: #e8dcc8;
+  line-height: 1.7;
+  padding-left: 16rpx;
+  border-left: 3rpx solid var(--border-gold-faint);
 }

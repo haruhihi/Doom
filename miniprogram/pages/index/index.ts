@@ -30,13 +30,15 @@ Component({
     footerQuote: '',
     footerSource: '',
     testCases: [
-      { throws: '7,8,7,8,7,8', scene: 'general', desc: '0变爻' },
-      { throws: '9,7,8,7,8,7', scene: 'career', desc: '1变爻' },
-      { throws: '9,6,7,8,7,8', scene: 'love', desc: '2变爻' },
-      { throws: '9,6,9,7,8,7', scene: 'decision', desc: '3变爻' },
-      { throws: '9,6,9,6,7,8', scene: 'wealth', desc: '4变爻' },
-      { throws: '9,6,9,6,9,7', scene: 'study', desc: '5变爻' },
-      { throws: '9,6,9,6,9,6', scene: 'health', desc: '6变爻' },
+      { changingCount: 0, throws: '', scene: 'general', desc: '0变爻（随机）' },
+      { changingCount: 1, throws: '', scene: 'career', desc: '1变爻（随机）' },
+      { changingCount: 2, throws: '', scene: 'love', desc: '2变爻（随机）' },
+      { changingCount: 3, throws: '', scene: 'decision', desc: '3变爻（随机）' },
+      { changingCount: 4, throws: '', scene: 'wealth', desc: '4变爻（随机）' },
+      { changingCount: 5, throws: '', scene: 'career', desc: '5变爻（随机）' },
+      { changingCount: 6, throws: '', scene: 'wellness', desc: '6变爻（随机）' },
+      { changingCount: -1, throws: '9,9,9,9,9,9', scene: 'general', desc: '🥚 乾·用九' },
+      { changingCount: -1, throws: '6,6,6,6,6,6', scene: 'general', desc: '🥚 坤·用六' },
     ],
     _lastQuoteIdx: -1,
   },
@@ -142,12 +144,42 @@ Component({
       this.setData({ showTestSheet: false })
     },
 
+    // 根据变爻数生成随机投掷结果
+    _generateRandomThrows(changingCount: number): string {
+      // 随机选 changingCount 个位置作为变爻（Fisher-Yates 洗牌）
+      var positions = [0, 1, 2, 3, 4, 5]
+      for (var i = positions.length - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1))
+        var temp = positions[i]
+        positions[i] = positions[j]
+        positions[j] = temp
+      }
+      var changingSet: Record<number, boolean> = {}
+      for (var k = 0; k < changingCount; k++) {
+        changingSet[positions[k]] = true
+      }
+      // 生成6个投掷值
+      var throws: number[] = []
+      for (var m = 0; m < 6; m++) {
+        if (changingSet[m]) {
+          // 变爻：6（老阴）或 9（老阳）
+          throws.push(Math.random() < 0.5 ? 6 : 9)
+        } else {
+          // 不变：7（少阳）或 8（少阴）
+          throws.push(Math.random() < 0.5 ? 7 : 8)
+        }
+      }
+      return throws.join(',')
+    },
+
     onSelectTestCase(e: WechatMiniprogram.TouchEvent) {
       var idx = e.currentTarget.dataset.idx
       var tc = this.data.testCases[idx]
       if (!tc) return
       this.setData({ showTestSheet: false })
-      var url = '../result/result?throws=' + tc.throws + '&scene=' + tc.scene
+      // 彩蛋用固定 throws，其余随机生成
+      var throws = tc.throws || this._generateRandomThrows(tc.changingCount)
+      var url = '../result/result?throws=' + throws + '&scene=' + tc.scene
       wx.navigateTo({ url: url })
     },
   }

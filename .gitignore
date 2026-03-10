@@ -1,0 +1,13 @@
+# Dependencies
+node_modules/
+
+# OpenCode tool runtime
+.opencode/
+
+# WeChat DevTools private config
+project.private.config.json
+
+# One-off data import artifacts
+batch-*-input.xml
+extract-batch-input.ps1
+prompt-line-scenarios.md
