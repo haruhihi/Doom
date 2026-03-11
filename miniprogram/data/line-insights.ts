@@ -3,11 +3,6 @@
 // situation: 20-30字描述当前状态
 // advice: 30-45字可执行建议
 
-export interface ILineInsight {
-  situation: string
-  advice: string
-}
-
 // key = 卦序号, value = 6爻数组 (index 0=初爻, 5=上爻)
 export const lineInsights: Record<number, ILineInsight[]> = {
   // ---- 1 乾 ----

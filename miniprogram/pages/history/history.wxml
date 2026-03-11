@@ -13,7 +13,7 @@
       <!-- 清空按钮 -->
       <view class="clear-bar">
         <text class="record-count">共 {{historyList.length}} 条记录</text>
-        <view class="clear-btn" bindtap="onClearAll">
+        <view class="clear-btn" bindtap="onClearAll" hover-class="tap-feedback">
           <text>清空</text>
         </view>
       </view>
@@ -25,7 +25,7 @@
         class="record-swipe"
       >
         <!-- 删除按钮（在卡片下方，滑动后露出） -->
-        <view wx:if="{{activeSwipeIndex === index}}" class="record-delete" data-index="{{index}}" catchtap="onDeleteRecord">
+        <view wx:if="{{activeSwipeIndex === index}}" class="record-delete" data-index="{{index}}" catchtap="onDeleteRecord" hover-class="tap-feedback">
           <text class="record-delete-text">删除</text>
         </view>
         <!-- 卡片主体 -->

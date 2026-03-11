@@ -22,19 +22,6 @@
         </view>
       </view>
     </view>
-    <!-- ========== 首次引导横幅 ========== -->
-    <view class="guide-banner" wx:if="{{showGuide}}">
-      <text class="guide-banner-title">快速了解</text>
-      <view class="guide-banner-list">
-        <text class="guide-banner-item">· 左侧卦象 = 现状</text>
-        <text class="guide-banner-item">· 右侧卦象 = 变化趋势</text>
-        <text class="guide-banner-item">· 红色标记 = 正在变化的部分</text>
-      </view>
-      <view class="guide-banner-btn" bindtap="onDismissGuide">
-        <text class="guide-banner-btn-text">知道了</text>
-      </view>
-    </view>
-
     <!-- ========== 卦象展示区 ========== -->
 
     <!-- 0-2变爻：单卦展示 -->
@@ -190,7 +177,7 @@
             <text class="insight-label">行动建议</text>
             <text class="insight-text">{{insightAdvice}}</text>
           </view>
-          <view class="detail-entry-bar" bindtap="onShowDetailSheet">
+          <view class="detail-entry-bar" bindtap="onShowDetailSheet" hover-class="tap-feedback">
             <text class="detail-entry-bar-text">查看全部爻辞</text>
           </view>
         </view>
@@ -211,7 +198,7 @@
               <text class="insight-text">{{insightAdvice}}</text>
             </view>
           </view>
-          <view class="detail-entry-bar" bindtap="onShowDetailSheet">
+          <view class="detail-entry-bar" bindtap="onShowDetailSheet" hover-class="tap-feedback">
             <text class="detail-entry-bar-text">查看全部爻辞</text>
           </view>
         </view>
@@ -227,7 +214,7 @@
         </view>
         <text class="scenario-inline-text">{{scenarioContent}}</text>
       </view>
-      <view class="scenario-overlay {{scenarioRevealed ? 'scenario-overlay--hide' : ''}}" bindtap="onRevealScenario">
+      <view class="scenario-overlay {{scenarioRevealed ? 'scenario-overlay--hide' : ''}}" bindtap="onRevealScenario" hover-class="tap-feedback">
         <text class="scenario-overlay-btn">点击揭晓为{{sceneLabel}}的启示</text>
       </view>
     </view>
@@ -237,6 +224,13 @@
       <text class="page-disclaimer-text">本内容仅供传统文化学习参考，不构成任何现实决策依据。</text>
     </view>
 
+  </view>
+
+  <!-- 空状态 -->
+  <view class="empty-state" wx:else>
+    <text class="empty-state-icon">☯</text>
+    <text class="empty-state-text">卦象数据加载失败</text>
+    <text class="empty-state-hint">请返回首页重新体验</text>
   </view>
 </scroll-view>
 
@@ -262,7 +256,7 @@
       <view class="sheet-content">
 
         <!-- 了解变卦入口（有变爻时显示） -->
-        <view class="sheet-change-tip" wx:if="{{changingCount > 0}}" bindtap="onShowChangeTipSheet">
+        <view class="sheet-change-tip" wx:if="{{changingCount > 0}}" bindtap="onShowChangeTipSheet" hover-class="tap-feedback">
           <text class="sheet-change-tip-text">名词解释</text>
         </view>
 

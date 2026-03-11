@@ -1,12 +1,6 @@
 // 历史记录页
 import { formatTime } from '../../utils/util'
-import { scenarioMetas } from '../../data/hexagrams-premium'
-
-// 构建场景查找表
-var sceneMap: Record<string, IScenarioMeta> = {}
-for (var i = 0; i < scenarioMetas.length; i++) {
-  sceneMap[scenarioMetas[i].key] = scenarioMetas[i]
-}
+import { sceneMap } from '../../utils/scene-map'
 
 // 触摸状态（模块级，避免 TypeScript 实例属性问题）
 var _touchStartX = 0
@@ -101,7 +95,7 @@ Component({
     _navigateToRecord(index: number) {
       var record = this.data.historyList[index]
       if (!record) return
-      var url = '../result/result?throws=' + record.throws.join(',')
+      var url = '/pages/result/result?throws=' + record.throws.join(',')
       if (record.scene) {
         url += '&scene=' + record.scene
       }

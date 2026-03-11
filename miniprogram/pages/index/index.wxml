@@ -14,7 +14,7 @@
 
     <!-- 体验按钮 -->
     <view class="divine-area">
-      <view class="divine-btn-wrapper" bindtap="onStartDivine">
+      <view class="divine-btn-wrapper" bindtap="onStartDivine" hover-class="tap-feedback">
         <view class="divine-btn-glow"></view>
         <view class="divine-btn">
           <text class="divine-btn-text">体验</text>
@@ -26,7 +26,7 @@
     <!-- 最近记录 -->
     <view class="recent-section" wx:if="{{lastRecord}}">
       <text class="section-label">上次体验</text>
-      <view class="recent-card" bindtap="onViewLastRecord">
+      <view class="recent-card" bindtap="onViewLastRecord" hover-class="tap-feedback">
         <view class="recent-left">
           <hexagram-figure lines="{{lastRecord.hexagram.lines}}" size="small"></hexagram-figure>
         </view>
@@ -44,7 +44,7 @@
 
     <!-- 测试按钮（仅开发/体验环境可见） -->
     <view class="test-area" wx:if="{{isDev}}">
-      <view class="test-btn" bindtap="onTestDivine">
+      <view class="test-btn" bindtap="onTestDivine" hover-class="tap-feedback">
         <text>测试：选择变爻场景</text>
       </view>
     </view>
@@ -78,6 +78,7 @@
           class="scenario-tag {{selectedScene === item.key ? 'scenario-tag--active' : ''}}"
           data-key="{{item.key}}"
           bindtap="onSelectScene"
+          hover-class="tap-feedback"
         >
           <text class="scenario-tag-emoji">{{item.emoji}}</text>
           <text class="scenario-tag-label">{{item.label}}</text>
@@ -108,6 +109,7 @@
           class="test-case-item"
           data-idx="{{index}}"
           bindtap="onSelectTestCase"
+          hover-class="tap-feedback"
         >
           <text class="test-case-desc">{{item.desc}}</text>
           <text class="test-case-scene">{{item.scene}}</text>

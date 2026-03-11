@@ -2,7 +2,7 @@ page {
   height: 100vh;
   display: flex;
   flex-direction: column;
-  background: linear-gradient(180deg, var(--bg-primary) 0%, var(--bg-secondary) 50%, var(--bg-tertiary) 100%);
+  background: var(--gradient-page);
 }
 
 .scrollarea {
@@ -82,7 +82,7 @@ page {
 .translation-text {
   display: block;
   font-size: 28rpx;
-  color: #e8dcc8;
+  color: var(--text-warm);
   line-height: 1.8;
   margin-top: 16rpx;
   margin-bottom: 16rpx;
@@ -117,7 +117,7 @@ page {
 
 .line-insight {
   font-size: 26rpx;
-  color: #e8dcc8;
+  color: var(--text-warm);
   line-height: 1.7;
   padding-left: 16rpx;
   border-left: 3rpx solid var(--border-gold-faint);

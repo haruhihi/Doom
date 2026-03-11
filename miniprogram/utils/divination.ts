@@ -1,18 +1,6 @@
 // 起卦算法 - 三枚铜钱法
 import { findHexagram } from '../data/hexagrams'
 
-// 掷一次三枚铜钱
-// 正面(有字)=3，反面(无字)=2
-// 三枚之和: 6=老阴(变爻), 7=少阳, 8=少阴, 9=老阳(变爻)
-export function throwCoins(): number {
-  const coins = [
-    Math.random() < 0.5 ? 3 : 2,
-    Math.random() < 0.5 ? 3 : 2,
-    Math.random() < 0.5 ? 3 : 2,
-  ]
-  return coins[0] + coins[1] + coins[2]
-}
-
 // 获取单枚铜钱的正反面结果 (用于动画展示)
 export function throwCoinsDetail(): { coins: boolean[]; value: number } {
   const coins = [

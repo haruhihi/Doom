@@ -36,6 +36,16 @@ function _pickTransition(changingLines: number[]): string {
   return pool[Math.floor(Math.random() * pool.length)]
 }
 
+// 构建分享标题（聊天 + 朋友圈共用）
+function _buildShareTitle(hex: IHexagram, coreType: string, situation: string): string {
+  if (coreType === 'easter-egg') {
+    var eggName = hex.number === 1 ? '用九' : '用六'
+    return '✦ 极稀有「' + eggName + '」触发 —— ' + hex.name + '卦终极启示'
+  }
+  var titleText = situation.length > 20 ? situation.substring(0, 20) + '...' : situation
+  return hex.symbol + ' ' + hex.name + ' — ' + titleText
+}
+
 interface ILineDetail {
   position: number
   positionName: string
@@ -121,21 +131,11 @@ Component({
     isSaved: false,
     // 朱熹断卦法sheet
     showZhuxiSheet: false,
-    // 首次引导横幅
-    showGuide: false,
-    // 4-6变爻：双纵排本卦折叠 + 入场动画
-    hexCollapsed: false,
-    collapseBarVisible: false,
-    dualArrowVisible: false,
-    dualChangedVisible: false,
-
     // ====== 新分层展示数据 ======
-    // 核心内容类型: judgment=卦辞, lines=爻辞, dual-judgment=左右并排, easter-egg=乾用九/坤用六
-    coreType: '' as '' | 'judgment' | 'lines' | 'dual-judgment' | 'easter-egg',
+    // 核心内容类型: judgment=卦辞, easter-egg=乾用九/坤用六
+    coreType: '' as '' | 'judgment' | 'easter-egg',
     // 核心内容使用的是变卦(true)还是本卦(false)
     coreIsChanged: false,
-    // 核心爻辞列表（1-2条或5变时1条）
-    coreLines: [] as ICoreLineItem[],
     // 彩蛋
     easterEggText: '',
     easterEggInterp: '',
@@ -202,7 +202,6 @@ Component({
       // ====== 构建分层展示数据（7-case switch）======
       var coreType = ''
       var coreIsChanged = false
-      var coreLines: ICoreLineItem[] = []
       var easterEggText = ''
       var easterEggInterp = ''
           var easterEggQuoteLine1 = ''
@@ -492,7 +491,6 @@ Component({
         // 新分层数据
         coreType: coreType,
         coreIsChanged: coreIsChanged,
-        coreLines: coreLines,
         easterEggText: easterEggText,
         easterEggInterp: easterEggInterp,
         easterEggQuoteLine1: easterEggQuoteLine1,
@@ -505,10 +503,6 @@ Component({
         coreLineText: coreLineText,
         coreLineInterp: coreLineInterp,
         coreLineInsight: coreLineInsight,
-        hexCollapsed: false,
-        collapseBarVisible: false,
-        dualArrowVisible: false,
-        dualChangedVisible: false,
       })
 
       // 彩蛋降临蒙层
@@ -532,11 +526,31 @@ Component({
         self._loadScenario(sceneParam)
       }
 
-      // 首次引导横幅
-      var guideSeen = wx.getStorageSync('guide_seen')
-      if (!guideSeen) {
-        self.setData({ showGuide: true })
+    },
+
+    // 将场景内容写入页面数据
+    _applyScenario: function (sceneKey: ScenarioKey, content: string) {
+      if (!content) return
+
+      // 查找标签
+      var tag = ''
+      var label = ''
+      for (var si = 0; si < scenarioMetas.length; si++) {
+        if (scenarioMetas[si].key === sceneKey) {
+          tag = scenarioMetas[si].emoji + ' ' + scenarioMetas[si].label
+          label = scenarioMetas[si].label
+          break
+        }
       }
+
+      this.setData({
+        activeScene: sceneKey,
+        scenarioContent: content,
+        sceneTag: tag,
+        sceneLabel: label,
+        scenarioRevealed: false,
+        scenarioHeight: 0,
+      })
     },
 
     // 加载场景内容（根据 scenarioPositionKey 决定用卦级还是爻级数据）
@@ -549,8 +563,9 @@ Component({
 
       if (!hex) return
 
-      var content = ''
       if (posKey === 'judgment') {
+        // 卦辞级别：同步加载
+        var content = ''
         if (self.data.coreType === 'easter-egg') {
           // 彩蛋：优先使用专属用九/用六情境内容，fallback到普通卦级
           var eggContent = easterEggScenarios[hex.number]
@@ -582,33 +597,21 @@ Component({
             content = premium[sceneKey]
           }
         }
+        self._applyScenario(sceneKey, content)
       } else {
-        // 爻级情境：使用占位函数
+        // 爻级情境：异步加载分包数据
         var scenarioHexNum = (changingCount >= 4 && changed) ? changed.number : hex.number
-        content = getLineScenario(scenarioHexNum, posKey, sceneKey)
-      }
-
-      if (!content) return
-
-      // 查找标签
-      var tag = ''
-      var label = ''
-      for (var si = 0; si < scenarioMetas.length; si++) {
-        if (scenarioMetas[si].key === sceneKey) {
-          tag = scenarioMetas[si].emoji + ' ' + scenarioMetas[si].label
-          label = scenarioMetas[si].label
-          break
+        var lineResult = getLineScenario(scenarioHexNum, posKey, sceneKey)
+        // getLineScenario 爻级别返回 Promise<string>
+        if (lineResult && typeof (lineResult as any).then === 'function') {
+          (lineResult as Promise<string>).then(function (text) {
+            self._applyScenario(sceneKey, text)
+          })
+        } else {
+          // 安全 fallback（不应到达此分支）
+          self._applyScenario(sceneKey, lineResult as string)
         }
       }
-
-      self.setData({
-        activeScene: sceneKey,
-        scenarioContent: content,
-        sceneTag: tag,
-        sceneLabel: label,
-        scenarioRevealed: false,
-        scenarioHeight: 0,
-      })
     },
 
     // 返回上一页（支持从历史记录或起卦页进入）
@@ -619,12 +622,6 @@ Component({
       } else {
         wx.switchTab({ url: '/pages/index/index' })
       }
-    },
-
-    // 关闭首次引导横幅
-    onDismissGuide: function () {
-      wx.setStorageSync('guide_seen', true)
-      this.setData({ showGuide: false })
     },
 
     onDismissEggOverlay: function () {
@@ -705,11 +702,6 @@ Component({
       this.setData({ scrollToView: 'core-line-' + pos })
     },
 
-    // 4+变爻：切换本卦折叠/展开
-    onToggleHexCollapse: function () {
-      this.setData({ hexCollapsed: !this.data.hexCollapsed })
-    },
-
     // 保存记录
     onSave: function () {
       if (!this.data.hexagram) return
@@ -744,7 +736,6 @@ Component({
     // 分享到聊天
     onShareAppMessage: function () {
       var hex = this.data.hexagram
-      var situation = this.data.insightSituation || ''
       if (!hex) {
         return {
           title: '易简研习 - 卦象解读',
@@ -752,15 +743,7 @@ Component({
         }
       }
 
-      var title = ''
-      if (this.data.coreType === 'easter-egg') {
-        var eggName = hex.number === 1 ? '用九' : '用六'
-        title = '✦ 极稀有「' + eggName + '」触发 —— ' + hex.name + '卦终极启示'
-      } else {
-        var titleText = situation.length > 20 ? situation.substring(0, 20) + '...' : situation
-        title = hex.symbol + ' ' + hex.name + ' — ' + titleText
-      }
-
+      var title = _buildShareTitle(hex, this.data.coreType, this.data.insightSituation || '')
       var path = '/pages/result/result?throws=' + this.data.throws.join(',')
       if (this.data.activeScene) {
         path = path + '&scene=' + this.data.activeScene
@@ -775,7 +758,6 @@ Component({
     // 分享到朋友圈
     onShareTimeline: function () {
       var hex = this.data.hexagram
-      var situation = this.data.insightSituation || ''
       if (!hex) {
         return {
           title: '易简研习 - 卦象解读',
@@ -783,15 +765,7 @@ Component({
         }
       }
 
-      var title = ''
-      if (this.data.coreType === 'easter-egg') {
-        var eggName = hex.number === 1 ? '用九' : '用六'
-        title = '✦ 极稀有「' + eggName + '」触发 —— ' + hex.name + '卦终极启示'
-      } else {
-        var titleText = situation.length > 20 ? situation.substring(0, 20) + '...' : situation
-        title = hex.symbol + ' ' + hex.name + ' — ' + titleText
-      }
-
+      var title = _buildShareTitle(hex, this.data.coreType, this.data.insightSituation || '')
       var query = 'throws=' + this.data.throws.join(',')
       if (this.data.activeScene) {
         query = query + '&scene=' + this.data.activeScene

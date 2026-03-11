@@ -1,11 +1,6 @@
 // 64卦核心态势与行动建议
 // 完全口语化，零术语，小白一眼能看懂
 
-export interface IHexagramInsight {
-  situation: string
-  advice: string
-}
-
 export const hexagramInsights: Record<number, IHexagramInsight> = {
   // 1 乾
   1: {

@@ -1,13 +1,8 @@
 // 首页
 import { formatTime } from '../../utils/util'
-import { scenarioMetas } from '../../data/hexagrams-premium'
+import { scenarioMetas } from '../../data/scenario-metas'
+import { sceneMap } from '../../utils/scene-map'
 import { quotes } from '../../data/quotes'
-
-// 构建场景查找表
-var sceneMap: Record<string, IScenarioMeta> = {}
-for (var i = 0; i < scenarioMetas.length; i++) {
-  sceneMap[scenarioMetas[i].key] = scenarioMetas[i]
-}
 
 // 随机取一条（不连续重复）
 function pickRandom<T>(arr: T[], lastIndex: number): { value: T; index: number } {
@@ -128,7 +123,7 @@ Component({
     onViewLastRecord() {
       if (!this.data.lastRecord) return
       var record = this.data.lastRecord
-      var url = '../result/result?throws=' + record.throws.join(',')
+      var url = '/pages/result/result?throws=' + record.throws.join(',')
       if (record.scene) {
         url += '&scene=' + record.scene
       }
@@ -179,7 +174,7 @@ Component({
       this.setData({ showTestSheet: false })
       // 彩蛋用固定 throws，其余随机生成
       var throws = tc.throws || this._generateRandomThrows(tc.changingCount)
-      var url = '../result/result?throws=' + throws + '&scene=' + tc.scene
+      var url = '/pages/result/result?throws=' + throws + '&scene=' + tc.scene
       wx.navigateTo({ url: url })
     },
   }

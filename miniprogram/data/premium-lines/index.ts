@@ -1,29 +1,51 @@
-// 爻级场景数据入口（分包加载）
-// 合并4个数据分片为完整的 64卦 x 6爻 x 8场景 映射
+// 爻级场景数据入口（异步分包加载）
+// 根据卦号按需加载对应的数据分片，避免一次性加载全部 1676KB 数据
+// 数据格式: string[][] — 外层按爻位(0-5)，内层按场景顺序(general..social)
 
-import { lines01 } from './lines-01-16'
-import { lines17 } from './lines-17-32'
-import { lines33 } from './lines-33-48'
-import { lines49 } from './lines-49-64'
-
-var _allLines: ILineScenarioMap = {}
-
-function _merge(src: ILineScenarioMap): void {
-  var keys = Object.keys(src)
-  for (var i = 0; i < keys.length; i++) {
-    _allLines[Number(keys[i])] = src[Number(keys[i])]
-  }
+// 场景键 → 数组下标映射（与 scenarioMetas 顺序一致）
+var SCENARIO_INDEX: Record<string, number> = {
+  general: 0, career: 1, decision: 2, love: 3,
+  family: 4, wealth: 5, wellness: 6, social: 7
 }
 
-_merge(lines01)
-_merge(lines17)
-_merge(lines33)
-_merge(lines49)
+// 分片缓存，避免重复加载
+var _cache: Record<string, Record<number, string[][]>> = {}
 
-export function getLineContent(hexNumber: number, lineIndex: number, scenarioKey: ScenarioKey): string {
-  var hexData = _allLines[hexNumber]
+// 分片配置：卦号范围 → 分包路径 + 导出变量名
+var _shards = [
+  { max: 16, path: '../../subpkg-lines-a/data/lines-01-16', key: 'lines01' },
+  { max: 32, path: '../../subpkg-lines-b/data/lines-17-32', key: 'lines17' },
+  { max: 48, path: '../../subpkg-lines-c/data/lines-33-48', key: 'lines33' },
+  { max: 64, path: '../../subpkg-lines-d/data/lines-49-64', key: 'lines49' }
+]
+
+function _getShard(hexNumber: number) {
+  for (var i = 0; i < _shards.length; i++) {
+    if (hexNumber <= _shards[i].max) { return _shards[i] }
+  }
+  return _shards[3] // fallback to last shard
+}
+
+function _extractContent(data: Record<number, string[][]>, hexNumber: number, lineIndex: number, scenarioKey: ScenarioKey): string {
+  var hexData = data[hexNumber]
   if (!hexData) { return '' }
   var lineData = hexData[lineIndex]
   if (!lineData) { return '' }
-  return lineData[scenarioKey] || ''
+  var idx = SCENARIO_INDEX[scenarioKey]
+  return (idx !== undefined && lineData[idx]) || ''
+}
+
+export function getLineContent(hexNumber: number, lineIndex: number, scenarioKey: ScenarioKey): Promise<string> {
+  var shard = _getShard(hexNumber)
+
+  // 命中缓存，直接返回
+  if (_cache[shard.key]) {
+    return Promise.resolve(_extractContent(_cache[shard.key], hexNumber, lineIndex, scenarioKey))
+  }
+
+  // 异步加载分包数据
+  return require.async(shard.path).then(function (mod: any) {
+    _cache[shard.key] = mod[shard.key]
+    return _extractContent(_cache[shard.key], hexNumber, lineIndex, scenarioKey)
+  })
 }

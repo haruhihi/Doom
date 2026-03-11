@@ -38,4 +38,11 @@
     </view>
 
   </view>
+
+  <!-- 空状态 -->
+  <view class="empty-state" wx:else>
+    <text class="empty-state-icon">☯</text>
+    <text class="empty-state-text">卦象数据加载失败</text>
+    <text class="empty-state-hint">请返回重试</text>
+  </view>
 </scroll-view>

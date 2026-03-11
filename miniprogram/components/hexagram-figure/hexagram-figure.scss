@@ -9,10 +9,6 @@
   gap: 6rpx;
 }
 
-.hexagram-figure--medium {
-  gap: 7rpx;
-}
-
 .hexagram-line {
   display: flex;
   flex-direction: row;
@@ -31,11 +27,6 @@
 .hexagram-figure--small .hexagram-line {
   width: 80rpx;
   height: 10rpx;
-}
-
-.hexagram-figure--medium .hexagram-line {
-  width: 130rpx;
-  height: 16rpx;
 }
 
 /* 左右两半（始终渲染） */
@@ -81,11 +72,6 @@
 .hexagram-figure--small .hexagram-line__mark {
   margin-left: 8rpx;
   font-size: 12rpx;
-}
-
-.hexagram-figure--medium .hexagram-line__mark {
-  margin-left: 12rpx;
-  font-size: 16rpx;
 }
 
 /* 标记颜色：变爻 = 红色 */

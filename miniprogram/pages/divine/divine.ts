@@ -126,7 +126,7 @@ Component({
       const throws = this.data.throws
       const scene = this.data.scene
       wx.redirectTo({
-        url: '../result/result?throws=' + throws.join(',') + '&scene=' + scene,
+        url: '/pages/result/result?throws=' + throws.join(',') + '&scene=' + scene,
       })
     },
 

@@ -2,12 +2,44 @@
   "pages": [
     "pages/index/index",
     "pages/divine/divine",
-    "pages/result/result",
     "pages/hexagram-list/hexagram-list",
     "pages/hexagram-detail/hexagram-detail",
     "pages/history/history",
-    "pages/mine/mine"
+    "pages/mine/mine",
+    "pages/result/result"
   ],
+  "subPackages": [
+    {
+      "root": "subpkg-lines-a",
+      "pages": [
+        "pages/placeholder/placeholder"
+      ]
+    },
+    {
+      "root": "subpkg-lines-b",
+      "pages": [
+        "pages/placeholder/placeholder"
+      ]
+    },
+    {
+      "root": "subpkg-lines-c",
+      "pages": [
+        "pages/placeholder/placeholder"
+      ]
+    },
+    {
+      "root": "subpkg-lines-d",
+      "pages": [
+        "pages/placeholder/placeholder"
+      ]
+    }
+  ],
+  "preloadRule": {
+    "pages/divine/divine": {
+      "network": "all",
+      "packages": ["subpkg-lines-a", "subpkg-lines-b", "subpkg-lines-c", "subpkg-lines-d"]
+    }
+  },
   "tabBar": {
     "color": "#a89070",
     "selectedColor": "#c9a96e",

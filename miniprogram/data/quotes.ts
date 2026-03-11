@@ -1,9 +1,4 @@
 // 首页底部名家名句 —— 随机轮换
-export interface IQuote {
-  text: string
-  source: string
-}
-
 export var quotes: IQuote[] = [
   // ===== 论语 =====
   { text: '学而不思则罔，思而不学则殆', source: '《论语》' },
