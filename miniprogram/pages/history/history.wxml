@@ -30,24 +30,13 @@
         </view>
         <!-- 卡片主体 -->
         <view
-          class="record-card {{activeSwipeIndex === index ? 'record-card--swiped' : ''}}"
+          class="swipe-body {{activeSwipeIndex === index ? 'swipe-body--swiped' : ''}}"
           data-index="{{index}}"
           bindtouchstart="onRecordTouchStart"
           bindtouchmove="onRecordTouchMove"
           bindtouchend="onRecordTouchEnd"
         >
-          <view class="record-left">
-            <hexagram-figure lines="{{item.hexagram.lines}}" size="small"></hexagram-figure>
-          </view>
-          <view class="record-right">
-            <view class="record-header">
-              <text class="record-name">{{item.hexagram.name}}</text>
-              <text class="record-scene" wx:if="{{item.sceneEmoji}}">{{item.sceneEmoji}} {{item.sceneLabel}}</text>
-              <text class="record-time">{{item.timeStr}}</text>
-            </view>
-            <text class="record-judgment">{{item.hexagram.judgment}}</text>
-            <text class="record-interp">{{item.hexagram.interpretation}}</text>
-          </view>
+          <record-card record="{{item}}" />
         </view>
       </view>
     </view>

@@ -1,0 +1,6 @@
+{
+  "component": true,
+  "usingComponents": {
+    "hexagram-figure": "/components/hexagram-figure/hexagram-figure"
+  }
+}

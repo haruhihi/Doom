@@ -1,0 +1,108 @@
+/* 记录卡片组件 — 默认样式 */
+.card {
+  display: flex;
+  flex-direction: row;
+  padding: 28rpx;
+  background: var(--surface-light);
+  border: 1rpx solid var(--border-gold-subtle);
+  border-radius: 20rpx;
+  gap: 28rpx;
+  align-items: center;
+}
+
+/* ========== 卡片主体布局 ========== */
+.card-left {
+  flex-shrink: 0;
+}
+
+.card-right {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8rpx;
+  min-width: 0;
+}
+
+.card-header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 16rpx;
+  flex-wrap: wrap;
+}
+
+/* ========== 卦名 ========== */
+.card-name {
+  font-size: 32rpx;
+  color: var(--gold);
+  font-weight: bold;
+  flex-shrink: 0;
+}
+
+/* 4+变爻：本卦名淡化 */
+.card-name--faded {
+  font-size: 28rpx;
+  color: var(--text-tertiary);
+  font-weight: normal;
+}
+
+.card-arrow {
+  font-size: 22rpx;
+  color: var(--text-tertiary);
+}
+
+/* 3变爻默认：与本卦同色同权重 */
+.card-changed-name {
+  font-size: 32rpx;
+  color: var(--gold);
+  font-weight: bold;
+  flex-shrink: 0;
+}
+
+/* 4+变爻：变卦名不变，仍然是主角（与默认一致） */
+.card-changed-name--dominant {
+  font-size: 32rpx;
+  color: var(--gold);
+  font-weight: bold;
+}
+
+.card-special {
+  font-size: 20rpx;
+  color: var(--text-tertiary);
+  flex-shrink: 0;
+}
+
+.card-scene {
+  font-size: 20rpx;
+  color: var(--text-secondary);
+  background: var(--gold-bg-light);
+  padding: 2rpx 12rpx;
+  border-radius: 8rpx;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.card-time {
+  font-size: 22rpx;
+  color: var(--text-tertiary);
+  flex-shrink: 0;
+}
+
+.card-judgment {
+  font-size: 24rpx;
+  color: var(--text-body);
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.card-interp {
+  font-size: 24rpx;
+  color: var(--text-body);
+  line-height: 1.5;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}

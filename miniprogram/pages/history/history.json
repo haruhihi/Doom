@@ -1,6 +1,7 @@
 {
   "usingComponents": {
     "navigation-bar": "/components/navigation-bar/navigation-bar",
-    "hexagram-figure": "/components/hexagram-figure/hexagram-figure"
+    "hexagram-figure": "/components/hexagram-figure/hexagram-figure",
+    "record-card": "/components/record-card/record-card"
   }
 }

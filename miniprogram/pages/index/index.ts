@@ -1,5 +1,5 @@
 // 首页
-import { formatTime } from '../../utils/util'
+import { formatDate } from '../../utils/util'
 import { scenarioMetas } from '../../data/scenario-metas'
 import { sceneMap } from '../../utils/scene-map'
 import { quotes } from '../../data/quotes'
@@ -80,7 +80,7 @@ Component({
             changingLines: last.changingLines,
             changedHexagram: last.changedHexagram,
             scene: last.scene,
-            timeStr: formatTime(new Date(last.timestamp)),
+            timeStr: formatDate(new Date(last.timestamp)),
             sceneEmoji: meta ? meta.emoji : '',
             sceneLabel: meta ? meta.label : '',
           }

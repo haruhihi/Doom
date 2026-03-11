@@ -1,5 +1,5 @@
 // 历史记录页
-import { formatTime } from '../../utils/util'
+import { formatDate } from '../../utils/util'
 import { sceneMap } from '../../utils/scene-map'
 
 // 触摸状态（模块级，避免 TypeScript 实例属性问题）
@@ -39,7 +39,7 @@ Component({
           changingLines: record.changingLines,
           changedHexagram: record.changedHexagram,
           scene: record.scene,
-          timeStr: formatTime(new Date(record.timestamp)),
+          timeStr: formatDate(new Date(record.timestamp)),
           sceneEmoji: meta ? meta.emoji : '☯️',
           sceneLabel: meta ? meta.label : '综合指引',
         }

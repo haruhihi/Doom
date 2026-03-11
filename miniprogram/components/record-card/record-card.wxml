@@ -1,0 +1,37 @@
+<!-- 记录卡片 -->
+<view class="card custom-class">
+  <view class="card-left">
+    <!-- 4+变爻：展示变卦卦象 -->
+    <hexagram-figure
+      wx:if="{{changedDominant && record.changedHexagram}}"
+      lines="{{record.changedHexagram.lines}}"
+      size="small"
+    />
+    <!-- 0-3变爻：展示本卦卦象（含变爻闪烁） -->
+    <hexagram-figure
+      wx:else
+      lines="{{record.hexagram.lines}}"
+      changingLines="{{record.changingLines}}"
+      size="small"
+    />
+  </view>
+  <view class="card-right">
+    <view class="card-header">
+      <text class="card-name {{changedDominant ? 'card-name--faded' : ''}}">{{record.hexagram.name}}卦</text>
+      <text class="card-arrow" wx:if="{{showChanged && record.changedHexagram}}">→</text>
+      <text class="card-changed-name {{changedDominant ? 'card-changed-name--dominant' : ''}}" wx:if="{{showChanged && record.changedHexagram}}">{{record.changedHexagram.name}}卦</text>
+      <text class="card-special" wx:if="{{specialLabel}}">· {{specialLabel}}</text>
+      <text class="card-scene" wx:if="{{record.sceneLabel}}">{{record.sceneLabel}}</text>
+      <text class="card-time">{{record.timeStr}}</text>
+    </view>
+    <!-- 4+变爻：展示变卦的卦辞和白话 -->
+    <block wx:if="{{changedDominant && record.changedHexagram}}">
+      <text class="card-judgment">{{record.changedHexagram.judgment}}</text>
+      <text class="card-interp">{{record.changedHexagram.interpretation}}</text>
+    </block>
+    <block wx:else>
+      <text class="card-judgment">{{record.hexagram.judgment}}</text>
+      <text class="card-interp">{{record.hexagram.interpretation}}</text>
+    </block>
+  </view>
+</view>
