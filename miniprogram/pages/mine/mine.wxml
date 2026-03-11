@@ -18,7 +18,6 @@
           placeholder="点击设置昵称"
           placeholder-style="color: #7a6a50;"
           value="{{nickname}}"
-          bindinput="onNicknameInput"
           bindblur="onNicknameDone"
           bindconfirm="onNicknameDone"
         />

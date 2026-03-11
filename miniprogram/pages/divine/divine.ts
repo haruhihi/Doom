@@ -1,8 +1,6 @@
 // 铜钱体验页面
 import { throwCoinsDetail, getLineResult, type LineResult } from '../../utils/divination'
-import { startShakeDetection, stopShakeDetection, pauseShakeDetection, resumeShakeDetection } from '../../utils/shake'
-
-const LINE_NAMES = ['初爻', '二爻', '三爻', '四爻', '五爻', '上爻']
+import { LINE_NAMES } from '../../utils/util'
 
 Component({
   data: {
@@ -16,35 +14,6 @@ Component({
     scene: 'general' as string, // 情境参数（从首页传入）
     hasChangingLine: false,    // 是否存在变爻
     headerHint: '每次掷出三枚铜钱，共六次',
-  },
-
-  lifetimes: {
-    attached() {
-      // 开启摇一摇检测
-      startShakeDetection(() => {
-        this._doThrow()
-      }, {
-        threshold: 15,
-        cooldown: 2000,
-        interval: 'game'
-      })
-    },
-    detached() {
-      stopShakeDetection()
-    }
-  },
-
-  pageLifetimes: {
-    hide() {
-      pauseShakeDetection()
-    },
-    show() {
-      if (!this.data.isComplete && !this.data.isAnimating) {
-        resumeShakeDetection(() => {
-          this._doThrow()
-        })
-      }
-    }
   },
 
   methods: {
@@ -66,18 +35,12 @@ Component({
 
       const { coins, value } = throwCoinsDetail()
 
-      // 暂停摇一摇
-      pauseShakeDetection()
-
       // 开始动画
       this.setData({
         isAnimating: true,
         coinResults: undefined,  // 先清空，让铜钱回到初始态
         headerHint: '铜钱落定中...',
       })
-
-      // 震动反馈 — 二分法排查：暂时禁用
-      // wx.vibrateShort({ type: 'heavy' })
 
       // 动画结束后显示结果
       setTimeout(() => {
@@ -107,16 +70,6 @@ Component({
             hasChangingLine: this.data.hasChangingLine || lineResult.isChanging,
             headerHint: isComplete ? '结果已出，点击「查看解读」' : '点击继续',
           })
-
-          // 完成
-          if (isComplete) {
-            stopShakeDetection()
-          } else {
-            // 恢复摇一摇
-            resumeShakeDetection(() => {
-              this._doThrow()
-            })
-          }
         }, 400)
       }, 1000)
     },
@@ -133,7 +86,6 @@ Component({
     // 快速起卦 — 一次性生成6爻，快速连续动画
     onQuickDivine() {
       if (this.data.isAnimating || this.data.isComplete || this.data.currentThrow > 0) return
-      stopShakeDetection()
       this.setData({ isQuickMode: true })
       this._doQuickStep(0)
     },
@@ -157,9 +109,6 @@ Component({
       // 短暂延迟后重新添加动画 class，触发新一轮翻转
       setTimeout(function () {
         self.setData({ isAnimating: true })
-
-        // 震动反馈 — 二分法排查：暂时禁用
-        // wx.vibrateShort({ type: 'light' })
 
         // 快速模式下缩短动画等待
         setTimeout(function () {

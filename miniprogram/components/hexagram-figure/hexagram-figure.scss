@@ -83,7 +83,7 @@
   color: #5b9a5b;
 }
 
-/* 变爻闪烁动画（初始状态，morph前） */
+/* 变爻闪烁动画 */
 .hexagram-line--changing .hexagram-line__solid,
 .hexagram-line--changing .hexagram-line__left,
 .hexagram-line--changing .hexagram-line__right {
@@ -93,20 +93,6 @@
 @keyframes changing-blink {
   0%, 100% { opacity: 1; }
   50% { opacity: 0.4; }
-}
-
-/* morph中：红色高亮闪烁 */
-.hexagram-line--morphing .hexagram-line__solid,
-.hexagram-line--morphing .hexagram-line__left,
-.hexagram-line--morphing .hexagram-line__right {
-  background-color: var(--red, #b33939);
-  animation: morph-flash 0.2s ease-in-out;
-}
-
-@keyframes morph-flash {
-  0% { opacity: 1; }
-  50% { opacity: 0.3; }
-  100% { opacity: 1; }
 }
 
 /* 高亮爻（金色光晕，用于标记静爻可点击） */

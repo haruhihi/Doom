@@ -4,8 +4,7 @@ import { hexagramsPremium, scenarioMetas, getLineScenario } from '../../data/hex
 import { hexagramInsights } from '../../data/hexagram-insights'
 import { lineInsights } from '../../data/line-insights'
 import { easterEggScenarios } from '../../data/premium/easter-egg-scenarios'
-
-var LINE_NAMES = ['初爻', '二爻', '三爻', '四爻', '五爻', '上爻']
+import { LINE_NAMES, splitInterp } from '../../utils/util'
 
 // 3变爻过渡引导词库（按变动模式分类，随机取一条）
 var TRANSITION_LOWER = [
@@ -90,17 +89,6 @@ function _buildAttitudeTag(count: number): { label: string; color: string } {
   return { label: '全面翻转', color: 'purple' }
 }
 
-// 将爻辞解读拆分为"翻译"+"启示"两部分
-function _splitInterp(raw: string): { interp: string; insight: string } {
-  if (!raw) return { interp: '', insight: '' }
-  var idx = raw.indexOf('启示：')
-  if (idx < 0) idx = raw.indexOf('启示:')
-  if (idx < 0) return { interp: raw, insight: '' }
-  var before = raw.substring(0, idx).replace(/[。，\s]+$/, '')
-  var after = raw.substring(idx + 3)
-  return { interp: before, insight: after }
-}
-
 Component({
   data: {
     hexagram: null as IHexagram | null,
@@ -173,6 +161,7 @@ Component({
     // 海报相关
     posterImagePath: '',
     showPosterPreview: false,
+    dataReady: false,
   },
 
   methods: {
@@ -184,7 +173,10 @@ Component({
         menus: ['shareAppMessage', 'shareTimeline']
       })
 
-      if (!options.throws) return
+      if (!options.throws) {
+        self.setData({ dataReady: true })
+        return
+      }
 
       var throws = options.throws.split(',').map(Number)
       var result = buildDivination(throws)
@@ -194,7 +186,10 @@ Component({
       var changingLines = result.changingLines
       var changingCount = changingLines.length
 
-      if (!hex) return
+      if (!hex) {
+        self.setData({ dataReady: true })
+        return
+      }
 
       // 态势标签
       var attitude = _buildAttitudeTag(changingCount)
@@ -241,7 +236,7 @@ Component({
           coreType = 'judgment'
           coreIsChanged = false
           var pos1 = changingLines[0]
-          var split1 = _splitInterp((hex.lineInterpretations && hex.lineInterpretations[pos1]) || '')
+          var split1 = splitInterp((hex.lineInterpretations && hex.lineInterpretations[pos1]) || '')
           var li1 = lineInsights[hex.number]
           var liItem1 = li1 && li1[pos1]
           // 卦象区展示爻基础信息
@@ -267,7 +262,7 @@ Component({
           var sorted2 = changingLines.slice().sort(function (a: number, b: number) { return a - b })
           var upper2 = sorted2[sorted2.length - 1]
           var lower2 = sorted2[0]
-          var splitU2 = _splitInterp((hex.lineInterpretations && hex.lineInterpretations[upper2]) || '')
+          var splitU2 = splitInterp((hex.lineInterpretations && hex.lineInterpretations[upper2]) || '')
           var li2 = lineInsights[hex.number]
           var liU2 = li2 && li2[upper2]
           // 卦象区展示主爻基础信息
@@ -315,7 +310,7 @@ Component({
           var lower4 = unchanged4[0]
           var upper4 = unchanged4.length > 1 ? unchanged4[1] : unchanged4[0]
           if (changed) {
-            var split4 = _splitInterp((changed.lineInterpretations && changed.lineInterpretations[lower4]) || '')
+            var split4 = splitInterp((changed.lineInterpretations && changed.lineInterpretations[lower4]) || '')
             coreLinePositionName = LINE_NAMES[lower4] || ('第' + (lower4 + 1) + '爻')
             coreLineText = changed.lineTexts[lower4] || ''
             coreLineInterp = split4.interp
@@ -344,7 +339,7 @@ Component({
           }
           var only5 = unchanged5[0]
           if (changed) {
-            var split5 = _splitInterp((changed.lineInterpretations && changed.lineInterpretations[only5]) || '')
+            var split5 = splitInterp((changed.lineInterpretations && changed.lineInterpretations[only5]) || '')
             coreLinePositionName = LINE_NAMES[only5] || ('第' + (only5 + 1) + '爻')
             coreLineText = changed.lineTexts[only5] || ''
             coreLineInterp = split5.interp
@@ -435,10 +430,10 @@ Component({
         }
 
         var rawInterp = (hex.lineInterpretations && hex.lineInterpretations[i]) || ''
-        var splitResult = _splitInterp(rawInterp)
+        var splitResult = splitInterp(rawInterp)
 
         var changedRaw = (showChangedText && changed && changed.lineInterpretations) ? (changed.lineInterpretations[i] || '') : ''
-        var changedSplit = _splitInterp(changedRaw)
+        var changedSplit = splitInterp(changedRaw)
 
         return {
           position: i,
@@ -535,6 +530,7 @@ Component({
         // 蒙层（同批渲染，避免闪烁）
         eggCeremonyPhase: eggCeremonyPhase,
         lightCeremonyPhase: lightCeremonyPhase,
+        dataReady: true,
       })
 
       // 检测是否已保存过
@@ -1150,14 +1146,6 @@ Component({
       ctx.lineTo(x, y + r)
       ctx.arcTo(x, y, x + r, y, r)
       ctx.closePath()
-    },
-
-    // 辅助：hex 色值转 r,g,b 字符串（用于 rgba）
-    _hexToRgb: function (hex: string): string {
-      var r = parseInt(hex.slice(1, 3), 16)
-      var g = parseInt(hex.slice(3, 5), 16)
-      var b = parseInt(hex.slice(5, 7), 16)
-      return r + ', ' + g + ', ' + b
     },
 
     // 辅助：Canvas 自动换行绘制文字

@@ -181,6 +181,15 @@ page {
   line-height: 1.8;
 }
 
+.footer-disclaimer {
+  font-size: 20rpx;
+  color: var(--text-tertiary);
+  opacity: 0.5;
+  text-align: center;
+  margin-top: 16rpx;
+  line-height: 1.6;
+}
+
 /* ========== 情境选择 底部Sheet（页面特定样式） ========== */
 
 .sheet-desc {

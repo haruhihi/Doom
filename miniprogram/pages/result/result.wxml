@@ -201,8 +201,8 @@
 
   </view>
 
-  <!-- 空状态 -->
-  <view class="empty-state" wx:else>
+  <!-- 空状态（仅在数据加载完成但失败时显示） -->
+  <view class="empty-state" wx:elif="{{dataReady}}">
     <text class="empty-state-icon">☯</text>
     <text class="empty-state-text">卦象数据加载失败</text>
     <text class="empty-state-hint">请返回首页重新体验</text>

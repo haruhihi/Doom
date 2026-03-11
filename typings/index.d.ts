@@ -52,6 +52,7 @@ interface IScenarioMeta {
   key: ScenarioKey
   label: string
   emoji: string
+  desc: string
 }
 
 interface ILineInsight {

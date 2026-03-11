@@ -1,5 +1,6 @@
 // 卦详情页
 import { getHexagramByNumber } from '../../data/hexagrams'
+import { splitInterp } from '../../utils/util'
 
 Component({
   data: {
@@ -16,16 +17,7 @@ Component({
       if (hexagram) {
         var lineInterps: Array<{ interp: string; insight: string }> = []
         for (var i = 0; i < hexagram.lineInterpretations.length; i++) {
-          var raw = hexagram.lineInterpretations[i]
-          var splitIdx = raw.indexOf('启示：')
-          if (splitIdx >= 0) {
-            lineInterps.push({
-              interp: raw.substring(0, splitIdx).replace(/[。\s]+$/, ''),
-              insight: raw.substring(splitIdx + 3)
-            })
-          } else {
-            lineInterps.push({ interp: raw, insight: '' })
-          }
+          lineInterps.push(splitInterp(hexagram.lineInterpretations[i]))
         }
         this.setData({ hexagram: hexagram, lineInterps: lineInterps })
       }

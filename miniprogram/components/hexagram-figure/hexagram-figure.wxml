@@ -3,8 +3,6 @@
   lines: [0|1, 0|1, 0|1, 0|1, 0|1, 0|1] 从初爻到上爻
   changingLines: 变爻位置数组
   highlightLines: 需高亮的爻位置数组（金色圈出）
-  morphFrom: 变化前的lines数组（传入时触发morph动画）
-  morphDelay: 延迟多少ms开始变化（默认1500）
   size: 'large' | 'small'
 -->
 <view class="hexagram-figure hexagram-figure--{{size}}">
@@ -12,7 +10,7 @@
   <view
     wx:for="{{displayLines}}"
     wx:key="index"
-    class="hexagram-line {{item.isYang ? 'hexagram-line--yang' : 'hexagram-line--yin'}} {{item.isChanging ? 'hexagram-line--changing' : ''}} {{item.isHighlighted ? 'hexagram-line--highlighted' : ''}} {{item.isMorphing ? 'hexagram-line--morphing' : ''}}"
+    class="hexagram-line {{item.isYang ? 'hexagram-line--yang' : 'hexagram-line--yin'}} {{item.isChanging ? 'hexagram-line--changing' : ''}} {{item.isHighlighted ? 'hexagram-line--highlighted' : ''}}"
     data-idx="{{item.originalIndex}}"
     bindtap="onLineTap"
   >

@@ -14,24 +14,12 @@ function pickRandom<T>(arr: T[], lastIndex: number): { value: T; index: number }
   return { value: arr[idx], index: idx }
 }
 
-// 场景说明（选中后展示引导 + 解读方向）
-var SCENE_DESCS: Record<string, string> = {
-  general: '心中默想当下最在意的事，保持专注。将从整体运势角度为你解读卦象。',
-  career: '心中默想事业或学业上的困惑，越具体越好。将从职场发展、晋升机遇等角度为你解读。',
-  decision: '心中默想你正面临的抉择，感受两条路的分量。将从决策利弊、时机把握等角度为你解读。',
-  love: '心中默想那个人或那段关系，带着真诚去问。将从情感走向、相处之道等角度为你解读。',
-  family: '心中默想家中近期的状况或牵挂。将从家庭关系、居家运势等角度为你解读。',
-  wealth: '心中默想财务上的疑虑或期望。将从财运趋势、理财方向等角度为你解读。',
-  wellness: '深呼吸，感受此刻的心境与身体状态。将从情绪调适、身心平衡等角度为你解读。',
-  social: '心中默想与某人的关系或社交中的困扰。将从人际互动、合作共处等角度为你解读。',
-}
-
 Component({
   data: {
     lastRecord: null as (IDivinationRecord & { timeStr: string; sceneEmoji: string; sceneLabel: string }) | null,
     scenarioMetas: scenarioMetas,
     selectedScene: 'general' as ScenarioKey,
-    sceneDesc: SCENE_DESCS['general'],
+    sceneDesc: sceneMap['general'].desc,
     showSceneSheet: false,
     isDev: false,
     showTestSheet: false,
@@ -106,12 +94,12 @@ Component({
     // 选择情境
     onSelectScene(e: WechatMiniprogram.TouchEvent) {
       var key = e.currentTarget.dataset.key as ScenarioKey
-      this.setData({ selectedScene: key, sceneDesc: SCENE_DESCS[key] || '' })
+      this.setData({ selectedScene: key, sceneDesc: (sceneMap[key] && sceneMap[key].desc) || '' })
     },
 
     // 点击体验按钮 → 打开情境选择弹窗
     onStartDivine() {
-      this.setData({ showSceneSheet: true, selectedScene: 'general', sceneDesc: SCENE_DESCS['general'] })
+      this.setData({ showSceneSheet: true, selectedScene: 'general', sceneDesc: sceneMap['general'].desc })
     },
 
     // 确认情境 → 跳转起卦页

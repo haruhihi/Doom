@@ -33,16 +33,6 @@ Component({
       value: {},
       observer: '_updateDisplay'
     },
-    // 变化前的lines数组（传入时触发morph动画：先显示morphFrom，延迟后变为lines）
-    morphFrom: {
-      type: Array,
-      value: []
-    },
-    // 延迟多少ms开始变化
-    morphDelay: {
-      type: Number,
-      value: 1500
-    },
     // 尺寸: large / small
     size: {
       type: String,
@@ -55,8 +45,6 @@ Component({
       isChanging: boolean
       isHighlighted: boolean
       originalIndex: number
-      isMorphing: boolean
-      morphDone: boolean
       gapWidth: number
       showMark: boolean
       markText: string
@@ -87,19 +75,12 @@ Component({
       var changingLines = self.data.changingLines as number[]
       var highlightLines = self.data.highlightLines as number[]
       var lineLabels = (self.data.lineLabels || {}) as Record<number, { text: string; type: string }>
-      var morphFrom = self.data.morphFrom as number[]
-      var delay = self.data.morphDelay as number
 
       if (!targetLines || targetLines.length === 0) return
 
-      // 判断是否需要morph动画
-      var hasMorph = morphFrom && morphFrom.length === targetLines.length
-
-      // 初始显示：有morphFrom用morphFrom，否则用target
-      var sourceLines = hasMorph ? morphFrom : targetLines
       var displayLines = []
-      for (var i = sourceLines.length - 1; i >= 0; i--) {
-        var isYang = sourceLines[i] === 1
+      for (var i = targetLines.length - 1; i >= 0; i--) {
+        var isYang = targetLines[i] === 1
         var isChanging = changingLines.indexOf(i) >= 0
         var label = lineLabels[i]
         var showMark = false
@@ -115,8 +96,6 @@ Component({
           isChanging: isChanging,
           isHighlighted: highlightLines.indexOf(i) >= 0,
           originalIndex: i,
-          isMorphing: false,
-          morphDone: false,
           gapWidth: self._getGapWidth(isYang),
           showMark: showMark,
           markText: markText,
@@ -150,55 +129,6 @@ Component({
           ;(self as any)._blinkTimer = null
         }, 5000)
       }
-
-      // 如果有morph，延迟后执行变化
-      if (hasMorph) {
-        setTimeout(function () {
-          self._executeMorph(targetLines, changingLines)
-        }, delay)
-      }
-    },
-
-    _executeMorph: function (targetLines: number[], changingLines: number[]) {
-      var self = this
-      // 找出需要变化的行（displayLines是倒序的，index=0对应上爻）
-      var updates: Record<string, any> = {}
-      var totalLines = targetLines.length
-
-      for (var i = totalLines - 1; i >= 0; i--) {
-        var displayIdx = totalLines - 1 - i  // 倒序映射
-        if (changingLines.indexOf(i) < 0) continue
-
-        var prefix = 'displayLines[' + displayIdx + '].'
-        updates[prefix + 'isMorphing'] = true
-      }
-
-      // 先标记morphing状态（触发闪烁）
-      self.setData(updates, function () {
-        // 200ms后执行实际变化
-        setTimeout(function () {
-          var morphUpdates: Record<string, any> = {}
-          for (var i = totalLines - 1; i >= 0; i--) {
-            var displayIdx = totalLines - 1 - i
-            if (changingLines.indexOf(i) < 0) continue
-
-            var targetIsYang = targetLines[i] === 1
-            var prefix = 'displayLines[' + displayIdx + '].'
-            morphUpdates[prefix + 'isYang'] = targetIsYang
-            morphUpdates[prefix + 'gapWidth'] = self._getGapWidth(targetIsYang)
-            morphUpdates[prefix + 'isMorphing'] = false
-            morphUpdates[prefix + 'morphDone'] = true
-            morphUpdates[prefix + 'isChanging'] = false
-            morphUpdates[prefix + 'showMark'] = false
-          }
-          self.setData(morphUpdates)
-
-          // morph完成后触发事件通知父组件
-          setTimeout(function () {
-            self.triggerEvent('morphdone')
-          }, 700)
-        }, 200)
-      })
     },
 
     // 爻线点击 → 触发 linetap 事件，传递原始爻位索引

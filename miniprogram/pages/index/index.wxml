@@ -41,6 +41,7 @@
     <!-- 底部装饰 -->
     <view class="footer-deco">
       <text class="footer-text">{{footerQuote}} ——{{footerSource}}</text>
+      <text class="footer-disclaimer">本小程序为传统文化学习工具，内容基于古籍原文，仅供学习参考</text>
     </view>
 
   </view>

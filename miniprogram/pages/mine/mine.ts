@@ -98,11 +98,6 @@ Component({
       })
     },
 
-    // 昵称输入中（实时更新）
-    onNicknameInput(e: any) {
-      // 不在这里保存，等 blur/confirm 时保存
-    },
-
     // 昵称确认完成（blur 或 confirm）
     onNicknameDone(e: any) {
       const nickname = (e.detail.value || '').trim()
