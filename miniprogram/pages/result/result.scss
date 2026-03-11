@@ -921,7 +921,7 @@ page {
 }
 
 .sheet-content {
-  padding: 24rpx 32rpx 48rpx;
+  padding: 24rpx 32rpx 64rpx;
   display: flex;
   flex-direction: column;
 }
@@ -1165,7 +1165,6 @@ page {
 
 .inline-line-item:last-child {
   border-bottom: none;
-  padding-bottom: 0;
 }
 
 .inline-line-item--changing {
@@ -1413,4 +1412,94 @@ page {
   font-size: 22rpx;
   color: #f0d68a;
   line-height: 1.7;
+}
+
+/* ========== 海报 Canvas（屏幕外渲染） ========== */
+.poster-canvas {
+  position: fixed;
+  left: -9999px;
+  top: 0;
+  width: 375px;
+  height: 800px;
+}
+
+/* ========== 海报预览浮层 ========== */
+.poster-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.poster-overlay--show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.poster-overlay-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.75);
+}
+
+.poster-overlay-body {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32rpx;
+  max-width: 600rpx;
+  width: 80%;
+}
+
+.poster-overlay-image {
+  width: 100%;
+  border-radius: 16rpx;
+  box-shadow: 0 16rpx 48rpx rgba(0, 0, 0, 0.5);
+}
+
+.poster-overlay-actions {
+  display: flex;
+  flex-direction: row;
+  gap: 24rpx;
+  width: 100%;
+}
+
+.poster-action-btn {
+  flex: 1;
+  height: 80rpx;
+  line-height: 80rpx;
+  text-align: center;
+  font-size: 26rpx;
+  font-weight: bold;
+  border-radius: 40rpx;
+  border: none;
+  padding: 0;
+}
+
+.poster-action-btn::after {
+  border: none;
+}
+
+.poster-action-btn--share {
+  background: var(--gradient-gold-btn);
+  color: var(--text-on-gold);
+}
+
+.poster-action-btn--save {
+  background: rgba(255, 255, 255, 0.1);
+  border: 2rpx solid rgba(255, 255, 255, 0.3);
+  color: #ffffff;
 }

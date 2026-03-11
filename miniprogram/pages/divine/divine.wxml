@@ -77,9 +77,14 @@
         >
           <text class="result-index">{{item.label}}</text>
           <view class="result-line {{item.isYang ? 'result-line--yang' : 'result-line--yin'}} {{item.isChanging ? 'result-line--changing' : ''}}">
-            <view class="result-line__bar"></view>
-            <view wx:if="{{!item.isYang}}" class="result-line__gap"></view>
-            <view class="result-line__bar"></view>
+            <!-- 阳爻：单根实线 -->
+            <view wx:if="{{item.isYang}}" class="result-line__solid"></view>
+            <!-- 阴爻：两段 + 中间间隔 -->
+            <block wx:else>
+              <view class="result-line__bar"></view>
+              <view class="result-line__gap"></view>
+              <view class="result-line__bar"></view>
+            </block>
           </view>
           <view class="result-changing-slot">
             <text wx:if="{{item.isChanging}}" class="result-changing">变</text>

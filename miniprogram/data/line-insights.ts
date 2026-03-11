@@ -746,7 +746,7 @@ export const lineInsights: Record<number, ILineInsight[]> = {
     },
     {
       situation: '承受的压力超过了极限，快要撑不住了。',
-      advice: '必须赶紧减轻负担或寻求帮助，硬扛到底一定会崩。',
+      advice: '必须赶紧减轻负担或寻求帮助，硬扛到底往往会崩。',
     },
     {
       situation: '你稳住了大局，暂时安全了。',
@@ -1143,7 +1143,7 @@ export const lineInsights: Record<number, ILineInsight[]> = {
   43: [
     {
       situation: '准备不充分就急着要做决断。',
-      advice: '别操之过急，准备不足就冒进一定会受挫，再等等。',
+      advice: '别操之过急，准备不足就冒进往往会受挫，再等等。',
     },
     {
       situation: '保持着高度的警惕心，随时准备应对。',
@@ -1163,7 +1163,7 @@ export const lineInsights: Record<number, ILineInsight[]> = {
     },
     {
       situation: '不义的一方已经走到了末路。',
-      advice: '不义之人终无善果，正义虽然来得晚但一定会来。',
+      advice: '不义之人终无善果，正义虽然来得晚但终会到来。',
     },
   ],
   // ---- 44 姤 ----

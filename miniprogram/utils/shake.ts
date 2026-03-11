@@ -61,7 +61,13 @@ function _doStartAccelerometer(intervalVal: 'game' | 'ui' | 'normal', retryCount
     success: function () {
       wx.onAccelerometerChange(_onAccelerometerChange)
     },
-    fail: function (err) {
+    fail: function (err: any) {
+      // 隐私授权未通过，静默失败（用户仍可点击按钮操作）
+      if (err && err.errno === 112) {
+        console.warn('startAccelerometer: 需要隐私授权，摇一摇功能已禁用')
+        _isListening = false
+        return
+      }
       console.error('startAccelerometer failed (attempt ' + (retryCount + 1) + '):', err)
       // iOS 有时首次启动失败，重试一次，fallback 到 'ui' interval
       if (retryCount < 1) {

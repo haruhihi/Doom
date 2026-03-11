@@ -31,13 +31,17 @@ page {
 
 .taiji {
   margin-bottom: 24rpx;
-}
-
-.taiji-icon {
   width: 120rpx;
   height: 120rpx;
   border-radius: 50%;
-  filter: drop-shadow(0 0 20rpx var(--gold-glow-medium));
+  overflow: hidden;
+  box-shadow: 0 0 20rpx var(--gold-glow-medium);
+}
+
+.taiji-icon {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
 }
 
 /* 起卦按钮 */

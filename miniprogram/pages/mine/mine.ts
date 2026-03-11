@@ -1,6 +1,8 @@
 // 个人中心
 const defaultAvatar = 'https://mmbiz.qpic.cn/mmbiz/icTdbqWNOwNRna42FI242Lcia07jQodd2FJGIYQfG0LAJGFxM4FbnQP6yfMxBgJ0F3YRqJCJ1aPAK2dQagdusBZg/0'
 
+let _resolvePrivacy: ((value: { buttonId: string; event: string }) => void) | null = null
+
 Component({
   data: {
     avatarUrl: defaultAvatar,
@@ -8,12 +10,17 @@ Component({
     totalCount: 0,
     uniqueHexagrams: 0,
     showAbout: false,
+    showPrivacy: false,
   },
 
   lifetimes: {
     attached() {
       this._loadUserInfo()
       this._loadStats()
+      this._listenPrivacy()
+    },
+    detached() {
+      _resolvePrivacy = null
     }
   },
 
@@ -36,6 +43,43 @@ Component({
       this.setData({
         totalCount: history.length,
         uniqueHexagrams: uniqueNames.size,
+      })
+    },
+
+    // 监听隐私授权需求
+    _listenPrivacy() {
+      if (wx.onNeedPrivacyAuthorization) {
+        wx.onNeedPrivacyAuthorization((resolve) => {
+          _resolvePrivacy = resolve
+          this.setData({ showPrivacy: true })
+        })
+      }
+    },
+
+    // 用户同意隐私协议（button open-type="agreePrivacyAuthorization" 自动触发）
+    onAgreePrivacy() {
+      this.setData({ showPrivacy: false })
+      if (_resolvePrivacy) {
+        _resolvePrivacy({ buttonId: 'agree-btn', event: 'agree' })
+        _resolvePrivacy = null
+      }
+    },
+
+    // 用户拒绝
+    onRejectPrivacy() {
+      this.setData({ showPrivacy: false })
+      if (_resolvePrivacy) {
+        _resolvePrivacy({ buttonId: 'agree-btn', event: 'disagree' })
+        _resolvePrivacy = null
+      }
+    },
+
+    // 打开隐私协议详情
+    onOpenPrivacyContract() {
+      wx.openPrivacyContract({
+        fail() {
+          wx.showToast({ title: '打开失败', icon: 'none' })
+        }
       })
     },
 

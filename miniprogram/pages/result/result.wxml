@@ -3,50 +3,6 @@
 <scroll-view class="scrollarea" scroll-y type="list" scroll-into-view="{{scrollToView}}">
   <view class="result-page" wx:if="{{hexagram}}">
 
-    <!-- ========== 彩蛋降临蒙层 ========== -->
-    <view class="egg-ceremony {{eggCeremonyPhase}}" wx:if="{{eggCeremonyPhase}}" catchtouchmove="" bindtap="onDismissEggOverlay">
-      <image class="egg-ceremony-cloud cloud-left" src="/images/cloud-gold.svg" mode="aspectFit"></image>
-      <image class="egg-ceremony-cloud cloud-right" src="/images/cloud-gold.svg" mode="aspectFit"></image>
-      <view class="egg-ceremony-body" catchtap="">
-        <view class="egg-ceremony-badge">极稀有</view>
-        <text class="egg-ceremony-title">{{hexagram.number === 1 ? '用九' : '用六'}}</text>
-        <image class="egg-ceremony-dragon" src="/images/dragon-gold.svg" mode="aspectFit"></image>
-        <text class="egg-ceremony-quote">{{easterEggQuoteLine1}}</text>
-        <text class="egg-ceremony-quote">{{easterEggQuoteLine2}}</text>
-        <view class="egg-ceremony-btn" bindtap="onDismissEggOverlay">
-          <text class="egg-ceremony-btn-text">拨云见日</text>
-        </view>
-        <view class="egg-ceremony-guide">
-          <text class="egg-ceremony-guide-text">{{guideText}}</text>
-          <text class="egg-ceremony-guide-rarity">此为易经仅有的两个「用」辞之一，触发概率仅二十六万分之一</text>
-        </view>
-      </view>
-    </view>
-
-    <!-- ========== 轻量蒙层（3+变爻，非彩蛋） ========== -->
-    <view class="light-ceremony light-ceremony--{{attitudeColor}} {{lightCeremonyPhase}}" wx:if="{{lightCeremonyPhase}}" catchtouchmove="" bindtap="onDismissLightOverlay">
-      <view class="light-ceremony-body" catchtap="">
-        <view class="light-ceremony-badge">{{attitudeLabel}}</view>
-        <text class="light-ceremony-title">{{lightCeremonyTitle}}</text>
-        <view class="light-ceremony-hex">
-          <view class="light-ceremony-hex-item">
-            <hexagram-figure lines="{{hexagram.lines}}" changingLines="{{changingLines}}" size="small"></hexagram-figure>
-            <text class="light-ceremony-hex-name">{{hexagram.name}}</text>
-          </view>
-          <text class="light-ceremony-hex-arrow">→</text>
-          <view class="light-ceremony-hex-item">
-            <hexagram-figure lines="{{changedHexagram.lines}}" size="small"></hexagram-figure>
-            <text class="light-ceremony-hex-name">{{changedHexagram.name}}</text>
-          </view>
-        </view>
-        <view class="light-ceremony-divider"></view>
-        <text class="light-ceremony-guide">{{guideText}}</text>
-        <view class="light-ceremony-btn" bindtap="onDismissLightOverlay">
-          <text class="light-ceremony-btn-text">继续查看</text>
-        </view>
-      </view>
-    </view>
-
     <!-- ========== 卦象展示区 ========== -->
 
     <!-- 0-2变爻：单卦展示 -->
@@ -253,10 +209,57 @@
   </view>
 </scroll-view>
 
+<!-- ========== 海报 Canvas（屏幕外渲染） ========== -->
+<canvas type="2d" id="poster-canvas" class="poster-canvas"></canvas>
+
 <!-- ========== 固定底部栏 ========== -->
 <view class="fixed-bottom-bar" wx:if="{{hexagram}}">
   <button class="bottom-btn bottom-btn--save {{isSaved ? 'bottom-btn--saved' : ''}}" bindtap="{{isSaved ? 'onUnsave' : 'onSave'}}">{{isSaved ? '取消保存' : '保存记录'}}</button>
-  <button class="bottom-btn bottom-btn--share" open-type="share">分享</button>
+  <button class="bottom-btn bottom-btn--share" bindtap="onGeneratePoster">生成海报</button>
+</view>
+
+<!-- ========== 彩蛋降临蒙层 ========== -->
+<view class="egg-ceremony {{eggCeremonyPhase}}" wx:if="{{eggCeremonyPhase}}" catchtouchmove="" bindtap="onDismissEggOverlay">
+  <image class="egg-ceremony-cloud cloud-left" src="/images/cloud-gold.svg" mode="aspectFit"></image>
+  <image class="egg-ceremony-cloud cloud-right" src="/images/cloud-gold.svg" mode="aspectFit"></image>
+  <view class="egg-ceremony-body" catchtap="">
+    <view class="egg-ceremony-badge">极稀有</view>
+    <text class="egg-ceremony-title">{{hexagram.number === 1 ? '用九' : '用六'}}</text>
+    <image class="egg-ceremony-dragon" src="/images/dragon-gold.svg" mode="aspectFit"></image>
+    <text class="egg-ceremony-quote">{{easterEggQuoteLine1}}</text>
+    <text class="egg-ceremony-quote">{{easterEggQuoteLine2}}</text>
+    <view class="egg-ceremony-btn" bindtap="onDismissEggOverlay">
+      <text class="egg-ceremony-btn-text">拨云见日</text>
+    </view>
+    <view class="egg-ceremony-guide">
+      <text class="egg-ceremony-guide-text">{{guideText}}</text>
+      <text class="egg-ceremony-guide-rarity">此为易经仅有的两个「用」辞之一，触发概率仅二十六万分之一</text>
+    </view>
+  </view>
+</view>
+
+<!-- ========== 轻量蒙层（3+变爻，非彩蛋） ========== -->
+<view class="light-ceremony light-ceremony--{{attitudeColor}} {{lightCeremonyPhase}}" wx:if="{{lightCeremonyPhase}}" catchtouchmove="" bindtap="onDismissLightOverlay">
+  <view class="light-ceremony-body" catchtap="">
+    <view class="light-ceremony-badge">{{attitudeLabel}}</view>
+    <text class="light-ceremony-title">{{lightCeremonyTitle}}</text>
+    <view class="light-ceremony-hex">
+      <view class="light-ceremony-hex-item">
+        <hexagram-figure lines="{{hexagram.lines}}" changingLines="{{changingLines}}" size="small"></hexagram-figure>
+        <text class="light-ceremony-hex-name">{{hexagram.name}}</text>
+      </view>
+      <text class="light-ceremony-hex-arrow">→</text>
+      <view class="light-ceremony-hex-item">
+        <hexagram-figure lines="{{changedHexagram.lines}}" size="small"></hexagram-figure>
+        <text class="light-ceremony-hex-name">{{changedHexagram.name}}</text>
+      </view>
+    </view>
+    <view class="light-ceremony-divider"></view>
+    <text class="light-ceremony-guide">{{guideText}}</text>
+    <view class="light-ceremony-btn" bindtap="onDismissLightOverlay">
+      <text class="light-ceremony-btn-text">继续查看</text>
+    </view>
+  </view>
 </view>
 
 <!-- ========== 全部爻辞 详情Sheet ========== -->
@@ -463,6 +466,18 @@
       <view class="zhuxi-note" wx:if="{{coreType === 'easter-egg'}}">
         <text class="zhuxi-note-text">✦ 当前正是此种极稀有情形——「{{hexagram.number === 1 ? '用九' : '用六'}}」仅在{{hexagram.number === 1 ? '乾' : '坤'}}卦六爻全变时出现，为《易经》中仅有的两个「用」辞之一。</text>
       </view>
+    </view>
+  </view>
+</view>
+
+<!-- ========== 海报预览浮层 ========== -->
+<view class="poster-overlay {{showPosterPreview ? 'poster-overlay--show' : ''}}" wx:if="{{showPosterPreview}}" catchtouchmove="">
+  <view class="poster-overlay-bg" bindtap="onClosePosterPreview"></view>
+  <view class="poster-overlay-body">
+    <image class="poster-overlay-image" src="{{posterImagePath}}" mode="widthFix"></image>
+    <view class="poster-overlay-actions">
+      <button class="poster-action-btn poster-action-btn--share" bindtap="onSharePosterImage">预览并分享</button>
+      <button class="poster-action-btn poster-action-btn--save" bindtap="onSavePoster">保存到相册</button>
     </view>
   </view>
 </view>

@@ -170,6 +170,9 @@ Component({
     changedFocusTag: '',
     // 旧版指引（detail sheet内使用）
     guidanceText: '',
+    // 海报相关
+    posterImagePath: '',
+    showPosterPreview: false,
   },
 
   methods: {
@@ -354,7 +357,7 @@ Component({
           highlightLines = [only5]
           lineLabels[only5] = { text: '关键', type: 'static' }
           scenarioPositionKey = only5
-          guideText = '五弦皆乱，唯有一音独清。当世界都在崩塌时，守住变卦中那抹残存的寂静，便是你翻盘的底牌。\n重点研读「变卦」中唯一没动的' + LINE_NAMES[only5] + '，那是你唯一的生机所在。'
+          guideText = '五弦皆乱，唯有一音独清。当世界都在崩塌时，守住变卦中那抹残存的寂静，便是你翻盘的底牌。\n重点研读「变卦」中唯一没动的' + LINE_NAMES[only5] + '，那是你唯一的生机。'
           break
         }
 
@@ -781,6 +784,464 @@ Component({
       })
     },
 
+    // 生成海报（Canvas 绘制）
+    onGeneratePoster: function () {
+      var self = this
+      var hex = self.data.hexagram
+      if (!hex) return
+
+      wx.showLoading({ title: '生成中...' })
+
+      // 获取 canvas 节点
+      self.createSelectorQuery()
+        .select('#poster-canvas')
+        .fields({ node: true, size: true })
+        .exec(function (res: any) {
+          if (!res || !res[0] || !res[0].node) {
+            wx.hideLoading()
+            wx.showToast({ title: '生成失败', icon: 'none' })
+            return
+          }
+
+          var canvas = res[0].node
+          var ctx = canvas.getContext('2d')
+
+          // ========== 布局常量（逻辑像素） ==========
+          var W = 375
+          var dpr = 2
+          var PAD = 28              // 左右边距
+          var CONTENT_W = W - PAD * 2
+
+          // 颜色（与页面 CSS 变量一致）
+          var BG         = '#1a1a2e'
+          var BG_CENTER  = '#222240'   // 径向渐变中心（稍亮）
+          var GOLD       = '#c9a96e'
+          var GOLD_DIM   = 'rgba(201, 169, 110, 0.35)'
+          var TEXT_SEC    = '#a89070'
+
+          // 两档字体
+          var FONT_PRIMARY   = 'bold 16px sans-serif'
+          var FONT_SECONDARY = '13px sans-serif'
+
+          // 态势标签颜色映射
+          var ATTITUDE_COLORS: Record<string, string> = {
+            green:  '#4caf50',
+            yellow: '#f0c040',
+            orange: '#e07030',
+            red:    '#d84040',
+            purple: '#9c5ec0',
+            gold:   '#c9a96e',
+          }
+
+          // ========== 先测量文字高度 ==========
+          canvas.width = W * dpr
+          canvas.height = 900 * dpr
+          ctx.scale(dpr, dpr)
+
+          // 场景启示文字（优先展示；无场景时 fallback 到卦辞翻译）
+          var bodyText = self.data.scenarioContent || ''
+          if (!bodyText && hex.judgmentTranslation) {
+            bodyText = hex.judgmentTranslation
+          }
+          if (!bodyText && hex.interpretation) {
+            bodyText = hex.interpretation
+          }
+
+          // 场景标签
+          var sceneLabel = self.data.sceneTag || ''
+
+          // 态势标签
+          var attitudeLabel = self.data.attitudeLabel || ''
+          var attitudeColor = self.data.attitudeColor || ''
+
+          ctx.font = FONT_SECONDARY
+          var bodyTextW = CONTENT_W
+          var bodyTextH = bodyText ? self._measureWrappedTextHeight(ctx, bodyText, bodyTextW, 20) : 0
+
+          // ========== 计算总高度 ==========
+          var topPad = 36
+          var titleH = 18                // 应用标题行高
+          var gapAfterTitle = 16
+          // 卦象区域（单行：symbol + 卦名 + 三才，下方卦辞）
+          var hexNameH = 22             // symbol + 卦名行高
+          var gapAfterName = 8
+          // 测量卦辞换行高度
+          ctx.font = FONT_SECONDARY
+          var judgmentTextW = CONTENT_W
+          var judgmentStr = hex.judgment
+          var judgmentH = self._measureWrappedTextHeight(ctx, judgmentStr, judgmentTextW, 20)
+          var hexRowH = hexNameH + gapAfterName + judgmentH
+          var gapAfterHexRow = 16
+          // 装饰分隔（— tag —）或（— ◆ —）
+          var decoSepH = 14
+          var gapAfterDecoSep = 18
+          // 场景内容
+          var sceneLabelH = sceneLabel ? 28 : 0
+          var bodyBlockH = bodyTextH + sceneLabelH
+          var gapAfterBody = bodyText ? 18 : 0
+          // 底部装饰分隔 + 品牌区 + 免责声明
+          var decoSep2H = 14
+          var gapAfterDecoSep2 = 14
+          var bottomH = 84
+          var disclaimerH = 28
+          var bottomPad = 20
+
+          var totalH = topPad + titleH + gapAfterTitle
+            + hexRowH + gapAfterHexRow
+            + decoSepH + gapAfterDecoSep
+            + bodyBlockH + gapAfterBody
+            + decoSep2H + gapAfterDecoSep2
+            + bottomH + disclaimerH + bottomPad
+          if (totalH < 480) totalH = 480
+
+          // ========== 正式设置画布尺寸 ==========
+          canvas.width = W * dpr
+          canvas.height = totalH * dpr
+          ctx.setTransform(1, 0, 0, 1, 0, 0)
+          ctx.scale(dpr, dpr)
+
+          // ========== 背景：径向渐变（中心稍亮，边缘深） ==========
+          ctx.fillStyle = BG
+          ctx.fillRect(0, 0, W, totalH)
+          var grd = ctx.createRadialGradient(W / 2, totalH * 0.35, 0, W / 2, totalH * 0.35, W * 0.8)
+          grd.addColorStop(0, BG_CENTER)
+          grd.addColorStop(1, 'rgba(26, 26, 46, 0)')
+          ctx.fillStyle = grd
+          ctx.fillRect(0, 0, W, totalH)
+
+          // 细金色边框
+          var borderInset = 8
+          ctx.strokeStyle = GOLD_DIM
+          ctx.lineWidth = 0.5
+          self._roundRect(ctx, borderInset, borderInset, W - borderInset * 2, totalH - borderInset * 2, 10)
+          ctx.stroke()
+
+          // 四角L形装饰
+          var cLen = 16
+          var cOff = 13
+          ctx.strokeStyle = GOLD
+          ctx.lineWidth = 1.2
+          // 左上
+          ctx.beginPath()
+          ctx.moveTo(cOff, cOff + cLen)
+          ctx.lineTo(cOff, cOff)
+          ctx.lineTo(cOff + cLen, cOff)
+          ctx.stroke()
+          // 右上
+          ctx.beginPath()
+          ctx.moveTo(W - cOff - cLen, cOff)
+          ctx.lineTo(W - cOff, cOff)
+          ctx.lineTo(W - cOff, cOff + cLen)
+          ctx.stroke()
+          // 左下
+          ctx.beginPath()
+          ctx.moveTo(cOff, totalH - cOff - cLen)
+          ctx.lineTo(cOff, totalH - cOff)
+          ctx.lineTo(cOff + cLen, totalH - cOff)
+          ctx.stroke()
+          // 右下
+          ctx.beginPath()
+          ctx.moveTo(W - cOff - cLen, totalH - cOff)
+          ctx.lineTo(W - cOff, totalH - cOff)
+          ctx.lineTo(W - cOff, totalH - cOff - cLen)
+          ctx.stroke()
+
+          // ========== 辅助：绘制装饰分隔 — ◆ — 或 — label — ==========
+          function drawDecoSep(cy: number, label?: string, labelColor?: string) {
+            if (label) {
+              // — label — 模式：文字替代菱形
+              ctx.font = FONT_SECONDARY
+              var tw = ctx.measureText(label).width
+              var gap = 10          // 文字与横线间距
+              var dashW = 36        // 横线长度
+              var lineColor = labelColor || GOLD_DIM
+              // 左横线
+              ctx.strokeStyle = lineColor
+              ctx.lineWidth = 0.5
+              ctx.beginPath()
+              ctx.moveTo(W / 2 - tw / 2 - gap - dashW, cy)
+              ctx.lineTo(W / 2 - tw / 2 - gap, cy)
+              ctx.stroke()
+              // 右横线
+              ctx.beginPath()
+              ctx.moveTo(W / 2 + tw / 2 + gap, cy)
+              ctx.lineTo(W / 2 + tw / 2 + gap + dashW, cy)
+              ctx.stroke()
+              // 文字
+              ctx.fillStyle = labelColor || GOLD
+              ctx.textAlign = 'center'
+              ctx.textBaseline = 'middle'
+              ctx.fillText(label, W / 2, cy)
+            } else {
+              // — ◆ — 模式
+              var dW = 40
+              var diamondSize = 4
+              ctx.strokeStyle = GOLD_DIM
+              ctx.lineWidth = 0.5
+              ctx.beginPath()
+              ctx.moveTo(W / 2 - dW - diamondSize - 6, cy)
+              ctx.lineTo(W / 2 - diamondSize - 6, cy)
+              ctx.stroke()
+              ctx.beginPath()
+              ctx.moveTo(W / 2 + diamondSize + 6, cy)
+              ctx.lineTo(W / 2 + dW + diamondSize + 6, cy)
+              ctx.stroke()
+              ctx.fillStyle = GOLD_DIM
+              ctx.beginPath()
+              ctx.moveTo(W / 2, cy - diamondSize)
+              ctx.lineTo(W / 2 + diamondSize, cy)
+              ctx.lineTo(W / 2, cy + diamondSize)
+              ctx.lineTo(W / 2 - diamondSize, cy)
+              ctx.closePath()
+              ctx.fill()
+            }
+          }
+
+          var y = topPad
+
+          // ========== 应用标题 ==========
+          ctx.textAlign = 'center'
+          ctx.textBaseline = 'top'
+          ctx.fillStyle = TEXT_SEC
+          ctx.font = FONT_SECONDARY
+          ctx.fillText('易简研习 · 卦象解读', W / 2, y)
+          y += titleH + gapAfterTitle
+
+          // ========== 卦象区域（symbol + 卦名 + 三才 → 卦辞） ==========
+          ctx.textAlign = 'left'
+          ctx.textBaseline = 'top'
+
+          // 卦象符号 + 卦名
+          ctx.fillStyle = GOLD
+          ctx.font = FONT_PRIMARY
+          var symbolStr = (hex.symbol || '') + ' ' + hex.name + '卦'
+          ctx.fillText(symbolStr, PAD, y)
+
+          // 上下卦（紧跟卦名右侧）
+          var symbolNameW = ctx.measureText(symbolStr).width
+          ctx.fillStyle = TEXT_SEC
+          ctx.font = FONT_SECONDARY
+          ctx.fillText(hex.upperTrigram + '上·' + hex.lowerTrigram + '下', PAD + symbolNameW + 8, y + 3)
+          y += hexNameH + gapAfterName
+
+          // 卦辞
+          ctx.fillStyle = TEXT_SEC
+          ctx.font = FONT_SECONDARY
+          self._drawWrappedText(ctx, judgmentStr, PAD, y, judgmentTextW, 20, 'left')
+          y += judgmentH + gapAfterHexRow
+
+          // ========== 装饰分隔 — tag — 或 — ◆ — ==========
+          if (attitudeLabel) {
+            var pillColor = ATTITUDE_COLORS[attitudeColor] || GOLD
+            drawDecoSep(y + decoSepH / 2, attitudeLabel, pillColor)
+          } else {
+            drawDecoSep(y + decoSepH / 2)
+          }
+          y += decoSepH + gapAfterDecoSep
+
+          // ========== 场景启示 ==========
+          if (sceneLabel) {
+            ctx.textAlign = 'left'
+            ctx.textBaseline = 'top'
+            ctx.fillStyle = GOLD
+            ctx.font = FONT_PRIMARY
+            ctx.fillText(sceneLabel, PAD, y)
+            y += sceneLabelH
+          }
+
+          if (bodyText) {
+            ctx.textAlign = 'left'
+            ctx.textBaseline = 'top'
+            ctx.fillStyle = TEXT_SEC
+            ctx.font = FONT_SECONDARY
+            self._drawWrappedText(ctx, bodyText, PAD, y, bodyTextW, 20, 'left')
+            y += bodyTextH + gapAfterBody
+          }
+
+          // ========== 装饰分隔符 2 ==========
+          drawDecoSep(y + decoSep2H / 2)
+          y += decoSep2H + gapAfterDecoSep2
+
+          // ========== 底部品牌区域 ==========
+          var bottomY = totalH - bottomH - disclaimerH - bottomPad
+
+          var qrSize = 64
+          var qrX = PAD
+          var qrY = bottomY + (bottomH - qrSize) / 2 + 2
+
+          // 加载 QR 码图片
+          var qrImage = canvas.createImage()
+          qrImage.onload = function () {
+            // 白底圆角
+            ctx.fillStyle = '#ffffff'
+            self._roundRect(ctx, qrX - 3, qrY - 3, qrSize + 6, qrSize + 6, 6)
+            ctx.fill()
+            ctx.drawImage(qrImage, qrX, qrY, qrSize, qrSize)
+
+            // 品牌文字
+            var tX = qrX + qrSize + 14
+            ctx.textAlign = 'left'
+            ctx.textBaseline = 'top'
+            ctx.fillStyle = GOLD
+            ctx.font = FONT_PRIMARY
+            ctx.fillText('易简研习', tX, qrY + 8)
+
+            ctx.fillStyle = TEXT_SEC
+            ctx.font = FONT_SECONDARY
+            ctx.fillText('长按识别小程序码', tX, qrY + 30)
+            ctx.fillText('体验经典智慧', tX, qrY + 46)
+
+            // 免责声明
+            ctx.fillStyle = TEXT_SEC
+            ctx.font = FONT_SECONDARY
+            ctx.textAlign = 'center'
+            ctx.fillText('本内容仅供传统文化学习参考，不构成任何现实决策依据。', W / 2, bottomY + bottomH + disclaimerH / 2 - 6)
+
+            // 导出图片
+            wx.canvasToTempFilePath({
+              canvas: canvas,
+              fileType: 'png',
+              quality: 1,
+              success: function (exportRes) {
+                wx.hideLoading()
+                self.setData({
+                  posterImagePath: exportRes.tempFilePath,
+                  showPosterPreview: true
+                })
+              },
+              fail: function (err) {
+                wx.hideLoading()
+                console.error('canvasToTempFilePath failed:', err)
+                wx.showToast({ title: '生成失败', icon: 'none' })
+              }
+            })
+          }
+          qrImage.onerror = function () {
+            wx.hideLoading()
+            wx.showToast({ title: 'QR码加载失败', icon: 'none' })
+          }
+          qrImage.src = '/images/share-before318.png'
+        })
+    },
+
+    // 预览海报图片（用户可长按转发为真正的图片）
+    onSharePosterImage: function () {
+      var self = this
+      if (!self.data.posterImagePath) return
+
+      wx.previewImage({
+        urls: [self.data.posterImagePath],
+        current: self.data.posterImagePath
+      })
+    },
+
+    // 辅助：绘制圆角矩形路径（不自动 stroke/fill）
+    _roundRect: function (ctx: any, x: number, y: number, w: number, h: number, r: number) {
+      if (r > h / 2) r = h / 2
+      if (r > w / 2) r = w / 2
+      ctx.beginPath()
+      ctx.moveTo(x + r, y)
+      ctx.lineTo(x + w - r, y)
+      ctx.arcTo(x + w, y, x + w, y + r, r)
+      ctx.lineTo(x + w, y + h - r)
+      ctx.arcTo(x + w, y + h, x + w - r, y + h, r)
+      ctx.lineTo(x + r, y + h)
+      ctx.arcTo(x, y + h, x, y + h - r, r)
+      ctx.lineTo(x, y + r)
+      ctx.arcTo(x, y, x + r, y, r)
+      ctx.closePath()
+    },
+
+    // 辅助：hex 色值转 r,g,b 字符串（用于 rgba）
+    _hexToRgb: function (hex: string): string {
+      var r = parseInt(hex.slice(1, 3), 16)
+      var g = parseInt(hex.slice(3, 5), 16)
+      var b = parseInt(hex.slice(5, 7), 16)
+      return r + ', ' + g + ', ' + b
+    },
+
+    // 辅助：Canvas 自动换行绘制文字
+    _drawWrappedText: function (ctx: any, text: string, x: number, startY: number, maxWidth: number, lineHeight: number, align: string) {
+      ctx.textAlign = align
+      ctx.textBaseline = 'top'
+      var chars = text.split('')
+      var line = ''
+      var y = startY
+
+      for (var i = 0; i < chars.length; i++) {
+        var testLine = line + chars[i]
+        var metrics = ctx.measureText(testLine)
+        if (metrics.width > maxWidth && line.length > 0) {
+          ctx.fillText(line, x, y)
+          line = chars[i]
+          y += lineHeight
+        } else {
+          line = testLine
+        }
+      }
+      if (line) {
+        ctx.fillText(line, x, y)
+      }
+    },
+
+    // 辅助：测量换行文字高度
+    _measureWrappedTextHeight: function (ctx: any, text: string, maxWidth: number, lineHeight: number): number {
+      var chars = text.split('')
+      var line = ''
+      var lines = 1
+
+      for (var i = 0; i < chars.length; i++) {
+        var testLine = line + chars[i]
+        var metrics = ctx.measureText(testLine)
+        if (metrics.width > maxWidth && line.length > 0) {
+          line = chars[i]
+          lines++
+        } else {
+          line = testLine
+        }
+      }
+      return lines * lineHeight
+    },
+
+    // 保存海报到相册
+    onSavePoster: function () {
+      var self = this
+      if (!self.data.posterImagePath) return
+
+      wx.authorize({
+        scope: 'scope.writePhotosAlbum',
+        success: function () {
+          wx.saveImageToPhotosAlbum({
+            filePath: self.data.posterImagePath,
+            success: function () {
+              wx.showToast({ title: '已保存到相册', icon: 'success' })
+            },
+            fail: function () {
+              wx.showToast({ title: '保存失败', icon: 'none' })
+            }
+          })
+        },
+        fail: function () {
+          // 权限被拒绝，引导用户去设置页开启
+          wx.showModal({
+            title: '需要相册权限',
+            content: '请在设置中开启相册权限以保存图片',
+            confirmText: '去设置',
+            success: function (modalRes) {
+              if (modalRes.confirm) {
+                wx.openSetting()
+              }
+            }
+          })
+        }
+      })
+    },
+
+    // 关闭海报预览
+    onClosePosterPreview: function () {
+      this.setData({ showPosterPreview: false, posterImagePath: '' })
+    },
+
     // 分享到聊天
     onShareAppMessage: function () {
       var hex = this.data.hexagram
@@ -797,10 +1258,17 @@ Component({
         path = path + '&scene=' + this.data.activeScene
       }
 
-      return {
+      var result: any = {
         title: title,
         path: path,
       }
+
+      // 如果有海报图片，使用海报作为分享卡片封面
+      if (this.data.posterImagePath) {
+        result.imageUrl = this.data.posterImagePath
+      }
+
+      return result
     },
 
     // 分享到朋友圈

@@ -16,9 +16,14 @@
     data-idx="{{item.originalIndex}}"
     bindtap="onLineTap"
   >
-    <view class="hexagram-line__left"></view>
-    <view class="hexagram-line__gap" style="width: {{item.gapWidth}}rpx"></view>
-    <view class="hexagram-line__right"></view>
+    <!-- 阳爻：单根实线 -->
+    <view wx:if="{{item.isYang}}" class="hexagram-line__solid"></view>
+    <!-- 阴爻：两段 + 中间间隔 -->
+    <block wx:else>
+      <view class="hexagram-line__left"></view>
+      <view class="hexagram-line__gap" style="width: {{item.gapWidth}}rpx"></view>
+      <view class="hexagram-line__right"></view>
+    </block>
     <view wx:if="{{item.showMark}}" class="hexagram-line__mark hexagram-line__mark--{{item.markType}}">{{item.markText}}</view>
   </view>
 </view>

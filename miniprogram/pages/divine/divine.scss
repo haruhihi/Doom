@@ -300,28 +300,27 @@ page {
   height: 12rpx;
 }
 
-.result-line--yang .result-line__bar {
+/* 阳爻：单根实线 */
+.result-line__solid {
+  width: 100%;
+  height: 100%;
+  background: var(--gold);
+  border-radius: 3rpx;
+}
+
+/* 阴爻：左右两段 */
+.result-line__bar {
   flex: 1;
   height: 100%;
   background: var(--gold);
   border-radius: 3rpx;
 }
 
-.result-line--yang .result-line__gap {
-  display: none;
-}
-
-.result-line--yin .result-line__bar {
-  flex: 1;
-  height: 100%;
-  background: var(--gold);
-  border-radius: 3rpx;
-}
-
-.result-line--yin .result-line__gap {
+.result-line__gap {
   width: 16rpx;
 }
 
+.result-line--changing .result-line__solid,
 .result-line--changing .result-line__bar {
   animation: line-blink 1.2s ease-in-out infinite;
 }

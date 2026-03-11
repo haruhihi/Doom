@@ -74,5 +74,30 @@
       </view>
     </view>
 
+    <!-- 隐私授权弹窗 -->
+    <view class="privacy-panel" wx:if="{{showPrivacy}}">
+      <view class="privacy-mask"></view>
+      <view class="privacy-content">
+        <text class="privacy-title">隐私保护提示</text>
+        <view class="privacy-body">
+          <text class="privacy-desc">在使用头像和昵称功能前，请先阅读并同意</text>
+          <text class="privacy-link" bindtap="onOpenPrivacyContract">《用户隐私保护指引》</text>
+        </view>
+        <view class="privacy-btns">
+          <view class="privacy-btn privacy-btn--cancel" bindtap="onRejectPrivacy">
+            <text>拒绝</text>
+          </view>
+          <button
+            id="agree-btn"
+            class="privacy-btn privacy-btn--agree"
+            open-type="agreePrivacyAuthorization"
+            bindagreeprivacyauthorization="onAgreePrivacy"
+          >
+            <text>同意</text>
+          </button>
+        </view>
+      </view>
+    </view>
+
   </view>
 </scroll-view>
