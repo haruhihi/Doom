@@ -899,8 +899,8 @@ page {
 
 .bottom-btn--saved {
   background: var(--surface-light);
-  color: var(--text-tertiary);
-  opacity: 0.6;
+  color: var(--text-secondary);
+  border: 2rpx solid var(--border-gold-faint);
 }
 
 .bottom-btn--share {

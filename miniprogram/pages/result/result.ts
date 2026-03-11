@@ -489,6 +489,15 @@ Component({
         }
       }
 
+      // 蒙层阶段（合入主 setData，避免两次渲染之间内容闪现）
+      var eggCeremonyPhase = ''
+      var lightCeremonyPhase = ''
+      if (coreType === 'easter-egg') {
+        eggCeremonyPhase = 'enter'
+      } else if (changingCount >= 3) {
+        lightCeremonyPhase = 'enter'
+      }
+
       self.setData({
         hexagram: hex,
         changedHexagram: changed,
@@ -520,17 +529,10 @@ Component({
         coreLineInsight: coreLineInsight,
         lightCeremonyTitle: lightCeremonyTitle,
         changingAnimReady: changingAnimReady,
+        // 蒙层（同批渲染，避免闪烁）
+        eggCeremonyPhase: eggCeremonyPhase,
+        lightCeremonyPhase: lightCeremonyPhase,
       })
-
-      // 彩蛋降临蒙层
-      if (coreType === 'easter-egg') {
-        self.setData({ eggCeremonyPhase: 'enter' })
-      }
-
-      // 轻量蒙层（3+变爻，非彩蛋）
-      if (coreType !== 'easter-egg' && changingCount >= 3) {
-        self.setData({ lightCeremonyPhase: 'enter' })
-      }
 
       // 检测是否已保存过
       var throwsStr = result.throws.join(',')
@@ -760,6 +762,22 @@ Component({
       wx.showToast({
         title: '已保存',
         icon: 'success'
+      })
+    },
+
+    // 取消保存
+    onUnsave: function () {
+      if (!this.data.hexagram) return
+      var throwsStr = this.data.throws.join(',')
+      var history: IDivinationRecord[] = wx.getStorageSync('divination_history') || []
+      var filtered = history.filter(function (r) {
+        return !(r.throws && r.throws.join(',') === throwsStr)
+      })
+      wx.setStorageSync('divination_history', filtered)
+      this.setData({ isSaved: false })
+      wx.showToast({
+        title: '已取消',
+        icon: 'none'
       })
     },
 

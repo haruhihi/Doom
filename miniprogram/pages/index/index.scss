@@ -231,6 +231,19 @@ page {
   font-weight: bold;
 }
 
+/* 场景说明文本 */
+.scene-desc-box {
+  padding: 20rpx 24rpx;
+  background: linear-gradient(135deg, rgba(201, 169, 110, 0.10) 0%, rgba(201, 169, 110, 0.03) 100%);
+  border-radius: 16rpx;
+}
+
+.scene-desc-text {
+  font-size: 24rpx;
+  color: var(--text-warm);
+  line-height: 1.7;
+}
+
 .sheet-confirm-btn {
   width: 100%;
   height: 88rpx;

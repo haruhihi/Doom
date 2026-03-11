@@ -255,7 +255,7 @@
 
 <!-- ========== 固定底部栏 ========== -->
 <view class="fixed-bottom-bar" wx:if="{{hexagram}}">
-  <button class="bottom-btn bottom-btn--save {{isSaved ? 'bottom-btn--saved' : ''}}" bindtap="onSave" disabled="{{isSaved}}">{{isSaved ? '已保存' : '保存记录'}}</button>
+  <button class="bottom-btn bottom-btn--save {{isSaved ? 'bottom-btn--saved' : ''}}" bindtap="{{isSaved ? 'onUnsave' : 'onSave'}}">{{isSaved ? '取消保存' : '保存记录'}}</button>
   <button class="bottom-btn bottom-btn--share" open-type="share">分享</button>
 </view>
 

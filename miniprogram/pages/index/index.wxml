@@ -73,6 +73,9 @@
           <text class="scenario-tag-label">{{item.label}}</text>
         </view>
       </view>
+      <view class="scene-desc-box" wx:if="{{sceneDesc}}">
+        <text class="scene-desc-text">{{sceneDesc}}</text>
+      </view>
       <button class="sheet-confirm-btn" bindtap="onConfirmScene">开始体验</button>
     </view>
   </view>
