@@ -141,6 +141,12 @@ Component({
     easterEggInterp: '',
     // 彩蛋降临仪式阶段: '' | 'enter' | 'reveal' | 'exit'
     eggCeremonyPhase: '' as '' | 'enter' | 'reveal' | 'exit',
+    // 轻量六变仪式阶段（非乾坤）: '' | 'enter' | 'exit'
+    lightCeremonyPhase: '' as '' | 'enter' | 'exit',
+    // 轻量蒙层标题（三爻变动/四爻变动/五爻变动/六爻皆变）
+    lightCeremonyTitle: '',
+    // 变卦动画就绪（3+变爻蒙层dismiss后才播放）
+    changingAnimReady: true,
     // 彩蛋金句（分两行）
     easterEggQuoteLine1: '',
     easterEggQuoteLine2: '',
@@ -224,7 +230,7 @@ Component({
           coreType = 'judgment'
           coreIsChanged = false
           scenarioPositionKey = 'judgment'
-          guideText = '六条爻都没有变化，整个卦很稳定。直接看本卦的卦辞即可。'
+          guideText = '万象归寂，定数已现。当前局势稳如磐石，与其向外求索，不如静待本心的回响。\n请直接研读「本卦」卦辞，这是你此刻最真实的写照。'
           break
 
         case 1: {
@@ -246,7 +252,7 @@ Component({
           highlightLines = [pos1]
           lineLabels[pos1] = { text: '关键', type: 'changing' }
           scenarioPositionKey = pos1
-          guideText = '只有' + LINE_NAMES[pos1] + '在变，其余五条不动。重点看这条变爻的爻辞即可。'
+          guideText = '一念起，万山动。这唯一的变数便是天机给你的特写，此刻，它是你破局的唯一抓手。\n请重点研读「本卦」中' + LINE_NAMES[pos1] + '的爻辞，那是唯一的出口。'
           break
         }
 
@@ -272,7 +278,7 @@ Component({
           highlightLines = [upper2, lower2]
           lineLabels[upper2] = { text: '关键', type: 'changing' }
           scenarioPositionKey = upper2
-          guideText = '有两条爻在变：' + LINE_NAMES[upper2] + '和' + LINE_NAMES[lower2] + '。靠上的' + LINE_NAMES[upper2] + '为解读的「关键」。'
+          guideText = '局势在两极间摇摆，落点虽众，唯有更高处的那颗星辰，才是指引你穿透迷雾的灯塔。\n请以「本卦」中位置靠上的' + LINE_NAMES[upper2] + '作为解读关键。'
           break
         }
 
@@ -281,7 +287,7 @@ Component({
           coreType = 'judgment'
           coreIsChanged = false
           scenarioPositionKey = 'judgment'
-          guideText = '旧局已动，新象初成。于本卦洞察当下之「态势」，于变卦求索未来之「行动」。'
+          guideText = '旧梦未醒，新局已入。于本卦中洞悉此刻的挣扎，于变卦中采撷行动的孤勇。\n请参照「本卦」卦辞洞察现状，参考「变卦」卦辞决定去向。'
           // 行动建议取变卦的 insight
           if (changed) {
             var changedInsight3 = hexagramInsights[changed.number]
@@ -319,7 +325,7 @@ Component({
           highlightLines = unchanged4.slice()
           lineLabels[lower4] = { text: '关键', type: 'static' }
           scenarioPositionKey = lower4
-          guideText = '六条里有四条在变，变化很大。重点看变卦中没变的' + LINE_NAMES[lower4] + '和' + LINE_NAMES[upper4] + '——这是你在变局中该坚守的方向。'
+          guideText = '大局已倾，四海翻腾。在剧变的浪潮中，那两个岿然不动的点，便是你立身处世的最后防线。\n重点观察「变卦」中' + LINE_NAMES[lower4] + '和' + LINE_NAMES[upper4] + '两条不变的爻，那是你在动荡中该坚守的方向。'
           break
         }
 
@@ -348,7 +354,7 @@ Component({
           highlightLines = [only5]
           lineLabels[only5] = { text: '关键', type: 'static' }
           scenarioPositionKey = only5
-          guideText = '六条里五条都变了，只剩' + LINE_NAMES[only5] + '没动。重点就看变卦里这条不动的爻——这是你在变局中该坚守的方向。'
+          guideText = '五弦皆乱，唯有一音独清。当世界都在崩塌时，守住变卦中那抹残存的寂静，便是你翻盘的底牌。\n重点研读「变卦」中唯一没动的' + LINE_NAMES[only5] + '，那是你唯一的生机所在。'
           break
         }
 
@@ -364,17 +370,26 @@ Component({
             overrideSituation = egg.situation
             overrideAdvice = egg.advice
             attitude = { label: '终极启示', color: 'gold' }
-            guideText = '六爻皆变，触发了' + hex.name + '卦独有的「' + (hex.number === 1 ? '用九' : '用六') + '」——这是超越六爻之上的终极启示。'
+            if (hex.number === 1) {
+              guideText = '乾坤倒转，神龙潜入无名。这并非无序的混乱，而是你已强至化境，再无疆界可束缚。\n恭喜触发极稀有之局。请直接研读乾卦特有之「用九」，感悟终极天机。'
+            } else {
+              guideText = '地裂山崩，万物顺流。请像大地般沉默且深厚，因为唯有极度的包容，能承载住这天翻地覆的震荡。\n恭喜触发极稀有之局。请直接研读坤卦特有之「用六」，感悟终极天机。'
+            }
           } else {
             // 普通六爻全变：变卦信息在双纵排展示，核心区用0-style态势
             coreType = 'judgment'
             coreIsChanged = false
-            guideText = '六条爻全部都变了，本卦彻底变成了变卦。直接看变卦的卦辞。'
+            guideText = '旧局燃尽，余烬成灰。请彻底告别过往，因为你正站在一个从未被定义过的新纪元起点。\n请直接研读「变卦」的卦辞，这是你未来的全景图。'
           }
           scenarioPositionKey = 'judgment'
           break
         }
       }
+
+      // 轻量蒙层标题 & 变卦动画就绪
+      var lightCeremonyTitleMap: Record<number, string> = { 3: '三爻变动', 4: '四爻变动', 5: '五爻变动', 6: '六爻皆变' }
+      var lightCeremonyTitle = lightCeremonyTitleMap[changingCount] || ''
+      var changingAnimReady = changingCount < 3 || coreType === 'easter-egg'
 
       // ====== 构建 detail sheet 的完整爻辞列表 ======
       var keyPosition = -1
@@ -503,11 +518,18 @@ Component({
         coreLineText: coreLineText,
         coreLineInterp: coreLineInterp,
         coreLineInsight: coreLineInsight,
+        lightCeremonyTitle: lightCeremonyTitle,
+        changingAnimReady: changingAnimReady,
       })
 
       // 彩蛋降临蒙层
       if (coreType === 'easter-egg') {
         self.setData({ eggCeremonyPhase: 'enter' })
+      }
+
+      // 轻量蒙层（3+变爻，非彩蛋）
+      if (coreType !== 'easter-egg' && changingCount >= 3) {
+        self.setData({ lightCeremonyPhase: 'enter' })
       }
 
       // 检测是否已保存过
@@ -639,6 +661,14 @@ Component({
           })
         }, 500)
       }, 600)
+    },
+
+    onDismissLightOverlay: function () {
+      var self = this
+      self.setData({ lightCeremonyPhase: 'exit' })
+      setTimeout(function () {
+        self.setData({ lightCeremonyPhase: '', changingAnimReady: true })
+      }, 400)
     },
 
     // 打开卦辞解读详情sheet

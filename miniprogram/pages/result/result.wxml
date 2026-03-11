@@ -22,6 +22,31 @@
         </view>
       </view>
     </view>
+
+    <!-- ========== 轻量蒙层（3+变爻，非彩蛋） ========== -->
+    <view class="light-ceremony light-ceremony--{{attitudeColor}} {{lightCeremonyPhase}}" wx:if="{{lightCeremonyPhase}}" catchtouchmove="" bindtap="onDismissLightOverlay">
+      <view class="light-ceremony-body" catchtap="">
+        <view class="light-ceremony-badge">{{attitudeLabel}}</view>
+        <text class="light-ceremony-title">{{lightCeremonyTitle}}</text>
+        <view class="light-ceremony-hex">
+          <view class="light-ceremony-hex-item">
+            <hexagram-figure lines="{{hexagram.lines}}" changingLines="{{changingLines}}" size="small"></hexagram-figure>
+            <text class="light-ceremony-hex-name">{{hexagram.name}}</text>
+          </view>
+          <text class="light-ceremony-hex-arrow">→</text>
+          <view class="light-ceremony-hex-item">
+            <hexagram-figure lines="{{changedHexagram.lines}}" size="small"></hexagram-figure>
+            <text class="light-ceremony-hex-name">{{changedHexagram.name}}</text>
+          </view>
+        </view>
+        <view class="light-ceremony-divider"></view>
+        <text class="light-ceremony-guide">{{guideText}}</text>
+        <view class="light-ceremony-btn" bindtap="onDismissLightOverlay">
+          <text class="light-ceremony-btn-text">继续查看</text>
+        </view>
+      </view>
+    </view>
+
     <!-- ========== 卦象展示区 ========== -->
 
     <!-- 0-2变爻：单卦展示 -->
@@ -63,17 +88,14 @@
         </view>
       </view>
       <!-- 箭头 + 引导语 -->
-      <view class="hex-dual-mid">
+      <view class="hex-dual-mid {{changingAnimReady ? 'hex-dual-mid--animate' : 'hex-dual-mid--hidden'}}">
         <text class="hex-dual-mid-arrow">↓</text>
         <view class="hex-dual-mid-guide" wx:if="{{guideText}}">
-          <text class="hex-dual-mid-guide-text"><text class="attitude-inline attitude-inline--{{attitudeColor}}">{{attitudeLabel}}</text> {{guideText}}</text>
-          <view class="result-guide-link" bindtap="onShowZhuxiSheet">
-            <text class="result-guide-link-text">了解规则 ›</text>
-          </view>
+          <text class="hex-dual-mid-guide-text"><text class="attitude-inline attitude-inline--{{attitudeColor}}">{{attitudeLabel}}</text> {{guideText}} <text class="guide-tip" bindtap="onShowZhuxiSheet">?</text></text>
         </view>
       </view>
       <!-- 变卦 (悔=趋势) -->
-      <view class="hex-display hex-dual-changed-block hex-dual-block">
+      <view class="hex-display hex-dual-block {{changingAnimReady ? 'hex-dual-changed-block--animate' : 'hex-dual-changed-block--hidden'}}">
         <view class="hex-dual-badge">趋势</view>
         <view class="hex-left">
           <hexagram-figure lines="{{changedHexagram.lines}}" highlightLines="{{highlightLines}}" lineLabels="{{lineLabels}}" size="large"></hexagram-figure>
@@ -131,10 +153,7 @@
 
     <!-- ========== 引导语横幅（3+变爻已内嵌到箭头旁） ========== -->
     <view class="result-guide" wx:if="{{guideText && changingCount !== 3}}">
-      <text class="result-guide-text"><text class="attitude-inline attitude-inline--{{attitudeColor}}">{{attitudeLabel}}</text> {{guideText}}</text>
-      <view class="result-guide-link" bindtap="onShowZhuxiSheet">
-        <text class="result-guide-link-text">了解规则 ›</text>
-      </view>
+      <text class="result-guide-text"><text class="attitude-inline attitude-inline--{{attitudeColor}}">{{attitudeLabel}}</text> {{guideText}} <text class="guide-tip" bindtap="onShowZhuxiSheet">?</text></text>
       <text class="result-guide-rarity" wx:if="{{coreType === 'easter-egg'}}">此为易经仅有的两个「用」辞之一，触发概率仅二十六万分之一</text>
     </view>
 

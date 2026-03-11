@@ -203,6 +203,177 @@ page {
   letter-spacing: 1rpx;
 }
 
+/* ========== 轻量蒙层（3+变爻，非彩蛋） ========== */
+.light-ceremony {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(10, 10, 20, 0.92);
+  overflow: hidden;
+}
+
+.light-ceremony.enter {
+  animation: light-ceremony-in 0.5s ease-out forwards;
+}
+
+.light-ceremony.exit {
+  animation: light-ceremony-out 0.4s ease-in forwards;
+}
+
+@keyframes light-ceremony-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes light-ceremony-out {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+.light-ceremony-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 48rpx;
+  max-width: 600rpx;
+}
+
+.light-ceremony.enter .light-ceremony-body {
+  animation: light-body-in 0.5s ease-out forwards;
+}
+
+@keyframes light-body-in {
+  from { opacity: 0; transform: translateY(32rpx); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* --- 徽标（默认purple，由颜色变体覆盖） --- */
+.light-ceremony-badge {
+  font-size: 20rpx;
+  color: #fff;
+  font-weight: bold;
+  letter-spacing: 4rpx;
+  padding: 6rpx 24rpx;
+  border-radius: 20rpx;
+  background: linear-gradient(135deg, #9b59b6 0%, #7b2d8e 100%);
+  margin-bottom: 24rpx;
+}
+
+/* --- 标题（默认purple，由颜色变体覆盖） --- */
+.light-ceremony-title {
+  font-size: 44rpx;
+  font-weight: 900;
+  color: #c084fc;
+  letter-spacing: 8rpx;
+  margin-bottom: 12rpx;
+}
+
+/* --- 卦象展示（本卦 → 变卦） --- */
+.light-ceremony-hex {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 32rpx;
+  margin-top: 24rpx;
+  margin-bottom: 28rpx;
+}
+
+.light-ceremony-hex-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12rpx;
+}
+
+.light-ceremony-hex-name {
+  font-size: 26rpx;
+  color: rgba(201, 169, 110, 0.9);
+  font-weight: bold;
+  letter-spacing: 4rpx;
+}
+
+.light-ceremony-hex-arrow {
+  font-size: 36rpx;
+  color: rgba(201, 169, 110, 0.5);
+  margin-bottom: 24rpx; /* align with figures visually, offset from name below */
+}
+
+.light-ceremony-divider {
+  width: 120rpx;
+  height: 2rpx;
+  background: linear-gradient(90deg, transparent, rgba(201, 169, 110, 0.5), transparent);
+  margin-bottom: 32rpx;
+}
+
+/* --- 引导语（蒙层内） --- */
+.light-ceremony-guide {
+  font-size: 26rpx;
+  color: var(--text-warm);
+  line-height: 1.7;
+  text-align: center;
+  opacity: 0.85;
+}
+
+/* --- 按钮（默认purple，由颜色变体覆盖） --- */
+.light-ceremony-btn {
+  margin-top: 48rpx;
+  padding: 18rpx 56rpx;
+  border: 2rpx solid rgba(192, 132, 252, 0.5);
+  border-radius: 40rpx;
+  background: linear-gradient(135deg, rgba(192, 132, 252, 0.12) 0%, rgba(201, 169, 110, 0.06) 100%);
+}
+
+.light-ceremony-btn-text {
+  font-size: 28rpx;
+  color: #c084fc;
+  font-weight: bold;
+  letter-spacing: 4rpx;
+}
+
+/* --- 颜色变体: orange (3变爻 "转折期") --- */
+.light-ceremony--orange .light-ceremony-badge {
+  background: linear-gradient(135deg, #fb923c 0%, #ea580c 100%);
+}
+
+.light-ceremony--orange .light-ceremony-title {
+  color: #fb923c;
+}
+
+.light-ceremony--orange .light-ceremony-btn {
+  border-color: rgba(251, 146, 60, 0.5);
+  background: linear-gradient(135deg, rgba(251, 146, 60, 0.12) 0%, rgba(251, 146, 60, 0.04) 100%);
+}
+
+.light-ceremony--orange .light-ceremony-btn-text {
+  color: #fb923c;
+}
+
+/* --- 颜色变体: red (4-5变爻 "大变动") --- */
+.light-ceremony--red .light-ceremony-badge {
+  background: linear-gradient(135deg, #f87171 0%, #dc2626 100%);
+}
+
+.light-ceremony--red .light-ceremony-title {
+  color: #f87171;
+}
+
+.light-ceremony--red .light-ceremony-btn {
+  border-color: rgba(248, 113, 113, 0.5);
+  background: linear-gradient(135deg, rgba(248, 113, 113, 0.12) 0%, rgba(248, 113, 113, 0.04) 100%);
+}
+
+.light-ceremony--red .light-ceremony-btn-text {
+  color: #f87171;
+}
+
+/* --- 颜色变体: purple (6变爻 "全面翻转") — 默认已是purple，无需覆盖 --- */
+
 .hex-display {
   position: relative;
   display: flex;
@@ -300,23 +471,21 @@ page {
   letter-spacing: 1rpx;
 }
 
-.result-guide-link {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 6rpx 18rpx;
-  border-radius: 20rpx;
-  border: 1rpx solid var(--border-gold-faint);
-  background: var(--gold-bg-light);
-  flex-shrink: 0;
-}
-
-.result-guide-link-text {
-  font-size: 20rpx;
-  color: var(--gold);
+/* 小问号 tip */
+.guide-tip {
+  display: inline-block;
+  width: 28rpx;
+  height: 28rpx;
+  line-height: 28rpx;
+  text-align: center;
+  font-size: 18rpx;
   font-weight: bold;
-  line-height: 1;
-  white-space: nowrap;
+  color: var(--gold);
+  background: rgba(201, 169, 110, 0.15);
+  border: 1rpx solid var(--border-gold-faint);
+  border-radius: 50%;
+  margin-left: 6rpx;
+  vertical-align: middle;
 }
 
 /* ========== 核心内容区 ========== */
@@ -430,8 +599,16 @@ page {
   align-items: stretch;
   gap: 16rpx;
   padding: 16rpx 0;
-  animation: slide-down-in 0.5s ease-out 0.4s both;
-  transition: opacity 0.4s ease 0s, transform 0.4s ease 0s;
+}
+
+/* 蒙层dismiss前隐藏 */
+.hex-dual-mid--hidden {
+  opacity: 0;
+}
+
+/* 蒙层dismiss后播放入场动画 */
+.hex-dual-mid--animate {
+  animation: slide-down-in 0.5s ease-out forwards;
 }
 
 .hex-dual-mid-arrow {
@@ -462,9 +639,14 @@ page {
   flex: 1;
 }
 
-.hex-dual-changed-block {
-  animation: slide-down-in 0.7s ease-out 0.7s both;
-  transition: opacity 0.5s ease 0s, transform 0.5s ease 0s;
+/* 蒙层dismiss前隐藏 */
+.hex-dual-changed-block--hidden {
+  opacity: 0;
+}
+
+/* 蒙层dismiss后播放入场动画 */
+.hex-dual-changed-block--animate {
+  animation: slide-down-in 0.6s ease-out 0.3s both;
 }
 
 @keyframes slide-down-in {
